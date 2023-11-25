@@ -1,0 +1,83 @@
+@mixin center-flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+@mixin space-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+@mixin using-area {
+    width: 100%;
+    max-width: 1280px;
+    height: 100%;
+    // background-color: #f002;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.header-container {
+    @include center-flex;
+    width: 100%;
+    background-color: $bgColor1;
+
+    .header {
+        @include using-area;
+        @include space-flex;
+        padding: 20px 0;
+
+        .logo {
+            @include center-flex;
+            font-family: BMJUA;
+            font-size: 32px;
+
+            img {
+                width: 28px;
+                height: 28px;
+                margin-right: 12px;
+            }
+        }
+        .button-area {
+            @include space-flex;
+            width: 68px;
+            height: 100%;
+        }
+    }
+}
+
+.contents-container {
+    @include center-flex;
+    flex-direction: column;
+    width: 100%;
+    flex-grow: 1;
+    background-color: $bgColor2;
+
+    .contents {
+        @include using-area;
+        flex-grow: 1;
+    }
+}
+
+.footer-container {
+    @include center-flex;
+    width: 100%;
+    background-color: $bgColor3;
+    color: white;
+
+    .footer {
+        @include using-area;
+        @include space-flex;
+        flex-direction: column;
+        padding: 20px 0;
+
+        div {
+            @include space-flex;
+            width: 100%;
+        }
+    }
+}

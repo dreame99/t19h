@@ -1,0 +1,71 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+	background: #c1c1c1;
+}
+::-webkit-scrollbar-thumb {
+	border-radius: 999em;
+    background-color: #333;
+}
+html {
+    font-family: NIXGONFONTS-L;
+    font-size: $rootFontSize;
+}
+body {
+    overflow: overlay;
+}
+a {
+    text-decoration: none;
+    cursor: pointer;
+    :link, :visited {
+        color: inherit;
+    }
+}
+button {
+    padding: 20px;
+    font-family: inherit;
+    cursor: pointer;
+}
+button.icon {
+    width: $iconSize;
+    height: $iconSize;
+    border: none;
+    background: none;
+    padding: 0;
+}
+button:focus {
+    outline: none;
+}
+input {
+    border: 1px solid $bgColor4;
+    font-family: inherit;
+}
+input:focus {
+    outline: none;
+}
+input[type="text"], input[type="password"] {
+    padding: 20px;
+}
+input[type="password"] {
+    font-family: monospace;
+    &::-webkit-input-placeholder {
+        font-family: NIXGONFONTS-L;
+    }
+    &::-moz-input-placeholder {
+        font-family: NIXGONFONTS-L;
+    }
+    &::-ms-input-placeholder {
+        font-family: NIXGONFONTS-L;
+    }
+}
+input[type="checkbox"] {
+    cursor: pointer;
+}
+label {
+    cursor: pointer;
+}

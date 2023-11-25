@@ -1,0 +1,25 @@
+$bgColor1: white;
+$bgColor2: #F1F1F1;
+$bgColor3: #2C2C2C;
+$bgColor4: #DADADA;
+$primaryColor: #5288F1;
+
+$iconSize: 24px;
+$rootFontSize: 14px;
+
+@font-face {
+    font-family: "NIXGONFONTS-B";
+    src: url("../assets/fonts/NIXGONFONTS B 2.0.otf") format("opentype");
+}
+@font-face {
+    font-family: "NIXGONFONTS-M";
+    src: url("../assets/fonts/NIXGONFONTS M 2.0.otf") format("opentype");
+}
+@font-face {
+    font-family: "NIXGONFONTS-L";
+    src: url("../assets/fonts/NIXGONFONTS L 2.0.otf") format("opentype");
+}
+@font-face {
+    font-family: "BMJUA";
+    src: url("../assets/fonts/BMJUA_otf.otf") format("opentype");
+}
