@@ -16,9 +16,11 @@
 		<title>팀원구함</title>
 		
 		<link rel="stylesheet" href="./src/styles/alltheway.css">
+		<script src="./src/scripts/loginManager.js"></script>
+		<script src="./src/scripts/mainPage.js"></script>
+		<script src="./src/scripts/loginPage.js"></script>
+		<script src="./src/scripts/joinPage.js"></script>
 		<script src="./src/scripts/navigator.js"></script>
-		<script src="./src/scripts/login.js"></script>
-		<script src="./src/scripts/main.js"></script>
 	</head>
 	
 	<body>
@@ -62,6 +64,18 @@
         </section>
         <section class="contents-container">
             <section id="contents" class="contents">
+                <article class="join" style="display: flex; justify-content: center; padding: 56px;">
+                    <div class="inline-box" style="max-width: 100%; display: inline-flex; flex-direction: column; background-color: white; padding: 64px; border: 1px solid #DADADA; border-radius: 16px;">
+                        <span style="display: flex; justify-content: center; font-size: 32px; font-family: NIXGONFONTS-B;">회원가입</span>
+                        <input type="text" id="id" placeholder="아이디" maxlength="16" style="margin-top: 52px; width: 300px; max-width: 100%;">
+                        <input type="password" id="password" placeholder="비밀번호" maxlength="16" style="margin-top: 24px; width: 300px; max-width: 100%;">
+                        <input type="password" id="password" placeholder="비밀번호 확인" maxlength="16" style="margin-top: 24px; width: 300px; max-width: 100%;">
+                        <span style="margin-top: 12px;">8~16자의 영문, 숫자, 특수문자를 사용해 주세요.</span>
+                        <input type="text" id="id" placeholder="닉네임" maxlength="12" style="margin-top: 24px; width: 300px; max-width: 100%;">
+                        <span style="margin-top: 12px;">최대 12글자까지 가능합니다.</span>
+                        <button id="loginButton" style="background: #5288F1; border: none; color: #F1F1F1; margin-top: 40px; width: 300px; max-width: 100%;">가입하기</button>
+                    </div>
+                </article>
             </section>
         </section>
         <section class="footer-container">

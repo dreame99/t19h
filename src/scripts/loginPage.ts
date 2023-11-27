@@ -1,11 +1,28 @@
-class Login {
+class LoginPage {
     private container: HTMLElement | null;
 
     constructor(container: string) {
         this.container = document.getElementById(container);
     }
 
-    private updateContents(): void {
+    private closeErrorMessage(): void {
+        var errorMessage = document.querySelector(".login .error") as HTMLElement | null;
+        if( errorMessage ) {
+            errorMessage.style.display = "none";
+        }
+    }
+
+    private openErrorMessage(msg?: string): void {
+        var errorMessage = document.querySelector(".login .error") as HTMLElement | null;
+        if( errorMessage ) {
+            if( msg ) {
+                errorMessage.innerText = msg;
+            }
+            errorMessage.style.display = "block";
+        }
+    }
+
+    private render(): void {
         if( this.container ) {
             this.container.innerHTML = `
             <article class="login" style="display: flex; justify-content: center; padding: 56px;">
@@ -13,35 +30,40 @@ class Login {
                     <span style="display: flex; justify-content: center; font-size: 32px; font-family: NIXGONFONTS-B;">로그인</span>
                     <input type="text" id="id" placeholder="아이디" maxlength="16" style="margin-top: 52px; width: 300px; max-width: 100%;">
                     <input type="password" id="password" placeholder="비밀번호" maxlength="16" style="margin-top: 24px;">
+                    <span class="error" style="display: none; color: red; margin-top: 12px;">아이디 또는 비밀번호가 올바르지 않습니다.</span>
                     <label style="display: flex; align-items: center; margin-top: 24px;"><input type="checkbox" id="auto" style="margin-right: 12px;">자동 로그인</label>
                     <button id="loginButton" style="background: #5288F1; border: none; color: #F1F1F1; margin-top: 40px;">로그인</button>
                     <button style="background: #5288F1; border: none; color: #F1F1F1; margin-top: 24px;">회원가입</button>
                 </div>
             </article>`;
+        }
+    }
 
+    private updateEvents(): void {
+        if( this.container ) {
+            const inputElements = document.querySelectorAll("input");
+            inputElements.forEach((inputElement) => {
+                inputElement.addEventListener("click", this.closeErrorMessage);
+            });
+            
             document.getElementById("loginButton")?.addEventListener("click", () => {
                 var id = document.getElementById("id") as HTMLInputElement;
                 var password = document.getElementById("password") as HTMLInputElement;
                 var auto = document.getElementById("auto") as HTMLInputElement;
-                console.log(id.value, password.value, auto.checked);
 
-                fetch("https://reqres.in/api/login", {
-                    method: "POST",
-                    body: JSON.stringify({
-                        id: id,
-                        pass: password,
-                        auto: auto.checked? 1 : 0,
-                    }),
-                })
-                .then((response) => response.json())
-                .then((result) => {
-                    alert(result.error);
-                });
+                if( !id.value ) {
+                    this.openErrorMessage("아이디 또는 비밀번호가 입력되지 않았습니다.");
+                } else if( !password.value ) {
+                    this.openErrorMessage("아이디 또는 비밀번호가 입력되지 않았습니다.");
+                } else {
+                    LoginManager.login({id: id.value, pass: password.value, auto: auto.checked? 1 : 0});
+                }
             });
         }
     }
   
     public init(): void {
-        this.updateContents();
+        this.render();
+        this.updateEvents();
     }
 }
