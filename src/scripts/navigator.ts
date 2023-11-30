@@ -46,10 +46,4 @@ window.addEventListener("load", () => {
     document.getElementById("logo")?.addEventListener("click", () => navigateTo(PAGES.MAIN));
     document.getElementById("toLogin")?.addEventListener("click", () => navigateTo(PAGES.LOGIN));
     document.getElementById("toJoin")?.addEventListener("click", () => navigateTo(PAGES.JOIN));
-    
-    fetch("https://port-0-team-api-57lz2alpl3myze.sel4.cloudtype.app/user/auth", {method: "POST"})
-    .then((response) => response.json())
-    .then((result) => {
-        console.log(result);
-    });
 });

@@ -47,9 +47,4 @@ window.addEventListener("load", function () {
     (_a = document.getElementById("logo")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", function () { return navigateTo(PAGES.MAIN); });
     (_b = document.getElementById("toLogin")) === null || _b === void 0 ? void 0 : _b.addEventListener("click", function () { return navigateTo(PAGES.LOGIN); });
     (_c = document.getElementById("toJoin")) === null || _c === void 0 ? void 0 : _c.addEventListener("click", function () { return navigateTo(PAGES.JOIN); });
-    fetch("https://port-0-team-api-57lz2alpl3myze.sel4.cloudtype.app/user/auth", { method: "POST" })
-        .then(function (response) { return response.json(); })
-        .then(function (result) {
-        console.log(result);
-    });
 });
