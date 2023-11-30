@@ -25,11 +25,20 @@ body {
     @include center-flex;
     width: 100%;
     background-color: $bgColor1;
+    transition: 0.2s box-shadow;
 
+    &.fixed {
+        position: fixed;
+        box-shadow: 0 8px 8px #0002;
+    }
     .header {
         @include using-area;
         @include space-flex;
-        padding: 20px 0;
+        padding: 20px 12px;
+
+        > * {
+            flex: 1;
+        }
 
         .logo {
             @include center-flex;
@@ -44,8 +53,15 @@ body {
         }
         .button-area {
             @include space-flex;
-            width: 68px;
             height: 100%;
+            gap: 20px;
+
+            &.left {
+                justify-content: flex-start;
+            }
+            &.right {
+                justify-content: flex-end;
+            }
         }
     }
 }
@@ -56,9 +72,15 @@ body {
     width: 100%;
     flex-grow: 1;
     background-color: $bgColor2;
+    
+    &.fixed {
+        margin-top: 72px;
+    }
 
-    .contents {
+    > .contents {
         @include using-area;
+        max-width: 100%;
+        padding: 0 12px;
         flex-grow: 1;
     }
 }
@@ -73,7 +95,7 @@ body {
         @include using-area;
         @include space-flex;
         flex-direction: column;
-        padding: 20px 0;
+        padding: 20px 12px;
 
         div {
             @include space-flex;

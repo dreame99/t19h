@@ -112,6 +112,11 @@ body {
   align-items: center;
   width: 100%;
   background-color: white;
+  transition: 0.2s box-shadow;
+}
+.header-container.fixed {
+  position: fixed;
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1333333333);
 }
 .header-container .header {
   width: 100%;
@@ -120,7 +125,10 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 0;
+  padding: 20px 12px;
+}
+.header-container .header > * {
+  flex: 1;
 }
 .header-container .header .logo {
   display: flex;
@@ -138,8 +146,14 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 68px;
   height: 100%;
+  gap: 20px;
+}
+.header-container .header .button-area.left {
+  justify-content: flex-start;
+}
+.header-container .header .button-area.right {
+  justify-content: flex-end;
 }
 
 .contents-container {
@@ -151,10 +165,15 @@ body {
   flex-grow: 1;
   background-color: #F1F1F1;
 }
-.contents-container .contents {
+.contents-container.fixed {
+  margin-top: 72px;
+}
+.contents-container > .contents {
   width: 100%;
   max-width: 1280px;
   height: 100%;
+  max-width: 100%;
+  padding: 0 12px;
   flex-grow: 1;
 }
 
@@ -174,7 +193,7 @@ body {
   justify-content: space-between;
   align-items: center;
   flex-direction: column;
-  padding: 20px 0;
+  padding: 20px 12px;
 }
 .footer-container .footer div {
   display: flex;
