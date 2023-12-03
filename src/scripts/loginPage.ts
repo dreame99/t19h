@@ -53,6 +53,10 @@ class LoginPage extends Page {
                     const API_URL = "https://port-0-team-api-57lz2alpl3myze.sel4.cloudtype.app" as string;
                     const LOGIN_URI = "/user/login";
                     fetch(API_URL + LOGIN_URI, {
+                        headers: {
+                            'Accept': 'application/json, text/plain',
+                            'Content-Type': 'application/json;charset=UTF-8'
+                        },
                         method: "POST",
                         body: JSON.stringify({id: id.value, pass: password.value, auto: auto.checked? 1 : 0}),
                     })
