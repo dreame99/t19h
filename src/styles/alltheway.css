@@ -113,6 +113,7 @@ body {
   width: 100%;
   background-color: white;
   transition: 0.2s box-shadow;
+  z-index: 99;
 }
 .header-container.fixed {
   position: fixed;
@@ -126,6 +127,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 20px 12px;
+  position: relative;
 }
 .header-container .header > * {
   flex: 1;
@@ -173,8 +175,22 @@ body {
   max-width: 1280px;
   height: 100%;
   max-width: 100%;
-  padding: 0 12px;
   flex-grow: 1;
+}
+.contents-container > .contents > article {
+  display: flex;
+  justify-content: center;
+  padding: 56px 12px;
+  background-color: white;
+}
+.contents-container > .contents > article:nth-child(odd) {
+  background-color: #F1F1F1;
+}
+.contents-container > .contents > article .title {
+  display: flex;
+  justify-content: center;
+  font-size: 32px;
+  font-family: NIXGONFONTS-B;
 }
 
 .footer-container {
@@ -200,4 +216,55 @@ body {
   justify-content: space-between;
   align-items: center;
   width: 100%;
+}
+
+.project-abridgement {
+  padding: 20px;
+  width: calc((100% - 40px) / 3);
+  background: white;
+  border-radius: 16px;
+  border: 1px solid #DADADA;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  cursor: pointer;
+  align-self: self-start;
+}
+
+.header > .menu {
+  width: 100%;
+  position: absolute;
+  background: white;
+  top: 72px;
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1333333333);
+  left: 0;
+  border-radius: 0 0 12px 12px;
+  list-style: none;
+  padding: 32px;
+  display: none;
+  flex-direction: column;
+  gap: 32px;
+}
+.header > .menu > li {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  cursor: pointer;
+}
+.header > .menu > li > span:first-child {
+  font-weight: bold;
+}
+
+.carousel {
+  display: inline-flex;
+  width: 100%;
+  overflow: hidden;
+}
+.carousel > .list {
+  display: inline-flex;
+  width: 100%;
+  gap: 20px;
+}
+.carousel > .list > * {
+  flex-shrink: 0;
 }/*# sourceMappingURL=alltheway.css.map */

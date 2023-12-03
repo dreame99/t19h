@@ -18,3 +18,9 @@ window.addEventListener("scroll", function () {
         }
     }
 });
+function toDateString(date) {
+    if (date.length == 8) {
+        return date.substring(0, 4) + "-" + date.substring(4, 6) + "-" + date.substring(6, 8);
+    }
+    return date;
+}

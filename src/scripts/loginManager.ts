@@ -1,24 +1,18 @@
-class LoginManager {
-    public static LOGIN_URI = "https://reqres.in/api/login";
-    public static LOGOUT_URI = "https://reqres.in/api/logout";
+const API_URL = "https://port-0-team-api-57lz2alpl3myze.sel4.cloudtype.app" as string;
 
+class LoginManager {
+    public static LOGIN_URI = "/user/login";
+    public static LOGOUT_URI = "/user/logout";
+    public static AUTH_URI = "/user/auth";
+    
     public static login(data?: Object): void {
-        fetch(this.LOGIN_URI, {
+        fetch(API_URL + this.LOGIN_URI, {
             method: "POST",
             body: JSON.stringify(data),
         })
         .then((response) => response.json())
         .then((result) => {
-            result = {
-                result : "success",
-                data : {
-                    name : "차영운",
-                    skill : ["HTML"],
-                    study : [],
-                    profile : ""
-                }
-            }
-            if( result.resultCode == 100 ) {
+            if( result.result.code == 100 ) {
                 // login success
             } else if( result.resultCode == 200 ) {
                 // login fail
@@ -27,29 +21,25 @@ class LoginManager {
     }
 
     public static logout(): void {
-        fetch(this.LOGOUT_URI, {method: "POST"})
+        fetch(API_URL + this.LOGOUT_URI, {method: "POST"})
         .then((response) => response.json())
         .then((result) => {
-            result = {
-                result : "success",
-                data : {
-                    name : "차영운",
-                    skill : ["HTML"],
-                    study : [],
-                    profile : ""
-                }
-            }
-
-            if( result.resultCode == 100 ) {
-                // logout success
-            } else if( result.resultCode == 200 ) {
-                // logout fail
-            }
+            navigate("main");
         });
     }
 
-    public static isLogin(): boolean {
-        var value = document.cookie.match('(^|;) ?' + "SESSIONID" + '=([^;]*)(;|$)');
-        return !!value;
+    public static async isLogin(): Promise<boolean> {
+        var isLogin = false;
+        
+        await fetch(API_URL + this.AUTH_URI)
+        .then((response) => response.json())
+        .then((result) => {
+            isLogin = result.result.code == 101;
+        })
+        .catch(e => {
+            console.log("error : " + e);
+        });
+        
+        return isLogin;
     }
 }
