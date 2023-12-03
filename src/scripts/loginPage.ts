@@ -54,10 +54,11 @@ class LoginPage extends Page {
                     const LOGIN_URI = "/user/login";
                     fetch(API_URL + LOGIN_URI, {
                         method: "POST",
-                        body: JSON.stringify({id: id, pass: password, auto: auto.checked? 1 : 0}),
+                        body: JSON.stringify({id: id.value, pass: password.value, auto: auto.checked? 1 : 0}),
                     })
                     .then((response) => response.json())
                     .then((result) => {
+                        console.log(result);
                         if( result.result.code == 100 ) {
                             // success login
                             navigate("main");
