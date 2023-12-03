@@ -54,7 +54,10 @@ var LoginManager = /** @class */ (function () {
         });
     };
     LoginManager.logout = function () {
-        fetch(API_URL + this.LOGOUT_URI, { method: "POST" })
+        fetch(API_URL + this.LOGOUT_URI, {
+            method: "POST",
+            credentials: "include",
+        })
             .then(function (response) { return response.json(); })
             .then(function (result) {
             navigate("main");
@@ -67,7 +70,9 @@ var LoginManager = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         isLogin = false;
-                        return [4 /*yield*/, fetch(API_URL + this.AUTH_URI)
+                        return [4 /*yield*/, fetch(API_URL + this.AUTH_URI, {
+                                credentials: "include",
+                            })
                                 .then(function (response) { return response.json(); })
                                 .then(function (result) {
                                 isLogin = result.result.code == 101;

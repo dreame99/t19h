@@ -58,6 +58,7 @@ class LoginPage extends Page {
                             'Content-Type': 'application/json;charset=UTF-8'
                         },
                         method: "POST",
+                        credentials : "include",
                         body: JSON.stringify({id: id.value, pass: password.value, auto: auto.checked? 1 : 0}),
                     })
                     .then((response) => response.json())

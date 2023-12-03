@@ -65,6 +65,7 @@ var LoginPage = /** @class */ (function (_super) {
                             'Content-Type': 'application/json;charset=UTF-8'
                         },
                         method: "POST",
+                        credentials: "include",
                         body: JSON.stringify({ id: id.value, pass: password.value, auto: auto.checked ? 1 : 0 }),
                     })
                         .then(function (response) { return response.json(); })

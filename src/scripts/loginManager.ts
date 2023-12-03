@@ -21,7 +21,10 @@ class LoginManager {
     }
 
     public static logout(): void {
-        fetch(API_URL + this.LOGOUT_URI, {method: "POST"})
+        fetch(API_URL + this.LOGOUT_URI, {
+            method: "POST",
+            credentials : "include",
+        })
         .then((response) => response.json())
         .then((result) => {
             navigate("main");
@@ -31,7 +34,9 @@ class LoginManager {
     public static async isLogin(): Promise<boolean> {
         var isLogin = false;
         
-        await fetch(API_URL + this.AUTH_URI)
+        await fetch(API_URL + this.AUTH_URI, {
+            credentials : "include",
+        })
         .then((response) => response.json())
         .then((result) => {
             isLogin = result.result.code == 101;
