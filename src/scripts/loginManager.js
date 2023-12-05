@@ -61,7 +61,7 @@ var LoginManager = /** @class */ (function () {
         });
     };
     LoginManager.logout = function () {
-        fetch(API_URL + this.LOGOUT_URI, {
+        fetch("https://port-0-team-api-57lz2alpl3myze.sel4.cloudtype.app/user/logout", {
             method: "POST",
             credentials: "include",
         })
