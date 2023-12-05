@@ -20,8 +20,6 @@ class LoginManager {
     }
 
     public static logout(): void {
-        navigate("main");
-        return;
         fetch(API_URL + this.LOGOUT_URI, {
             method: "POST",
             credentials : "include",
@@ -37,7 +35,6 @@ class LoginManager {
 
     public static async isLogin(): Promise<boolean> {
         var isLogin = false;
-        return isLogin;
         
         await fetch(API_URL + this.AUTH_URI, {
             credentials : "include",
