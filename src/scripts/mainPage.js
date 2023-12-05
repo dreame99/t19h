@@ -53,6 +53,10 @@ var Page = /** @class */ (function () {
     function Page(contents) {
         this.contents = contents;
     }
+    Page.prototype.init = function () {
+        this.render();
+        this.bindingEvents();
+    };
     return Page;
 }());
 var MainPage = /** @class */ (function (_super) {
@@ -153,19 +157,25 @@ var MainPage = /** @class */ (function (_super) {
     };
     MainPage.prototype.renderNewProjectList = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var newProjectList, carousel, newProject;
+            var newProjectList, article, div, span, newProject, carousel;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.searchNewProjectList()];
                     case 1:
                         newProjectList = _a.sent();
                         if (newProjectList.length) {
-                            this.contents.innerHTML += "\n            <article>\n                <div style=\"width: 100%; max-width: 1280px; display: inline-flex; flex-direction: column; align-items: flex-start;\">\n                    <span class=\"title\">\uC774\uB2EC\uC758 \uC0C8\uB85C\uC6B4 \uD504\uB85C\uC81D\uD2B8</span>\n                    <article id=\"newProject\" style=\"width: 100%; margin-top: 24px; display: flex; flex-wrap: wrap; gap: 20px;\">\n                    </article>\n                </div>\n            </article>";
+                            article = createElement("article");
+                            div = createElement("div", "", "", "width: 100%; max-width: 1280px; display: inline-flex; flex-direction: column; align-items: flex-start;");
+                            article.appendChild(div);
+                            span = createElement("span", "", "title");
+                            span.innerHTML = "이달의 새로운 프로젝트";
+                            div.appendChild(span);
+                            newProject = createElement("article", "newProject", "", "width: 100%; margin-top: 24px; display: flex; flex-wrap: wrap; gap: 20px;");
+                            div.appendChild(newProject);
                             carousel = new Carousel();
-                            newProject = document.getElementById("newProject");
                             newProject.appendChild(carousel.getElement());
                             newProjectList.forEach(function (newProject) { return carousel.append((new ProjectAbridgement(newProject)).getElement()); });
-                            carousel.run(true);
+                            this.contents.appendChild(article);
                         }
                         return [2 /*return*/];
                 }
@@ -174,16 +184,23 @@ var MainPage = /** @class */ (function (_super) {
     };
     MainPage.prototype.renderPopularProjectList = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var popularProjectList, popularProjectContainer;
+            var popularProjectList, article, div, span, popularProjectContainer;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.searchPopularProjectList()];
                     case 1:
                         popularProjectList = _a.sent();
                         if (popularProjectList.length > 0) {
-                            this.contents.innerHTML += "\n            <article>\n                <div style=\"width: 100%; max-width: 1280px; display: inline-flex; flex-direction: column; align-items: flex-start;\">\n                    <span class=\"title\">\uC778\uAE30 \uD504\uB85C\uC81D\uD2B8</span>\n                    <article id=\"popularProject\" style=\"margin-top: 24px; display: flex; flex-wrap: wrap; gap: 20px;\">\n                    </article>\n                </div>\n            </article>";
-                            popularProjectContainer = document.getElementById("popularProject");
+                            article = createElement("article");
+                            div = createElement("div", "", "", "width: 100%; max-width: 1280px; display: inline-flex; flex-direction: column; align-items: flex-start;");
+                            article.appendChild(div);
+                            span = createElement("span", "", "title");
+                            span.innerHTML = "인기 프로젝트";
+                            div.appendChild(span);
+                            popularProjectContainer = createElement("article", "popularProject", "", "margin-top: 24px; display: flex; flex-wrap: wrap; gap: 20px;");
+                            div.appendChild(popularProjectContainer);
                             popularProjectList.forEach(function (popularProject) { return popularProjectContainer.append((new ProjectAbridgement(popularProject)).getElement()); });
+                            this.contents.appendChild(article);
                         }
                         return [2 /*return*/];
                 }
@@ -192,16 +209,22 @@ var MainPage = /** @class */ (function (_super) {
     };
     MainPage.prototype.renderHighesScoreMemberList = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var highestScoreMemberList, carousel, highestScoreMember;
+            var highestScoreMemberList, article, div, span, highestScoreMember, carousel;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.searchHighestScoreMemberList()];
                     case 1:
                         highestScoreMemberList = _a.sent();
                         if (highestScoreMemberList.length > 0) {
-                            this.contents.innerHTML += "\n            <article>\n                <div style=\"width: 100%; max-width: 1280px; display: inline-flex; flex-direction: column; align-items: flex-start;\">\n                    <span class=\"title\">\uB2F9\uC2E0\uC758 \uC5F4\uC815\uC744 \uCE6D\uCC2C\uD569\uB2C8\uB2E4.</span>\n                    <article id=\"highestScoreMember\" style=\"width: 100%; margin-top: 24px; display: flex; flex-wrap: wrap; gap: 20px;\">\n                    </article>\n                </div>\n            </article>";
+                            article = createElement("article");
+                            div = createElement("div", "", "", "width: 100%; max-width: 1280px; display: inline-flex; flex-direction: column; align-items: flex-start;");
+                            article.appendChild(div);
+                            span = createElement("span", "", "title");
+                            span.innerHTML = "당신의 열정을 칭찬합니다.";
+                            div.appendChild(span);
+                            highestScoreMember = createElement("article", "highestScoreMember", "", "width: 100%; margin-top: 24px; display: flex; flex-wrap: wrap; gap: 20px;");
+                            div.appendChild(highestScoreMember);
                             carousel = new Carousel();
-                            highestScoreMember = document.getElementById("highestScoreMember");
                             highestScoreMember.appendChild(carousel.getElement());
                             highestScoreMemberList.forEach(function (member) {
                                 var div = document.createElement("div");
@@ -211,6 +234,7 @@ var MainPage = /** @class */ (function (_super) {
                                 div.style.background = "white";
                                 carousel.append(div);
                             });
+                            this.contents.appendChild(article);
                         }
                         return [2 /*return*/];
                 }
@@ -239,11 +263,7 @@ var MainPage = /** @class */ (function (_super) {
             });
         });
     };
-    MainPage.prototype.bindingEvenets = function () {
-    };
-    MainPage.prototype.init = function () {
-        this.render();
-        this.bindingEvenets();
+    MainPage.prototype.bindingEvents = function () {
     };
     return MainPage;
 }(Page));

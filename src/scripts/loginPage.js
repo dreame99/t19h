@@ -50,10 +50,10 @@ var LoginPage = /** @class */ (function (_super) {
                 var id = document.getElementById("id");
                 var password = document.getElementById("password");
                 var auto = document.getElementById("auto");
-                if (!id.value) {
+                if (!(id === null || id === void 0 ? void 0 : id.value)) {
                     _this.openErrorMessage("아이디 또는 비밀번호가 입력되지 않았습니다.");
                 }
-                else if (!password.value) {
+                else if (!(password === null || password === void 0 ? void 0 : password.value)) {
                     _this.openErrorMessage("아이디 또는 비밀번호가 입력되지 않았습니다.");
                 }
                 else {
@@ -89,14 +89,8 @@ var LoginPage = /** @class */ (function (_super) {
                     });
                 }
             });
-            (_b = document.getElementById("joinButton")) === null || _b === void 0 ? void 0 : _b.addEventListener("click", function () {
-                navigate("join");
-            });
+            (_b = document.getElementById("joinButton")) === null || _b === void 0 ? void 0 : _b.addEventListener("click", function () { return navigate("join"); });
         }
-    };
-    LoginPage.prototype.init = function () {
-        this.render();
-        this.bindingEvents();
     };
     return LoginPage;
 }(Page));

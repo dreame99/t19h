@@ -30,11 +30,11 @@ button {
     padding: 20px;
     font-family: inherit;
     cursor: pointer;
+    border: none;
 }
 button.icon {
     width: $iconSize;
     height: $iconSize;
-    border: none;
     background: none;
     padding: 0;
 }

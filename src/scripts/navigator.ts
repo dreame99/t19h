@@ -1,112 +1,98 @@
-type PAGE = "main" | "login" | "join";
+const PAGES = ["main", "login", "join", "profile", "create-project", "project-list", "project-room", "member-list"] as const;
+const AUTH_PAGE = {main : MainPage, login : MainPage, join : MainPage, profile : MainPage, "create-project" : CreateProjectPage, "project-list" : MainPage, "project-room" : MainPage, "member-list" : MainPage};
+const UNAUTH_PAGE = {main : MainPage, login : LoginPage, join : JoinPage, profile : MainPage, "create-project" : CreateProjectPage, "project-list" : MainPage, "project-room" : MainPage, "member-list" : MainPage};
+type PAGE = typeof PAGES[number];
+
+function navigateToMainPage(): void {
+    console.log("navigateToMainPage");
+    navigate("main");
+}
+
+function navigateToLoginPage(): void {
+    console.log("navigateToLoginPage");
+    navigate("login");
+}
+
+function navigateToJoinPage(): void {
+    console.log("navigateToJoinPage");
+    navigate("join");
+}
+
+function toggleMenuPopup(): void {
+    console.log("toggleMenuPopup");
+    var menu = document.getElementsByClassName("menu")[0] as HTMLElement;
+    if( menu ) {
+        menu.style.display = menu.style.display == "flex"? "none" : "flex";
+    }
+}
+
+function toggleAlarmPopup(): void {
+    console.log("toggleAlarmPopup");
+}
+
+function closeMenuPopup(): void {
+    var menu = document.getElementsByClassName("menu")[0] as HTMLElement;
+    if( menu ) {
+        menu.style.display = "none";
+    }
+}
 
 window.addEventListener("load", () => {
-    switch( window.location.pathname ) {
-        case "/login" :
-            navigate("login");
-            break;
-        case "/join" :
-            navigate("join");
-            break;
-        default :
-            navigate("main");
+    var path = window.location.pathname.substring(1) as PAGE;
+    if( PAGES.includes(path) ) {
+        navigate(path as PAGE);
+    } else {
+        navigate("main");
     }
 
-    var headerLogo: HTMLElement | null = document.getElementById("headerLogo");
-    if( headerLogo ) {
-        headerLogo.onclick = () => navigate("main");
-    }
-    
-    var headerMenuButton: HTMLElement | null = document.getElementById("headerMenuButton");
-    if( headerMenuButton ) {
-        headerMenuButton.onclick = () => {
-            var menu = document.getElementsByClassName("menu")[0] as HTMLElement;
-            if( menu.style.display == "flex" ) {
-                menu.style.display = "none";
+    document.getElementById("headerLogo")?.addEventListener("click", navigateToMainPage);
+    document.getElementById("headerMenuButton")?.addEventListener("click", toggleMenuPopup);
+    document.getElementById("headerLoginButton")?.addEventListener("click", navigateToLoginPage);
+    document.getElementById("headerJoinButton")?.addEventListener("click", navigateToJoinPage);
+    document.getElementById("headerAlarmButton")?.addEventListener("click", toggleAlarmPopup);
+    document.getElementById("headerLogoutButton")?.addEventListener("click", LoginManager.logout);
+
+    document.querySelectorAll("[data-nav]")?.forEach((elem: Element) => {
+        (elem as HTMLElement).onclick = () => {
+            var path: string | undefined = (elem as HTMLElement).dataset.nav;
+
+            if( path && PAGES.includes(path as PAGE) ) {
+                navigate(path as PAGE);
             } else {
-                menu.style.display = "flex";
+                navigate("main");
             }
-        };
-    }
-    
-    var headerLoginButton: HTMLElement | null = document.getElementById("headerLoginButton");
-    if( headerLoginButton ) {
-        headerLoginButton.onclick = () => navigate("login");
-    }
-    
-    var headerJoinButton: HTMLElement | null = document.getElementById("headerJoinButton");
-    if( headerJoinButton ) {
-        headerJoinButton.onclick = () => navigate("join");
-    }
-    
-    var headerAlarmButton: HTMLElement | null = document.getElementById("headerAlarmButton");
-    if( headerAlarmButton ) {
-        headerAlarmButton.onclick = () => {
-
-        };
-    }
-    
-    var headerLogoutButton: HTMLElement | null = document.getElementById("headerLogoutButton");
-    if( headerLogoutButton ) {
-        headerLogoutButton.onclick = () => {
-            LoginManager.logout();
-        };
-    }
+        }
+    });
 });
 
 async function navigate(page: PAGE): Promise<void> {
+    console.log("navigate to", page);
     var isLogin = await LoginManager.isLogin();
-    console.log(isLogin);
+    console.log("login?", isLogin);
 
     var headerMenuButton = document.getElementById("headerMenuButton") as HTMLElement;
     var headerBackwardButton = document.getElementById("headerBackwardButton") as HTMLElement;
-    var headerLoginButton = document.getElementById("headerLoginButton") as HTMLElement;
-    var headerJoinButton = document.getElementById("headerJoinButton") as HTMLElement;
-    var headerAlarmButton = document.getElementById("headerAlarmButton") as HTMLElement;
-    var headerLogoutButton = document.getElementById("headerLogoutButton") as HTMLElement;
+    headerMenuButton.style.display = "block";
 
-    if( isLogin ) {
-        headerLoginButton.style.display = "none";
-        headerJoinButton.style.display = "none";
-        headerAlarmButton.style.display = "block";
-        headerLogoutButton.style.display = "block";
+    /*
+    if( page == "main" ) {
+        headerMenuButton.style.display = "block";
+        headerBackwardButton.style.display = "none";
     } else {
-        headerLoginButton.style.display = "block";
-        headerJoinButton.style.display = "block";
-        headerAlarmButton.style.display = "none";
-        headerLogoutButton.style.display = "none";
+        headerMenuButton.style.display = "none";
+        headerBackwardButton.style.display = "block";
+    }
+    */
+
+    document.querySelectorAll(isLogin? ".loginIcon" : ".logoutIcon").forEach(icon => (icon as HTMLElement).style.display = "block");
+    document.querySelectorAll(isLogin? ".logoutIcon" : ".loginIcon").forEach(icon => (icon as HTMLElement).style.display = "none");
+
+    var pageName = PAGES.includes(page)? page : "main";
+    var pageFunc = (isLogin? AUTH_PAGE[pageName] : UNAUTH_PAGE[pageName])
+    if( pageFunc ) {
+        new pageFunc(document.getElementById("contents") as HTMLElement).init();
     }
 
-    var header = document.getElementById("header") as HTMLElement;
-    var contents = document.getElementById("contents") as HTMLElement;
-    
-    switch( page ) {
-        case "main" :
-            headerMenuButton.style.display = "block";
-            headerBackwardButton.style.display = "none";
-            new MainPage(contents).init();
-            break;
-        case "login" :
-            if( isLogin ) {
-                headerMenuButton.style.display = "block";
-                headerBackwardButton.style.display = "none";
-                new MainPage(contents).init();
-            } else {
-                new LoginPage(contents).init();
-            }
-            break;
-        case "join" :
-            if( isLogin ) {
-                headerMenuButton.style.display = "block";
-                headerBackwardButton.style.display = "none";
-                new MainPage(contents).init();
-            } else {
-                new JoinPage("contents").init();
-            }
-            break;
-        default :
-            headerMenuButton.style.display = "block";
-            headerBackwardButton.style.display = "none";
-            new MainPage(contents).init();
-    }
+    window.scrollTo(0, 0);
+    closeMenuPopup();
 }

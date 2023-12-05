@@ -33,7 +33,7 @@ class LoginPage extends Page {
         }
     }
 
-    private bindingEvents(): void {
+    protected bindingEvents(): void {
         if( this.contents ) {
             const inputElements = document.querySelectorAll("input");
             inputElements.forEach((inputElement) => {
@@ -45,9 +45,9 @@ class LoginPage extends Page {
                 var password = document.getElementById("password") as HTMLInputElement;
                 var auto = document.getElementById("auto") as HTMLInputElement;
 
-                if( !id.value ) {
+                if( !id?.value ) {
                     this.openErrorMessage("아이디 또는 비밀번호가 입력되지 않았습니다.");
-                } else if( !password.value ) {
+                } else if( !password?.value ) {
                     this.openErrorMessage("아이디 또는 비밀번호가 입력되지 않았습니다.");
                 } else {
                     const API_URL = "https://port-0-team-api-57lz2alpl3myze.sel4.cloudtype.app" as string;
@@ -81,14 +81,7 @@ class LoginPage extends Page {
                 }
             });
             
-            document.getElementById("joinButton")?.addEventListener("click", () => {
-                navigate("join");
-            });
+            document.getElementById("joinButton")?.addEventListener("click", () => navigate("join"));
         }
-    }
-  
-    public init(): void {
-        this.render();
-        this.bindingEvents();
     }
 }

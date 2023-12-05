@@ -2,6 +2,9 @@
     display: inline-flex;
     width: 100%;
     overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
 
     > .list {
         display: inline-flex;

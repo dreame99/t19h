@@ -34,113 +34,96 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var PAGES = ["main", "login", "join", "profile", "create-project", "project-list", "project-room", "member-list"];
+var AUTH_PAGE = { main: MainPage, login: MainPage, join: MainPage, profile: MainPage, "create-project": CreateProjectPage, "project-list": MainPage, "project-room": MainPage, "member-list": MainPage };
+var UNAUTH_PAGE = { main: MainPage, login: LoginPage, join: JoinPage, profile: MainPage, "create-project": CreateProjectPage, "project-list": MainPage, "project-room": MainPage, "member-list": MainPage };
+function navigateToMainPage() {
+    console.log("navigateToMainPage");
+    navigate("main");
+}
+function navigateToLoginPage() {
+    console.log("navigateToLoginPage");
+    navigate("login");
+}
+function navigateToJoinPage() {
+    console.log("navigateToJoinPage");
+    navigate("join");
+}
+function toggleMenuPopup() {
+    console.log("toggleMenuPopup");
+    var menu = document.getElementsByClassName("menu")[0];
+    if (menu) {
+        menu.style.display = menu.style.display == "flex" ? "none" : "flex";
+    }
+}
+function toggleAlarmPopup() {
+    console.log("toggleAlarmPopup");
+}
+function closeMenuPopup() {
+    var menu = document.getElementsByClassName("menu")[0];
+    if (menu) {
+        menu.style.display = "none";
+    }
+}
 window.addEventListener("load", function () {
-    switch (window.location.pathname) {
-        case "/login":
-            navigate("login");
-            break;
-        case "/join":
-            navigate("join");
-            break;
-        default:
-            navigate("main");
+    var _a, _b, _c, _d, _e, _f, _g;
+    var path = window.location.pathname.substring(1);
+    if (PAGES.includes(path)) {
+        navigate(path);
     }
-    var headerLogo = document.getElementById("headerLogo");
-    if (headerLogo) {
-        headerLogo.onclick = function () { return navigate("main"); };
+    else {
+        navigate("main");
     }
-    var headerMenuButton = document.getElementById("headerMenuButton");
-    if (headerMenuButton) {
-        headerMenuButton.onclick = function () {
-            var menu = document.getElementsByClassName("menu")[0];
-            if (menu.style.display == "flex") {
-                menu.style.display = "none";
+    (_a = document.getElementById("headerLogo")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", navigateToMainPage);
+    (_b = document.getElementById("headerMenuButton")) === null || _b === void 0 ? void 0 : _b.addEventListener("click", toggleMenuPopup);
+    (_c = document.getElementById("headerLoginButton")) === null || _c === void 0 ? void 0 : _c.addEventListener("click", navigateToLoginPage);
+    (_d = document.getElementById("headerJoinButton")) === null || _d === void 0 ? void 0 : _d.addEventListener("click", navigateToJoinPage);
+    (_e = document.getElementById("headerAlarmButton")) === null || _e === void 0 ? void 0 : _e.addEventListener("click", toggleAlarmPopup);
+    (_f = document.getElementById("headerLogoutButton")) === null || _f === void 0 ? void 0 : _f.addEventListener("click", LoginManager.logout);
+    (_g = document.querySelectorAll("[data-nav]")) === null || _g === void 0 ? void 0 : _g.forEach(function (elem) {
+        elem.onclick = function () {
+            var path = elem.dataset.nav;
+            if (path && PAGES.includes(path)) {
+                navigate(path);
             }
             else {
-                menu.style.display = "flex";
+                navigate("main");
             }
         };
-    }
-    var headerLoginButton = document.getElementById("headerLoginButton");
-    if (headerLoginButton) {
-        headerLoginButton.onclick = function () { return navigate("login"); };
-    }
-    var headerJoinButton = document.getElementById("headerJoinButton");
-    if (headerJoinButton) {
-        headerJoinButton.onclick = function () { return navigate("join"); };
-    }
-    var headerAlarmButton = document.getElementById("headerAlarmButton");
-    if (headerAlarmButton) {
-        headerAlarmButton.onclick = function () {
-        };
-    }
-    var headerLogoutButton = document.getElementById("headerLogoutButton");
-    if (headerLogoutButton) {
-        headerLogoutButton.onclick = function () {
-            LoginManager.logout();
-        };
-    }
+    });
 });
 function navigate(page) {
     return __awaiter(this, void 0, void 0, function () {
-        var isLogin, headerMenuButton, headerBackwardButton, headerLoginButton, headerJoinButton, headerAlarmButton, headerLogoutButton, header, contents;
+        var isLogin, headerMenuButton, headerBackwardButton, pageName, pageFunc;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, LoginManager.isLogin()];
+                case 0:
+                    console.log("navigate to", page);
+                    return [4 /*yield*/, LoginManager.isLogin()];
                 case 1:
                     isLogin = _a.sent();
-                    console.log(isLogin);
+                    console.log("login?", isLogin);
                     headerMenuButton = document.getElementById("headerMenuButton");
                     headerBackwardButton = document.getElementById("headerBackwardButton");
-                    headerLoginButton = document.getElementById("headerLoginButton");
-                    headerJoinButton = document.getElementById("headerJoinButton");
-                    headerAlarmButton = document.getElementById("headerAlarmButton");
-                    headerLogoutButton = document.getElementById("headerLogoutButton");
-                    if (isLogin) {
-                        headerLoginButton.style.display = "none";
-                        headerJoinButton.style.display = "none";
-                        headerAlarmButton.style.display = "block";
-                        headerLogoutButton.style.display = "block";
+                    headerMenuButton.style.display = "block";
+                    /*
+                    if( page == "main" ) {
+                        headerMenuButton.style.display = "block";
+                        headerBackwardButton.style.display = "none";
+                    } else {
+                        headerMenuButton.style.display = "none";
+                        headerBackwardButton.style.display = "block";
                     }
-                    else {
-                        headerLoginButton.style.display = "block";
-                        headerJoinButton.style.display = "block";
-                        headerAlarmButton.style.display = "none";
-                        headerLogoutButton.style.display = "none";
+                    */
+                    document.querySelectorAll(isLogin ? ".loginIcon" : ".logoutIcon").forEach(function (icon) { return icon.style.display = "block"; });
+                    document.querySelectorAll(isLogin ? ".logoutIcon" : ".loginIcon").forEach(function (icon) { return icon.style.display = "none"; });
+                    pageName = PAGES.includes(page) ? page : "main";
+                    pageFunc = (isLogin ? AUTH_PAGE[pageName] : UNAUTH_PAGE[pageName]);
+                    if (pageFunc) {
+                        new pageFunc(document.getElementById("contents")).init();
                     }
-                    header = document.getElementById("header");
-                    contents = document.getElementById("contents");
-                    switch (page) {
-                        case "main":
-                            headerMenuButton.style.display = "block";
-                            headerBackwardButton.style.display = "none";
-                            new MainPage(contents).init();
-                            break;
-                        case "login":
-                            if (isLogin) {
-                                headerMenuButton.style.display = "block";
-                                headerBackwardButton.style.display = "none";
-                                new MainPage(contents).init();
-                            }
-                            else {
-                                new LoginPage(contents).init();
-                            }
-                            break;
-                        case "join":
-                            if (isLogin) {
-                                headerMenuButton.style.display = "block";
-                                headerBackwardButton.style.display = "none";
-                                new MainPage(contents).init();
-                            }
-                            else {
-                                new JoinPage("contents").init();
-                            }
-                            break;
-                        default:
-                            headerMenuButton.style.display = "block";
-                            headerBackwardButton.style.display = "none";
-                            new MainPage(contents).init();
-                    }
+                    window.scrollTo(0, 0);
+                    closeMenuPopup();
                     return [2 /*return*/];
             }
         });

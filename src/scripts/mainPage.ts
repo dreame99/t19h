@@ -6,6 +6,13 @@ abstract class Page {
     }
 
     protected abstract render(): void;
+
+    protected abstract bindingEvents(): void;
+  
+    public init(): void {
+        this.render();
+        this.bindingEvents();
+    }
 }
 
 class MainPage extends Page {
@@ -93,21 +100,20 @@ class MainPage extends Page {
     private async renderNewProjectList(): Promise<void> {
         var newProjectList: Project[] = await this.searchNewProjectList();
         if( newProjectList.length ) {
-            this.contents.innerHTML += `
-            <article>
-                <div style="width: 100%; max-width: 1280px; display: inline-flex; flex-direction: column; align-items: flex-start;">
-                    <span class="title">이달의 새로운 프로젝트</span>
-                    <article id="newProject" style="width: 100%; margin-top: 24px; display: flex; flex-wrap: wrap; gap: 20px;">
-                    </article>
-                </div>
-            </article>`
+            var article = createElement("article");
+            var div = createElement("div", "", "", "width: 100%; max-width: 1280px; display: inline-flex; flex-direction: column; align-items: flex-start;");
+            article.appendChild(div);
+            var span = createElement("span", "", "title");
+            span.innerHTML = "이달의 새로운 프로젝트";
+            div.appendChild(span);
+            var newProject = createElement("article", "newProject", "", "width: 100%; margin-top: 24px; display: flex; flex-wrap: wrap; gap: 20px;");
+            div.appendChild(newProject);
         
             var carousel = new Carousel();
-            var newProject = document.getElementById("newProject") as HTMLElement;
             newProject.appendChild(carousel.getElement());
-
             newProjectList.forEach(newProject => carousel.append((new ProjectAbridgement(newProject)).getElement()));
-            carousel.run(true);
+
+            this.contents.appendChild(article);
         }
     }
 
@@ -115,37 +121,35 @@ class MainPage extends Page {
         var popularProjectList: Project[] = await this.searchPopularProjectList();
 
         if( popularProjectList.length > 0 ) {
-            this.contents.innerHTML += `
-            <article>
-                <div style="width: 100%; max-width: 1280px; display: inline-flex; flex-direction: column; align-items: flex-start;">
-                    <span class="title">인기 프로젝트</span>
-                    <article id="popularProject" style="margin-top: 24px; display: flex; flex-wrap: wrap; gap: 20px;">
-                    </article>
-                </div>
-            </article>`
+            var article = createElement("article");
+            var div = createElement("div", "", "", "width: 100%; max-width: 1280px; display: inline-flex; flex-direction: column; align-items: flex-start;");
+            article.appendChild(div);
+            var span = createElement("span", "", "title");
+            span.innerHTML = "인기 프로젝트";
+            div.appendChild(span);
+            var popularProjectContainer = createElement("article", "popularProject", "", "margin-top: 24px; display: flex; flex-wrap: wrap; gap: 20px;");
+            div.appendChild(popularProjectContainer);
 
-            var popularProjectContainer = document.getElementById("popularProject") as HTMLElement;
             popularProjectList.forEach(popularProject => popularProjectContainer.append((new ProjectAbridgement(popularProject)).getElement()));
+
+            this.contents.appendChild(article);
         }
     }
 
     private async renderHighesScoreMemberList(): Promise<void> {
         var highestScoreMemberList: number[] = await this.searchHighestScoreMemberList();
         if( highestScoreMemberList.length > 0 ) {
-            this.contents.innerHTML += `
-            <article>
-                <div style="width: 100%; max-width: 1280px; display: inline-flex; flex-direction: column; align-items: flex-start;">
-                    <span class="title">당신의 열정을 칭찬합니다.</span>
-                    <article id="highestScoreMember" style="width: 100%; margin-top: 24px; display: flex; flex-wrap: wrap; gap: 20px;">
-                    </article>
-                </div>
-            </article>`
-
+            var article = createElement("article");
+            var div = createElement("div", "", "", "width: 100%; max-width: 1280px; display: inline-flex; flex-direction: column; align-items: flex-start;");
+            article.appendChild(div);
+            var span = createElement("span", "", "title");
+            span.innerHTML = "당신의 열정을 칭찬합니다.";
+            div.appendChild(span);
+            var highestScoreMember = createElement("article", "highestScoreMember", "", "width: 100%; margin-top: 24px; display: flex; flex-wrap: wrap; gap: 20px;");
+            div.appendChild(highestScoreMember);
         
             var carousel = new Carousel();
-            var highestScoreMember = document.getElementById("highestScoreMember") as HTMLElement;
             highestScoreMember.appendChild(carousel.getElement());
-
             highestScoreMemberList.forEach(member => {
                 var div = document.createElement("div") as HTMLElement;
                 div.style.padding = "20px";
@@ -154,6 +158,8 @@ class MainPage extends Page {
                 div.style.background = "white";
                 carousel.append(div);
             });
+
+            this.contents.appendChild(article);
         }
     }
 
@@ -167,11 +173,6 @@ class MainPage extends Page {
         }
     }
 
-    private bindingEvenets(): void {
-    }
-  
-    public init(): void {
-        this.render();
-        this.bindingEvenets();
+    protected bindingEvents(): void {
     }
 }

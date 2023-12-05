@@ -52,12 +52,12 @@ button {
   padding: 20px;
   font-family: inherit;
   cursor: pointer;
+  border: none;
 }
 
 button.icon {
   width: 24px;
   height: 24px;
-  border: none;
   background: none;
   padding: 0;
 }
@@ -114,6 +114,9 @@ body {
   background-color: white;
   transition: 0.2s box-shadow;
   z-index: 99;
+}
+.header-container button {
+  display: none;
 }
 .header-container.fixed {
   position: fixed;
@@ -251,6 +254,9 @@ body {
   gap: 8px;
   cursor: pointer;
 }
+.header > .menu > li:hover {
+  color: blue;
+}
 .header > .menu > li > span:first-child {
   font-weight: bold;
 }
@@ -259,6 +265,9 @@ body {
   display: inline-flex;
   width: 100%;
   overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
 }
 .carousel > .list {
   display: inline-flex;

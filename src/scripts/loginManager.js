@@ -39,29 +39,41 @@ var LoginManager = /** @class */ (function () {
     function LoginManager() {
     }
     LoginManager.login = function (data) {
-        fetch(API_URL + this.LOGIN_URI, {
-            method: "POST",
-            body: JSON.stringify(data),
-        })
-            .then(function (response) { return response.json(); })
-            .then(function (result) {
-            if (result.result.code == 100) {
-                // login success
-            }
-            else if (result.resultCode == 200) {
-                // login fail
-            }
+        return __awaiter(this, void 0, void 0, function () {
+            var resultCode;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        resultCode = 0;
+                        return [4 /*yield*/, fetch(API_URL + this.LOGIN_URI, {
+                                method: "POST",
+                                body: JSON.stringify(data),
+                            })
+                                .then(function (response) { return response.json(); })
+                                .then(function (result) {
+                                resultCode = result.result.code;
+                            })];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/, resultCode];
+                }
+            });
         });
     };
     LoginManager.logout = function () {
+        navigate("main");
+        return;
         fetch(API_URL + this.LOGOUT_URI, {
             method: "POST",
             credentials: "include",
         })
             .then(function (response) { return response.json(); })
             .then(function (result) {
-            navigate("main");
-        });
+            if (result.result.code == 105) {
+                navigate("main");
+            }
+        })
+            .catch(function () { return navigate("main"); });
     };
     LoginManager.isLogin = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -70,16 +82,7 @@ var LoginManager = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         isLogin = false;
-                        return [4 /*yield*/, fetch(API_URL + this.AUTH_URI, {
-                                credentials: "include",
-                            })
-                                .then(function (response) { return response.json(); })
-                                .then(function (result) {
-                                isLogin = result.result.code == 101;
-                            })
-                                .catch(function (e) {
-                                console.log("error : " + e);
-                            })];
+                        return [2 /*return*/, isLogin];
                     case 1:
                         _a.sent();
                         return [2 /*return*/, isLogin];
