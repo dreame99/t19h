@@ -10,6 +10,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
 // carousel
 var Carousel = /** @class */ (function () {
     function Carousel() {
+        var _this = this;
         this.carousel = document.createElement("article");
         this.list = document.createElement("div");
         this.x = 0;
@@ -20,27 +21,24 @@ var Carousel = /** @class */ (function () {
         this.carousel.appendChild(this.list);
         var originX;
         var prevX;
-        /*
-        this.carousel.addEventListener("mousedown", e => {
+        this.carousel.addEventListener("mousedown", function (e) {
             console.log("mousedown");
-            this.isDrag = true;
-            originX = this.x;
+            _this.isDrag = true;
+            originX = _this.x;
             prevX = e.clientX;
         });
-
-        window.addEventListener("mousemove", e => {
-            if( this.isDrag ) {
+        window.addEventListener("mousemove", function (e) {
+            if (_this.isDrag) {
                 console.log("mousemove");
-                this.move(originX + e.clientX - prevX);
-                originX += this.updateItem();
+                _this.move(originX + e.clientX - prevX);
+                originX += _this.updateItem();
             }
         });
-
-        window.addEventListener("mouseup", () => {
+        window.addEventListener("mouseup", function () {
             console.log("mouseup");
-            this.isDrag = false;
-        });*/
-        this.play();
+            _this.isDrag = false;
+        });
+        //this.play();
     }
     Carousel.prototype.getAllItem = function () {
         return __spreadArray([], this.list.children, true);

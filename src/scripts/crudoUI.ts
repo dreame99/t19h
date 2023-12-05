@@ -14,7 +14,7 @@ class Carousel {
         
         var originX: number;
         var prevX: number;
-        /*
+        
         this.carousel.addEventListener("mousedown", e => {
             console.log("mousedown");
             this.isDrag = true;
@@ -33,9 +33,9 @@ class Carousel {
         window.addEventListener("mouseup", () => {
             console.log("mouseup");
             this.isDrag = false;
-        });*/
+        });
 
-        this.play();
+        //this.play();
     }
 
     public getAllItem(): Element[] {
