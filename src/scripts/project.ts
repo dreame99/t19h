@@ -36,16 +36,16 @@ class ProjectAbridgement {
             <div class="line" style="height: 1px; background: #DCDCDC;"></div>
             <div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
                 <div style="display: flex; gap: 20px;">
-                    <span>현재 인원</span>
+                    <span style="font-weight: bold;">현재 인원</span>
                     <span class="currentMember" style="overflow-wrap: anywhere;">${toSummaryNumber(this.project.currentMember)}명</span>
                 </div>
                 <div style="display: flex; gap: 20px;">
-                    <span>추가 모집</span>
+                    <span style="font-weight: bold;">추가 모집</span>
                     <span class="additionalRecruitMember" style="overflow-wrap: anywhere;">${toSummaryNumber(this.project.additionalRecruitMember)}명</span>
                 </div>
             </div>
             <div>
-                <span>사용 기술 스택</span>
+                <span style="font-weight: bold;">사용 기술 스택</span>
                 <div class="skillList" style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px;">
                     ${skillList}
                 </div>

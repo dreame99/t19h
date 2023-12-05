@@ -231,7 +231,6 @@ body {
   flex-direction: column;
   gap: 20px;
   cursor: pointer;
-  align-self: self-start;
 }
 
 .header > .menu {
