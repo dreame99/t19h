@@ -35,8 +35,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 var PAGES = ["main", "login", "join", "profile", "create-project", "project-list", "project-room", "member-list"];
-var AUTH_PAGE = { main: MainPage, login: MainPage, join: MainPage, profile: MainPage, "create-project": CreateProjectPage, "project-list": MainPage, "project-room": MainPage, "member-list": MainPage };
-var UNAUTH_PAGE = { main: MainPage, login: LoginPage, join: JoinPage, profile: MainPage, "create-project": CreateProjectPage, "project-list": MainPage, "project-room": MainPage, "member-list": MainPage };
+var AUTH_PAGE = { main: MainPage, login: MainPage, join: MainPage, profile: MainPage, "create-project": MainPage, "project-list": CreateProjectPage, "project-room": MainPage, "member-list": UserListPage };
+var UNAUTH_PAGE = { main: MainPage, login: LoginPage, join: JoinPage, profile: MainPage, "create-project": LoginPage, "project-list": LoginPage, "project-room": MainPage, "member-list": LoginPage };
+var SERVER_INFO = "STAGE";
 function navigateToMainPage() {
     console.log("navigateToMainPage");
     navigate("main");

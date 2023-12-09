@@ -68,33 +68,40 @@ var MainPage = /** @class */ (function (_super) {
         return __awaiter(this, void 0, void 0, function () {
             var newProjectList, i;
             return __generator(this, function (_a) {
-                newProjectList = [];
-                /*
-                await fetch(API_URL + "/projects", {
-                    method: "POST",
-                    body: JSON.stringify({date : "20231202"})
-                })
-                .then((response) => response.json())
-                .then((result) => {
-                    newProjectList = result;
-                })
-                .catch(e => console.log(e));
-                */
-                for (i = 0; i < 5; i++) {
-                    newProjectList.push({
-                        recruitStartDate: "20231115",
-                        recruitEndDate: "20231215",
-                        title: "팀원구함",
-                        contents: "자신이 상상만 하던 프로덕트를 동료들과 함께 만들어보세요.<br>".repeat(i * 2),
-                        currentMember: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(42, i)),
-                        additionalRecruitMember: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(53, i)),
-                        skills: ["bootstrap", "mongodb", "figma", "github", "git", "html5", "java", "spring", "javascript", "typescript", "kotlin", "nodejs", "react", "vuejs"].slice(0, i),
-                        watchCount: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(64, i)),
-                        goodCount: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(75, i)),
-                        mentionCount: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(86, i))
-                    });
+                switch (_a.label) {
+                    case 0:
+                        newProjectList = [];
+                        if (!(SERVER_INFO == "RUN")) return [3 /*break*/, 2];
+                        return [4 /*yield*/, fetch(API_URL + "/projects", {
+                                method: "POST",
+                                body: JSON.stringify({ type: "최신순", searchStartDate: "20231201", searchEndDate: "20231231", count: 10 })
+                            })
+                                .then(function (response) { return response.json(); })
+                                .then(function (result) {
+                                newProjectList = result;
+                            })
+                                .catch(function (e) { return console.log(e); })];
+                    case 1:
+                        _a.sent();
+                        return [3 /*break*/, 3];
+                    case 2:
+                        for (i = 0; i < 10; i++) {
+                            newProjectList.push({
+                                recruitStartDate: "20231115",
+                                recruitEndDate: "20231215",
+                                title: "팀원구함",
+                                contents: "자신이 상상만 하던 프로덕트를 동료들과 함께 만들어보세요.<br>".repeat(i * 2),
+                                currentMember: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(42, i)),
+                                additionalRecruitMember: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(53, i)),
+                                skills: ["bootstrap", "mongodb", "figma", "github", "git", "html5", "java", "spring", "javascript", "typescript", "kotlin", "nodejs", "react", "vuejs"].slice(0, i),
+                                watchCount: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(64, i)),
+                                goodCount: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(75, i)),
+                                mentionCount: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(86, i))
+                            });
+                        }
+                        _a.label = 3;
+                    case 3: return [2 /*return*/, newProjectList];
                 }
-                return [2 /*return*/, newProjectList];
             });
         });
     };
@@ -102,33 +109,40 @@ var MainPage = /** @class */ (function (_super) {
         return __awaiter(this, void 0, void 0, function () {
             var popularProjectList, i;
             return __generator(this, function (_a) {
-                popularProjectList = [];
-                /*
-                await fetch(API_URL + "/projects", {
-                    method: "POST",
-                    body: JSON.stringify({type: "인기많은순"})
-                })
-                .then((response) => response.json())
-                .then((result) => {
-                    popularProjectList = result;
-                })
-                .catch(e => console.log(e));
-                */
-                for (i = 0; i < 15; i++) {
-                    popularProjectList.push({
-                        recruitStartDate: "20231115",
-                        recruitEndDate: "20231215",
-                        title: "팀원구함",
-                        contents: "자신이 상상만 하던 프로덕트를 동료들과 함께 만들어보세요.<br>".repeat(i),
-                        currentMember: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(42, i)),
-                        additionalRecruitMember: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(53, i)),
-                        skills: ["bootstrap", "mongodb", "figma", "github", "git", "html5", "java", "spring", "javascript", "typescript", "kotlin", "nodejs", "react", "vuejs"].slice(0, i),
-                        watchCount: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(64, i)),
-                        goodCount: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(75, i)),
-                        mentionCount: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(86, i))
-                    });
+                switch (_a.label) {
+                    case 0:
+                        popularProjectList = [];
+                        if (!(SERVER_INFO == "RUN")) return [3 /*break*/, 2];
+                        return [4 /*yield*/, fetch(API_URL + "/projects", {
+                                method: "POST",
+                                body: JSON.stringify({ type: "인기많은순", count: 9 })
+                            })
+                                .then(function (response) { return response.json(); })
+                                .then(function (result) {
+                                popularProjectList = result;
+                            })
+                                .catch(function (e) { return console.log(e); })];
+                    case 1:
+                        _a.sent();
+                        return [3 /*break*/, 3];
+                    case 2:
+                        for (i = 0; i < 9; i++) {
+                            popularProjectList.push({
+                                recruitStartDate: "20231115",
+                                recruitEndDate: "20231215",
+                                title: "팀원구함",
+                                contents: "자신이 상상만 하던 프로덕트를 동료들과 함께 만들어보세요.<br>".repeat(i),
+                                currentMember: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(42, i)),
+                                additionalRecruitMember: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(53, i)),
+                                skills: ["bootstrap", "mongodb", "figma", "github", "git", "html5", "java", "spring", "javascript", "typescript", "kotlin", "nodejs", "react", "vuejs"].slice(0, i),
+                                watchCount: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(64, i)),
+                                goodCount: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(75, i)),
+                                mentionCount: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(86, i))
+                            });
+                        }
+                        _a.label = 3;
+                    case 3: return [2 /*return*/, popularProjectList];
                 }
-                return [2 /*return*/, popularProjectList];
             });
         });
     };
@@ -136,22 +150,33 @@ var MainPage = /** @class */ (function (_super) {
         return __awaiter(this, void 0, void 0, function () {
             var highestScoreMemberList, i;
             return __generator(this, function (_a) {
-                highestScoreMemberList = [];
-                /*
-                await fetch(API_URL + "/projects", {
-                    method: "POST",
-                    body: JSON.stringify({type: "인기많은순"})
-                })
-                .then((response) => response.json())
-                .then((result) => {
-                    highestScoreMemberList = result;
-                })
-                .catch(e => console.log(e));
-                */
-                for (i = 0; i < 15; i++) {
-                    highestScoreMemberList.push(1);
+                switch (_a.label) {
+                    case 0:
+                        highestScoreMemberList = [];
+                        if (!(SERVER_INFO == "RUN")) return [3 /*break*/, 2];
+                        return [4 /*yield*/, fetch(API_URL + "/projects", {
+                                method: "POST",
+                                body: JSON.stringify({ type: "인기많은순" })
+                            })
+                                .then(function (response) { return response.json(); })
+                                .then(function (result) {
+                                highestScoreMemberList = result;
+                            })
+                                .catch(function (e) { return console.log(e); })];
+                    case 1:
+                        _a.sent();
+                        return [3 /*break*/, 3];
+                    case 2:
+                        for (i = 0; i < 10; i++) {
+                            highestScoreMemberList.push({
+                                name: "내가세상가장매콤한사나이",
+                                imagePath: "./src/assets/images/avatar" + (((Math.random() * 10) | 0) + 1) + ".png",
+                                point: Math.pow(10, 10 - i)
+                            });
+                        }
+                        _a.label = 3;
+                    case 3: return [2 /*return*/, highestScoreMemberList];
                 }
-                return [2 /*return*/, highestScoreMemberList];
             });
         });
     };
@@ -226,14 +251,7 @@ var MainPage = /** @class */ (function (_super) {
                             div.appendChild(highestScoreMember);
                             carousel = new Carousel();
                             highestScoreMember.appendChild(carousel.getElement());
-                            highestScoreMemberList.forEach(function (member) {
-                                var div = document.createElement("div");
-                                div.style.padding = "20px";
-                                div.style.width = "200px";
-                                div.style.height = "200px";
-                                div.style.background = "white";
-                                carousel.append(div);
-                            });
+                            highestScoreMemberList.forEach(function (user) { return carousel.append((new UserAbridgement(user)).getElement()); });
                             this.contents.appendChild(article);
                         }
                         return [2 /*return*/];

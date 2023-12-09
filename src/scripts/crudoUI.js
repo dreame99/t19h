@@ -7,7 +7,10 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     }
     return to.concat(ar || Array.prototype.slice.call(from));
 };
-// carousel
+/**
+ * carousel element.
+ * rotating slide.
+ */
 var Carousel = /** @class */ (function () {
     function Carousel() {
         var _this = this;
@@ -133,6 +136,84 @@ var Carousel = /** @class */ (function () {
         this.running = undefined;
     };
     return Carousel;
+}());
+/**
+ * Create page container elements based on the total number and the number of displays on a page
+ */
+var PageContainer = /** @class */ (function () {
+    function PageContainer(callback) {
+        var _this = this;
+        this.pageContainer = document.createElement("article");
+        this.leftButton = document.createElement("button");
+        this.rightButton = document.createElement("button");
+        this.totalCount = 90;
+        this.pageCount = 9;
+        this.maxPage = 10;
+        this.phase = 1;
+        this.selectedPos = 1;
+        this.callback = callback;
+        this.pageContainer.classList.add("page-container");
+        this.leftButton.classList.add("left-button");
+        this.leftButton.innerHTML = "\n            <svg viewBox=\"0 0 24 24\">\n                <path d=\"M17 4 L7 12 L17 20\"></path>\n            </svg>\n        ";
+        this.leftButton.onclick = function () { return _this.updatePage(_this.phase - 1); };
+        this.pageContainer.appendChild(this.leftButton);
+        this.rightButton.classList.add("right-button");
+        this.rightButton.innerHTML = "\n            <svg viewBox=\"0 0 24 24\">\n                <path d=\"M7 4 L17 12 L7 20\"></path>\n            </svg>\n        ";
+        this.rightButton.onclick = function () { return _this.updatePage(_this.phase + 1); };
+        this.pageContainer.appendChild(this.rightButton);
+        this.updatePage(this.phase);
+    }
+    PageContainer.prototype.setTotalCount = function (totalCount) {
+        this.totalCount = Math.max(1, totalCount);
+        this.updatePage(this.phase);
+    };
+    PageContainer.prototype.setPageCount = function (pageCount) {
+        this.pageCount = Math.max(1, pageCount);
+        this.updatePage(this.phase);
+    };
+    PageContainer.prototype.getPage = function () {
+        return this.page;
+    };
+    PageContainer.prototype.updatePage = function (phase) {
+        var _this = this;
+        var maxPhase = Math.max(1, Math.ceil(this.totalCount / this.pageCount / this.maxPage));
+        this.phase = Math.max(1, Math.min(maxPhase, phase));
+        __spreadArray([], this.pageContainer.getElementsByClassName("page-count"), true).forEach(function (pageCount) {
+            pageCount.remove();
+        });
+        var count = Math.min(this.maxPage, this.totalCount / this.pageCount - (this.phase - 1) * this.maxPage);
+        var _loop_1 = function () {
+            var page = document.createElement("div");
+            page.classList.add("page-count");
+            page.innerHTML = "" + (i + 1 + (this_1.phase - 1) * this_1.maxPage);
+            this_1.pageContainer.insertBefore(page, this_1.rightButton);
+            page.addEventListener("click", function () {
+                if (!Number.isNaN(Number(page.innerHTML))) {
+                    var pageNum = Number(page.innerHTML);
+                    __spreadArray([], _this.pageContainer.getElementsByClassName("page-count"), true).forEach(function (pageCount) { return pageCount.classList.remove("selected"); });
+                    page.classList.add("selected");
+                    _this.selectedPos = pageNum - (_this.phase - 1) * _this.maxPage;
+                    _this.page = pageNum;
+                    if (_this.callback) {
+                        _this.callback(_this.page);
+                    }
+                }
+            });
+        };
+        var this_1 = this;
+        for (var i = 0; i < count; i++) {
+            _loop_1();
+        }
+        if (typeof this.selectedPos == "number") {
+            var selectedPageElems = this.pageContainer.getElementsByClassName("page-count");
+            var selectedPageElem = selectedPageElems[Math.min(this.selectedPos, selectedPageElems.length) - 1];
+            selectedPageElem === null || selectedPageElem === void 0 ? void 0 : selectedPageElem.classList.add("selected");
+        }
+    };
+    PageContainer.prototype.getElement = function () {
+        return this.pageContainer;
+    };
+    return PageContainer;
 }());
 // always visible header
 // layer popup

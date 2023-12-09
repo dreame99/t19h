@@ -100,6 +100,10 @@ label {
   cursor: pointer;
 }
 
+ul {
+  list-style: none;
+}
+
 body {
   min-height: 100vh;
   display: flex;
@@ -233,6 +237,40 @@ body {
   cursor: pointer;
 }
 
+.user-abridgement {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 20px;
+}
+.user-abridgement > .point {
+  padding: 12px;
+  background-color: #5288F1;
+  color: white;
+  border-radius: 999em;
+  z-index: 1;
+  position: relative;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2666666667);
+}
+.user-abridgement > .point::after {
+  content: "";
+  border: 4px solid transparent;
+  border-top: 4px solid #5288F1;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.user-abridgement > img {
+  width: 200px;
+  height: 200px;
+  border-radius: 999em;
+  border: 1px solid #dadada;
+  margin-top: -31px;
+  -webkit-user-drag: none;
+}
+
 .header > .menu {
   width: 100%;
   position: absolute;
@@ -275,4 +313,50 @@ body {
 }
 .carousel > .list > * {
   flex-shrink: 0;
+}
+
+.page-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.page-container > button {
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  background-color: #5288F1;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.page-container > button.left-button {
+  border-radius: 24px 0 0 24px;
+}
+.page-container > button.right-button {
+  border-radius: 0 24px 24px 0;
+}
+.page-container > button > svg {
+  width: 24px;
+  height: 24px;
+}
+.page-container > button > svg > path {
+  fill: none;
+  stroke: white;
+  stroke-width: 2px;
+}
+.page-container > .page-count {
+  width: 48px;
+  height: 48px;
+  background-color: white;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.page-container > .page-count.selected {
+  color: #5288F1;
+  font-family: NIXGONFONTS-B;
 }/*# sourceMappingURL=alltheway.css.map */

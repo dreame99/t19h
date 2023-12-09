@@ -49,94 +49,80 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var CreateProjectPage = /** @class */ (function (_super) {
-    __extends(CreateProjectPage, _super);
-    function CreateProjectPage() {
+var UserListPage = /** @class */ (function (_super) {
+    __extends(UserListPage, _super);
+    function UserListPage() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    CreateProjectPage.prototype.searchProjectList = function () {
+    UserListPage.prototype.searchUserList = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var projectList, i;
+            var userList, i;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        projectList = [];
+                        userList = [];
                         if (!(SERVER_INFO == "RUN")) return [3 /*break*/, 2];
-                        return [4 /*yield*/, fetch(API_URL + "/projects", {
+                        return [4 /*yield*/, fetch(API_URL + "/users", {
                                 method: "POST",
-                                body: JSON.stringify({ type: "최신순", count: 1, page: 1 })
+                                body: JSON.stringify({ type: "최신가입순", count: 1, page: 1 })
                             })
                                 .then(function (response) { return response.json(); })
                                 .then(function (result) {
-                                projectList = result;
+                                userList = result;
                             })
                                 .catch(function (e) { return console.log(e); })];
                     case 1:
                         _a.sent();
                         return [3 /*break*/, 3];
                     case 2:
-                        for (i = 0; i < 9; i++) {
-                            projectList.push({
-                                recruitStartDate: "20231115",
-                                recruitEndDate: "20231215",
-                                title: "팀원구함",
-                                contents: "자신이 상상만 하던 프로덕트를 동료들과 함께 만들어보세요.<br>".repeat(i * 2),
-                                currentMember: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(2, i)),
-                                additionalRecruitMember: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(2, i)),
-                                skills: ["bootstrap", "mongodb", "figma", "github", "git", "html5", "java", "spring", "javascript", "typescript", "kotlin", "nodejs", "react", "vuejs"].slice(0, i),
-                                watchCount: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(12, i)),
-                                goodCount: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(6, i)),
-                                mentionCount: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(2, i))
+                        for (i = 0; i < 10; i++) {
+                            userList.push({
+                                name: "내가세상가장매콤한사나이",
+                                imagePath: "./src/assets/images/avatar" + (((Math.random() * 10) | 0) + 1) + ".png",
+                                point: Math.pow(10, 10 - i)
                             });
                         }
                         _a.label = 3;
-                    case 3: return [2 /*return*/, projectList];
+                    case 3: return [2 /*return*/, userList];
                 }
             });
         });
     };
-    CreateProjectPage.prototype.render = function () {
+    UserListPage.prototype.render = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var projectList, article, div, titleContainer, span, dropDown, ul, li1, li2, li3, projectListContainer, pageContainer, pageContainerElem;
+            var userList, article, div, titleContainer, span, dropDown, ul, li1, li2, userListContainer, pageContainer, pageContainerElem;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         if (!this.contents) return [3 /*break*/, 2];
                         this.contents.innerHTML = "";
-                        return [4 /*yield*/, this.searchProjectList()];
+                        return [4 /*yield*/, this.searchUserList()];
                     case 1:
-                        projectList = _a.sent();
+                        userList = _a.sent();
                         article = createElement("article");
                         div = createElement("div", "", "", "width: 100%; max-width: 1280px; display: inline-flex; flex-direction: column; align-items: flex-start;");
                         article.appendChild(div);
                         titleContainer = createElement("div", "", "", "width: 100%; display: flex; align-items: flex-end; justify-content: space-between;");
                         span = createElement("span", "", "title");
-                        span.innerHTML = "프로젝트 목록";
+                        span.innerHTML = "사용자 목록";
                         titleContainer.appendChild(span);
-                        dropDown = createElement("div", "", "", "display: flex; align-items: center; gap: 12px; cursor: pointer; position: relative;");
-                        dropDown.innerHTML = "\n                <span style=\"text-wrap: nowrap;\">\uCD5C\uC2E0\uC21C</span>\n                <svg viewBox=\"0 0 24 24\" style=\"width: 24px; height: 24px;\">\n                    <path d=\"M4 7 L12 17 L20 7\" style=\"fill: none; stroke: black; stroke-width: 2px;\"></path>\n                </svg>\n            ";
+                        dropDown = createElement("div", "", "", "display: flex; align-items: center; gap: 12px; cursor: pointer; position: relative; z-index: 2;");
+                        dropDown.innerHTML = "\n                <span style=\"text-wrap: nowrap;\">\uCD5C\uC2E0\uAC00\uC785\uC21C</span>\n                <svg viewBox=\"0 0 24 24\" style=\"width: 24px; height: 24px;\">\n                    <path d=\"M4 7 L12 17 L20 7\" style=\"fill: none; stroke: black; stroke-width: 2px;\"></path>\n                </svg>\n            ";
                         ul = createElement("ul", "", "", "list-style: none; background: white; width: 100%; position: absolute; top: 100%; box-shadow: 0 8px 8px #0002; display: none;");
                         li1 = createElement("li", "", "", "margin: 12px;");
-                        li1.innerHTML = "최신순";
+                        li1.innerHTML = "최신가입순";
                         li1.addEventListener("click", function () {
                             var span = dropDown.querySelector("span");
-                            span.innerHTML = "최신순";
+                            span.innerHTML = "최신가입순";
                         });
                         ul.appendChild(li1);
                         li2 = createElement("li", "", "", "margin: 12px;");
-                        li2.innerHTML = "인기순";
+                        li2.innerHTML = "점수높은순";
                         li2.addEventListener("click", function () {
                             var span = dropDown.querySelector("span");
-                            span.innerHTML = "인기순";
+                            span.innerHTML = "점수높은순";
                         });
                         ul.appendChild(li2);
-                        li3 = createElement("li", "", "", "margin: 12px;");
-                        li3.innerHTML = "과거순";
-                        li3.addEventListener("click", function () {
-                            var span = dropDown.querySelector("span");
-                            span.innerHTML = "과거순";
-                        });
-                        ul.appendChild(li3);
                         dropDown.appendChild(ul);
                         dropDown.addEventListener("click", function () {
                             if (ul.style.display == "none") {
@@ -148,9 +134,9 @@ var CreateProjectPage = /** @class */ (function (_super) {
                         });
                         titleContainer.appendChild(dropDown);
                         div.appendChild(titleContainer);
-                        projectListContainer = createElement("article", "projectList", "", "width: 100%; margin-top: 24px; display: flex; flex-wrap: wrap; gap: 20px;");
-                        div.appendChild(projectListContainer);
-                        projectList.forEach(function (project) { return projectListContainer.append((new ProjectAbridgement(project)).getElement()); });
+                        userListContainer = createElement("article", "userList", "", "width: 100%; margin-top: 24px; display: flex; flex-wrap: wrap; gap: 20px;");
+                        div.appendChild(userListContainer);
+                        userList.forEach(function (user) { return userListContainer.append((new UserAbridgement(user)).getElement()); });
                         pageContainer = new PageContainer();
                         pageContainerElem = pageContainer.getElement();
                         pageContainerElem.style.marginTop = "20px";
@@ -162,7 +148,7 @@ var CreateProjectPage = /** @class */ (function (_super) {
             });
         });
     };
-    CreateProjectPage.prototype.bindingEvents = function () {
+    UserListPage.prototype.bindingEvents = function () {
     };
-    return CreateProjectPage;
+    return UserListPage;
 }(Page));

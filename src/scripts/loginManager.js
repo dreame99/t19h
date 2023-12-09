@@ -45,6 +45,7 @@ var LoginManager = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         resultCode = 0;
+                        if (!(SERVER_INFO != "DEV")) return [3 /*break*/, 2];
                         return [4 /*yield*/, fetch(API_URL + this.LOGIN_URI, {
                                 method: "POST",
                                 body: JSON.stringify(data),
@@ -55,23 +56,26 @@ var LoginManager = /** @class */ (function () {
                             })];
                     case 1:
                         _a.sent();
-                        return [2 /*return*/, resultCode];
+                        _a.label = 2;
+                    case 2: return [2 /*return*/, resultCode];
                 }
             });
         });
     };
     LoginManager.logout = function () {
-        fetch("https://port-0-team-api-57lz2alpl3myze.sel4.cloudtype.app/user/logout", {
-            method: "POST",
-            credentials: "include",
-        })
-            .then(function (response) { return response.json(); })
-            .then(function (result) {
-            if (result.result.code == 105) {
-                navigate("main");
-            }
-        })
-            .catch(function () { return navigate("main"); });
+        if (SERVER_INFO != "DEV") {
+            fetch(API_URL + this.LOGOUT_URI, {
+                method: "POST",
+                credentials: "include",
+            })
+                .then(function (response) { return response.json(); })
+                .then(function (result) {
+                if (result.result.code == 105) {
+                    navigate("main");
+                }
+            })
+                .catch(function () { return navigate("main"); });
+        }
     };
     LoginManager.isLogin = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -80,6 +84,7 @@ var LoginManager = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         isLogin = false;
+                        if (!(SERVER_INFO != "DEV")) return [3 /*break*/, 2];
                         return [4 /*yield*/, fetch(API_URL + this.AUTH_URI, {
                                 credentials: "include",
                             })
@@ -92,13 +97,14 @@ var LoginManager = /** @class */ (function () {
                             })];
                     case 1:
                         _a.sent();
-                        return [2 /*return*/, isLogin];
+                        _a.label = 2;
+                    case 2: return [2 /*return*/, isLogin];
                 }
             });
         });
     };
-    LoginManager.LOGIN_URI = "/user/login";
-    LoginManager.LOGOUT_URI = "/user/logout";
-    LoginManager.AUTH_URI = "/user/auth";
+    LoginManager.LOGIN_URI = "/users/login";
+    LoginManager.LOGOUT_URI = "/users/logout";
+    LoginManager.AUTH_URI = "/users/auth";
     return LoginManager;
 }());
