@@ -1,6 +1,6 @@
 const PAGES = ["main", "login", "join", "profile", "create-project", "project-list", "project-room", "member-list"] as const;
 const AUTH_PAGE = {main : MainPage, login : MainPage, join : MainPage, profile : MainPage, "create-project" : MainPage, "project-list" : CreateProjectPage, "project-room" : MainPage, "member-list" : UserListPage};
-const UNAUTH_PAGE = {main : MainPage, login : LoginPage, join : JoinPage, profile : MainPage, "create-project" : LoginPage, "project-list" : LoginPage, "project-room" : MainPage, "member-list" : LoginPage};
+const UNAUTH_PAGE = {main : MainPage, login : LoginPage, join : JoinPage, profile : MainPage, "create-project" : LoginPage, "project-list" : CreateProjectPage, "project-room" : MainPage, "member-list" : UserListPage};
 type PAGE = typeof PAGES[number];
 
 const SERVER_INFO: string = "STAGE";
@@ -55,7 +55,7 @@ window.addEventListener("load", () => {
     document.getElementById("headerLogoutButton")?.addEventListener("click", LoginManager.logout);
 
     document.querySelectorAll("[data-nav]")?.forEach((elem: Element) => {
-        (elem as HTMLElement).onclick = () => {
+        (elem as HTMLElement).onclick = async () => {
             var path: string | undefined = (elem as HTMLElement).dataset.nav;
 
             if( path && PAGES.includes(path as PAGE) ) {

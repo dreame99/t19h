@@ -34,9 +34,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var _this = this;
 var PAGES = ["main", "login", "join", "profile", "create-project", "project-list", "project-room", "member-list"];
 var AUTH_PAGE = { main: MainPage, login: MainPage, join: MainPage, profile: MainPage, "create-project": MainPage, "project-list": CreateProjectPage, "project-room": MainPage, "member-list": UserListPage };
-var UNAUTH_PAGE = { main: MainPage, login: LoginPage, join: JoinPage, profile: MainPage, "create-project": LoginPage, "project-list": LoginPage, "project-room": MainPage, "member-list": LoginPage };
+var UNAUTH_PAGE = { main: MainPage, login: LoginPage, join: JoinPage, profile: MainPage, "create-project": LoginPage, "project-list": CreateProjectPage, "project-room": MainPage, "member-list": UserListPage };
 var SERVER_INFO = "STAGE";
 function navigateToMainPage() {
     console.log("navigateToMainPage");
@@ -82,15 +83,19 @@ window.addEventListener("load", function () {
     (_e = document.getElementById("headerAlarmButton")) === null || _e === void 0 ? void 0 : _e.addEventListener("click", toggleAlarmPopup);
     (_f = document.getElementById("headerLogoutButton")) === null || _f === void 0 ? void 0 : _f.addEventListener("click", LoginManager.logout);
     (_g = document.querySelectorAll("[data-nav]")) === null || _g === void 0 ? void 0 : _g.forEach(function (elem) {
-        elem.onclick = function () {
-            var path = elem.dataset.nav;
-            if (path && PAGES.includes(path)) {
-                navigate(path);
-            }
-            else {
-                navigate("main");
-            }
-        };
+        elem.onclick = function () { return __awaiter(_this, void 0, void 0, function () {
+            var path;
+            return __generator(this, function (_a) {
+                path = elem.dataset.nav;
+                if (path && PAGES.includes(path)) {
+                    navigate(path);
+                }
+                else {
+                    navigate("main");
+                }
+                return [2 /*return*/];
+            });
+        }); };
     });
 });
 function navigate(page) {
