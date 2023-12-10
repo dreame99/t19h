@@ -3,7 +3,7 @@ const AUTH_PAGE = {main : MainPage, login : MainPage, join : MainPage, profile :
 const UNAUTH_PAGE = {main : MainPage, login : LoginPage, join : JoinPage, profile : ProfilePage, "create-project" : CreateProjectPage, "project-list" : ProjectListPage, "project-room" : MainPage, "member-list" : UserListPage};
 type PAGE = typeof PAGES[number];
 
-const SERVER_INFO: string = "DEV";
+const SERVER_INFO: string = "RUN";
 
 function navigateToMainPage(): void {
     console.log("navigateToMainPage");
