@@ -59,6 +59,15 @@ var Page = /** @class */ (function () {
     };
     return Page;
 }());
+function createTitleContainer(title) {
+    var titleContainer = document.createElement("div");
+    titleContainer.classList.add("title-container");
+    var span = document.createElement("span");
+    span.classList.add("title");
+    span.innerHTML = title;
+    titleContainer.appendChild(span);
+    return titleContainer;
+}
 var MainPage = /** @class */ (function (_super) {
     __extends(MainPage, _super);
     function MainPage() {
@@ -137,7 +146,8 @@ var MainPage = /** @class */ (function (_super) {
                                 skills: ["bootstrap", "mongodb", "figma", "github", "git", "html5", "java", "spring", "javascript", "typescript", "kotlin", "nodejs", "react", "vuejs"].slice(0, i),
                                 watchCount: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(64, i)),
                                 goodCount: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(75, i)),
-                                mentionCount: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(86, i))
+                                mentionCount: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(86, i)),
+                                recruitState: i % 2 == 0
                             });
                         }
                         _a.label = 3;
@@ -182,21 +192,21 @@ var MainPage = /** @class */ (function (_super) {
     };
     MainPage.prototype.renderNewProjectList = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var newProjectList, article, div, span, newProject, carousel;
+            var newProjectList, article, bucket, newProject, carousel;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.searchNewProjectList()];
                     case 1:
                         newProjectList = _a.sent();
                         if (newProjectList.length) {
-                            article = createElement("article");
-                            div = createElement("div", "", "", "width: 100%; max-width: 1280px; display: inline-flex; flex-direction: column; align-items: flex-start;");
-                            article.appendChild(div);
-                            span = createElement("span", "", "title");
-                            span.innerHTML = "이달의 새로운 프로젝트";
-                            div.appendChild(span);
-                            newProject = createElement("article", "newProject", "", "width: 100%; margin-top: 24px; display: flex; flex-wrap: wrap; gap: 20px;");
-                            div.appendChild(newProject);
+                            article = document.createElement("article");
+                            bucket = document.createElement("div");
+                            bucket.classList.add("bucket");
+                            article.appendChild(bucket);
+                            bucket.appendChild(createTitleContainer("이달의 새로운 프로젝트"));
+                            newProject = document.createElement("article");
+                            newProject.classList.add("box");
+                            bucket.appendChild(newProject);
                             carousel = new Carousel();
                             newProject.appendChild(carousel.getElement());
                             newProjectList.forEach(function (newProject) { return carousel.append((new ProjectAbridgement(newProject)).getElement()); });
@@ -209,7 +219,7 @@ var MainPage = /** @class */ (function (_super) {
     };
     MainPage.prototype.renderPopularProjectList = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var popularProjectList, article, div, span, popularProjectContainer;
+            var popularProjectList, article, div, popularProjectContainer;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.searchPopularProjectList()];
@@ -217,12 +227,10 @@ var MainPage = /** @class */ (function (_super) {
                         popularProjectList = _a.sent();
                         if (popularProjectList.length > 0) {
                             article = createElement("article");
-                            div = createElement("div", "", "", "width: 100%; max-width: 1280px; display: inline-flex; flex-direction: column; align-items: flex-start;");
+                            div = createElement("div", "", "bucket");
                             article.appendChild(div);
-                            span = createElement("span", "", "title");
-                            span.innerHTML = "인기 프로젝트";
-                            div.appendChild(span);
-                            popularProjectContainer = createElement("article", "popularProject", "", "margin-top: 24px; display: flex; flex-wrap: wrap; gap: 20px;");
+                            div.appendChild(createTitleContainer("인기 프로젝트"));
+                            popularProjectContainer = createElement("article", "popularProject", "list-box");
                             div.appendChild(popularProjectContainer);
                             popularProjectList.forEach(function (popularProject) { return popularProjectContainer.append((new ProjectAbridgement(popularProject)).getElement()); });
                             this.contents.appendChild(article);
@@ -234,7 +242,7 @@ var MainPage = /** @class */ (function (_super) {
     };
     MainPage.prototype.renderHighesScoreMemberList = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var highestScoreMemberList, article, div, span, highestScoreMember, carousel;
+            var highestScoreMemberList, article, div, highestScoreMember, carousel;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.searchHighestScoreMemberList()];
@@ -242,12 +250,10 @@ var MainPage = /** @class */ (function (_super) {
                         highestScoreMemberList = _a.sent();
                         if (highestScoreMemberList.length > 0) {
                             article = createElement("article");
-                            div = createElement("div", "", "", "width: 100%; max-width: 1280px; display: inline-flex; flex-direction: column; align-items: flex-start;");
+                            div = createElement("div", "", "bucket");
                             article.appendChild(div);
-                            span = createElement("span", "", "title");
-                            span.innerHTML = "당신의 열정을 칭찬합니다.";
-                            div.appendChild(span);
-                            highestScoreMember = createElement("article", "highestScoreMember", "", "width: 100%; margin-top: 24px; display: flex; flex-wrap: wrap; gap: 20px;");
+                            div.appendChild(createTitleContainer("당신의 열정을 칭찬합니다."));
+                            highestScoreMember = createElement("article", "highestScoreMember", "box");
                             div.appendChild(highestScoreMember);
                             carousel = new Carousel();
                             highestScoreMember.appendChild(carousel.getElement());

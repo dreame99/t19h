@@ -49,12 +49,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var CreateProjectPage = /** @class */ (function (_super) {
-    __extends(CreateProjectPage, _super);
-    function CreateProjectPage() {
+var ProjectListPage = /** @class */ (function (_super) {
+    __extends(ProjectListPage, _super);
+    function ProjectListPage() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    CreateProjectPage.prototype.searchProjectList = function () {
+    ProjectListPage.prototype.searchProjectList = function () {
         return __awaiter(this, void 0, void 0, function () {
             var projectList, i;
             return __generator(this, function (_a) {
@@ -95,7 +95,7 @@ var CreateProjectPage = /** @class */ (function (_super) {
             });
         });
     };
-    CreateProjectPage.prototype.render = function () {
+    ProjectListPage.prototype.render = function () {
         return __awaiter(this, void 0, void 0, function () {
             var projectList, article, div, titleContainer, span, dropDown, ul, li1, li2, li3, projectListContainer, pageContainer, pageContainerElem;
             return __generator(this, function (_a) {
@@ -109,7 +109,7 @@ var CreateProjectPage = /** @class */ (function (_super) {
                         article = createElement("article");
                         div = createElement("div", "", "", "width: 100%; max-width: 1280px; display: inline-flex; flex-direction: column; align-items: flex-start;");
                         article.appendChild(div);
-                        titleContainer = createElement("div", "", "", "width: 100%; display: flex; align-items: flex-end; justify-content: space-between;");
+                        titleContainer = createElement("div", "", "title-container", "width: 100%; display: flex; align-items: flex-end; justify-content: space-between;");
                         span = createElement("span", "", "title");
                         span.innerHTML = "프로젝트 목록";
                         titleContainer.appendChild(span);
@@ -162,7 +162,7 @@ var CreateProjectPage = /** @class */ (function (_super) {
             });
         });
     };
-    CreateProjectPage.prototype.bindingEvents = function () {
+    ProjectListPage.prototype.bindingEvents = function () {
     };
-    return CreateProjectPage;
+    return ProjectListPage;
 }(Page));

@@ -49,12 +49,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var UserListPage = /** @class */ (function (_super) {
-    __extends(UserListPage, _super);
-    function UserListPage() {
+var CreateProjectPage = /** @class */ (function (_super) {
+    __extends(CreateProjectPage, _super);
+    function CreateProjectPage() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    UserListPage.prototype.searchUserList = function () {
+    CreateProjectPage.prototype.searchUserList = function () {
         return __awaiter(this, void 0, void 0, function () {
             var userList, i;
             return __generator(this, function (_a) {
@@ -88,67 +88,30 @@ var UserListPage = /** @class */ (function (_super) {
             });
         });
     };
-    UserListPage.prototype.render = function () {
+    CreateProjectPage.prototype.render = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var userList, article, div, titleContainer, span, dropDown, ul, li1, li2, userListContainer, pageContainer, pageContainerElem;
+            var article, div, titleContainer, span, box;
             return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        if (!this.contents) return [3 /*break*/, 2];
-                        this.contents.innerHTML = "";
-                        return [4 /*yield*/, this.searchUserList()];
-                    case 1:
-                        userList = _a.sent();
-                        article = createElement("article");
-                        div = createElement("div", "", "", "width: 100%; max-width: 1280px; display: inline-flex; flex-direction: column; align-items: flex-start;");
-                        article.appendChild(div);
-                        titleContainer = createElement("div", "", "title-container", "width: 100%; display: flex; align-items: flex-end; justify-content: space-between;");
-                        span = createElement("span", "", "title");
-                        span.innerHTML = "사용자 목록";
-                        titleContainer.appendChild(span);
-                        dropDown = createElement("div", "", "", "display: flex; align-items: center; gap: 12px; cursor: pointer; position: relative; z-index: 2;");
-                        dropDown.innerHTML = "\n                <span style=\"text-wrap: nowrap;\">\uCD5C\uC2E0\uAC00\uC785\uC21C</span>\n                <svg viewBox=\"0 0 24 24\" style=\"width: 24px; height: 24px;\">\n                    <path d=\"M4 7 L12 17 L20 7\" style=\"fill: none; stroke: black; stroke-width: 2px;\"></path>\n                </svg>\n            ";
-                        ul = createElement("ul", "", "", "list-style: none; background: white; width: 100%; position: absolute; top: 100%; box-shadow: 0 8px 8px #0002; display: none;");
-                        li1 = createElement("li", "", "", "margin: 12px;");
-                        li1.innerHTML = "최신가입순";
-                        li1.addEventListener("click", function () {
-                            var span = dropDown.querySelector("span");
-                            span.innerHTML = "최신가입순";
-                        });
-                        ul.appendChild(li1);
-                        li2 = createElement("li", "", "", "margin: 12px;");
-                        li2.innerHTML = "점수높은순";
-                        li2.addEventListener("click", function () {
-                            var span = dropDown.querySelector("span");
-                            span.innerHTML = "점수높은순";
-                        });
-                        ul.appendChild(li2);
-                        dropDown.appendChild(ul);
-                        dropDown.addEventListener("click", function () {
-                            if (ul.style.display == "none") {
-                                ul.style.display = "inline";
-                            }
-                            else {
-                                ul.style.display = "none";
-                            }
-                        });
-                        titleContainer.appendChild(dropDown);
-                        div.appendChild(titleContainer);
-                        userListContainer = createElement("article", "userList", "", "width: 100%; margin-top: 24px; display: flex; flex-wrap: wrap; gap: 20px;");
-                        div.appendChild(userListContainer);
-                        userList.forEach(function (user) { return userListContainer.append((new UserAbridgement(user)).getElement()); });
-                        pageContainer = new PageContainer();
-                        pageContainerElem = pageContainer.getElement();
-                        pageContainerElem.style.marginTop = "20px";
-                        div.appendChild(pageContainerElem);
-                        this.contents.appendChild(article);
-                        _a.label = 2;
-                    case 2: return [2 /*return*/];
+                if (this.contents) {
+                    this.contents.innerHTML = "";
+                    article = document.createElement("article");
+                    div = createElement("div", "", "bucket");
+                    article.appendChild(div);
+                    titleContainer = createElement("div", "", "title-container");
+                    span = createElement("span", "", "title");
+                    span.innerHTML = "프로젝트 만들기";
+                    titleContainer.appendChild(span);
+                    div.appendChild(titleContainer);
+                    box = createElement("div", "", "box");
+                    div.appendChild(box);
+                    box.innerHTML = "\n                <div style=\"display: flex; align-items: flex-start; justify-content: space-between; width: 100%;\">\n                    <div style=\"display: flex; flex-direction: column; gap: 28px;\">\n                        <div style=\"display: flex; flex-direction: column; gap: 12px;\">\n                            <span>\uD504\uB85C\uC81D\uD2B8\uBA85</span>\n                            <input type=\"text\" placeholder=\"\uD504\uB85C\uC81D\uD2B8\uBA85\"/>\n                        </div>\n                        <div style=\"display: flex; flex-direction: column; gap: 12px;\">\n                            <span>\uD504\uB85C\uC81D\uD2B8 \uC778\uC6D0</span>\n                            <input type=\"text\" placeholder=\"\uD504\uB85C\uC81D\uD2B8 \uC778\uC6D0\"/>\n                        </div>\n                    </div>\n                    <div style=\"display: flex; flex-direction: column; gap: 28px;\">\n                        <div style=\"display: flex; flex-direction: column; gap: 12px;\">\n                            <span>\uD504\uB85C\uC81D\uD2B8 \uAE30\uAC04</span>\n                            <div>\n                                <input type=\"text\" placeholder=\"\uC2DC\uC791\uC77C\uC790\"/>\n                                <input type=\"text\" placeholder=\"\uC885\uB8CC\uC77C\uC790\"/>\n                            </div>\n                        </div>\n                        <div style=\"display: flex; flex-direction: column; gap: 12px;\">\n                            <span>\uBAA8\uC9D1 \uAE30\uAC04</span>\n                            <div>\n                                <input type=\"text\" placeholder=\"\uC2DC\uC791\uC77C\uC790\"/>\n                                <input type=\"text\" placeholder=\"\uC885\uB8CC\uC77C\uC790\"/>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n\n                <div style=\"width: 100%;\">\n                    <div style=\"display: flex; flex-direction: column; gap: 12px;\">\n                        <span>\uC0AC\uC6A9 \uAE30\uC220</span>\n                        <div style=\"width: 400px; height: 56px; background-color: #F1F1F1;\">\n                        </div>\n                    </div>\n                </div>\n\n                <textarea placeholder=\"\uB0B4\uC6A9\uC744 \uC785\uB825\uD558\uC138\uC694.\" style=\"width: 100%; height: 400px; background-color: #F1F1F1; border: 1px solid #DCDCDC;\"></textarea>\n\n                <button>\uC0DD\uC131\uD558\uAE30</button>\n            ";
+                    this.contents.appendChild(article);
                 }
+                return [2 /*return*/];
             });
         });
     };
-    UserListPage.prototype.bindingEvents = function () {
+    CreateProjectPage.prototype.bindingEvents = function () {
     };
-    return UserListPage;
+    return CreateProjectPage;
 }(Page));

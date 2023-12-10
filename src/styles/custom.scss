@@ -1,140 +1,208 @@
-@mixin center-flex {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-@mixin space-flex {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-@mixin using-area {
-    width: 100%;
-    max-width: 1280px;
-    height: 100%;
-    // background-color: #f002;
-}
-
 body {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+    @include center-column-flex;
 }
 
+.header-container, .contents-container, .footer-container {
+    width: 100%;
+}
 .header-container {
     @include center-flex;
-    width: 100%;
-    background-color: $bgColor1;
-    transition: 0.2s box-shadow;
+    background-color: $background-color-level1;
     z-index: 99;
-    button {
-        display: none;
-    }
+    
     &.fixed {
         position: fixed;
         box-shadow: 0 8px 8px #0002;
+        top: 0;
     }
-    .header {
-        @include using-area;
-        @include space-flex;
-        padding: 20px 12px;
+
+    button {
+        display: none;
+    }
+    > .header {
+        @include space-between-flex;
+        @include browser-area;
+        padding: $padding-level3;
         position: relative;
 
-        > * {
-            flex: 1;
-        }
-
-        .logo {
+        > .logo {
             @include center-flex;
             font-family: BMJUA;
             font-size: 32px;
-
-            img {
-                width: 28px;
-                height: 28px;
-                margin-right: 12px;
+            > svg {
+                width: auto;
+                height: auto;
             }
         }
-        .button-area {
-            @include space-flex;
-            height: 100%;
-            gap: 20px;
-
+        > .button-area {
+            gap: $padding-level3;
             &.left {
-                justify-content: flex-start;
+                @include start-flex;
             }
             &.right {
-                justify-content: flex-end;
+                @include end-flex;
             }
         }
     }
 }
-
 .contents-container {
-    @include center-flex;
-    flex-direction: column;
-    width: 100%;
+    @include center-start-flex;
     flex-grow: 1;
-    background-color: $bgColor2;
+    background-color: $background-color-level2;
     
     &.fixed {
         margin-top: 72px;
     }
 
     > .contents {
-        @include using-area;
+        @include browser-area;
         max-width: 100%;
-        flex-grow: 1;
 
         > article {
-            display: flex;
-            justify-content: center;
-            padding: 56px 12px;
-            background-color: white;
+            @include center-flex;
+            padding: $padding-level1 $padding-level4;
+            background-color: $background-color-level1;
 
             &:nth-child(odd) {
-                background-color: #F1F1F1;
+                background-color: $background-color-level2;
             }
 
-            .title {
-                display: flex;
-                justify-content: center;
-                font-size: 32px;
-                font-family: NIXGONFONTS-B;
+            > .bucket {
+                @include center-start-column-flex;
+                @include browser-area;
+                gap: $padding-level3;
+
+                > .title-container {
+                    @include space-between-end-flex;
+                    width: 100%;
+
+                    > .title {
+                        font-size: 32px;
+                        font-family: NIXGONFONTS-B;
+                    }
+                }
+                > .list-box {
+                    @include center-stretch-flex;
+                }
+                > .box {
+                    @include center-column-flex;
+                }
+                > .inline-box {
+                    @include center-column-inline-flex;
+                }
+                > .box, > .list-box, > .inline-box {
+                    width: 100%;
+                    gap: $padding-level3;
+                    &.fill {
+                        background-color: $background-color-level1;
+                        border: 1px solid $background-color-level3;
+                        border-radius: $border-radius;
+                        padding: 40px;
+                    }
+                }
+
+                .toggle-container {
+                    @include end-flex;
+                    width: 100%;
+                }
             }
         }
     }
 }
-
 .footer-container {
     @include center-flex;
-    width: 100%;
-    background-color: $bgColor3;
-    color: white;
+    background-color: $foreground-color-level2;
+    color: $background-color-level2;
 
-    .footer {
-        @include using-area;
-        @include space-flex;
-        flex-direction: column;
-        padding: 20px 12px;
+    > .footer {
+        @include browser-area;
+        @include space-between-column-flex;
+        padding: $padding-level3;
 
         div {
-            @include space-flex;
+            @include space-between-flex;
             width: 100%;
         }
     }
 }
 
+.icon-text {
+    @include center-flex;
+    gap: $padding-level4;
+}
+.skill-list {
+    @include start-flex;
+    gap: $padding-level4;
+    margin-top: $padding-level4;
+}
+.skill {
+    width: 36px;
+    height: 36px;
+}
+
+.login {
+    input[type=text], input[type=password], button {
+        width: 100%;
+    }
+}
+.title-container > .title {
+    font-size: 32px;
+    font-family: NIXGONFONTS-B;
+}
+
 .project-abridgement {
-    padding: 20px;
-    width: calc((100% - 40px) / 3);
-    background: white;
-    border-radius: 16px;
-    border: 1px solid #DADADA;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+    @include start-stretch-column-flex;
+    gap: $padding-level3;
+    padding: $padding-level2;
+    width: calc((100% - $padding-level3 * 2) / 3);
+    background-color: $background-color-level1;
+    border: 1px solid $background-color-level3;
+    border-radius: $border-radius;
     cursor: pointer;
+    
+    span {
+        overflow-wrap: anywhere;
+    }
+    .space-between-flex {
+        @include space-between-flex;
+    }
+    .center-flex {
+        @include center-flex;
+        gap: $padding-level4;
+    }
+    .recruitPeriod {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .state {
+        padding: 12px;
+        border-radius: 999em;
+        background-color: $background-color-level4;
+        color: $foreground-color-level1;
+        &.running {
+            background-color: $primary-color;
+            color: $background-color-level1;
+        }
+    }
+    .title {
+        font-family: 'NIXGONFONTS-B';
+        font-size: 2rem;
+    }
+    .contents {
+        display: -webkit-box;
+        -webkit-line-clamp: 5;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    .info-container {
+        @include end-flex;
+        gap: $padding-level3;
+
+        > .info {
+            @include center-flex;
+            gap: $padding-level4;
+        }
+    }
 }
 
 .user-abridgement {
@@ -181,7 +249,7 @@ body {
         top: 72px;
         box-shadow: 0 8px 8px #0002;
         left: 0;
-        border-radius: 0 0 12px 12px;
+        border-radius: 0 0 $border-radius $border-radius;
         list-style: none;
         padding: 32px;
         display: none;

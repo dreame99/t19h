@@ -15,6 +15,17 @@ abstract class Page {
     }
 }
 
+function createTitleContainer(title: string): HTMLElement {
+    var titleContainer = document.createElement("div");
+    titleContainer.classList.add("title-container");
+    var span = document.createElement("span");
+    span.classList.add("title");
+    span.innerHTML = title;
+    titleContainer.appendChild(span);
+
+    return titleContainer;
+}
+
 class MainPage extends Page {
     private async searchNewProjectList(): Promise<Project[]> {
         var newProjectList: Array<Project> = [];
@@ -73,7 +84,8 @@ class MainPage extends Page {
                     skills: ["bootstrap", "mongodb", "figma", "github", "git", "html5", "java", "spring", "javascript", "typescript", "kotlin", "nodejs", "react", "vuejs"].slice(0, i),
                     watchCount: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(64, i)),
                     goodCount: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(75, i)),
-                    mentionCount: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(86, i))
+                    mentionCount: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(86, i)),
+                    recruitState: i % 2 == 0
                 });
             }
         }
@@ -109,14 +121,16 @@ class MainPage extends Page {
     private async renderNewProjectList(): Promise<void> {
         var newProjectList: Project[] = await this.searchNewProjectList();
         if( newProjectList.length ) {
-            var article = createElement("article");
-            var div = createElement("div", "", "", "width: 100%; max-width: 1280px; display: inline-flex; flex-direction: column; align-items: flex-start;");
-            article.appendChild(div);
-            var span = createElement("span", "", "title");
-            span.innerHTML = "이달의 새로운 프로젝트";
-            div.appendChild(span);
-            var newProject = createElement("article", "newProject", "", "width: 100%; margin-top: 24px; display: flex; flex-wrap: wrap; gap: 20px;");
-            div.appendChild(newProject);
+            var article = document.createElement("article");
+            var bucket = document.createElement("div");
+            bucket.classList.add("bucket");
+            article.appendChild(bucket);
+
+            bucket.appendChild(createTitleContainer("이달의 새로운 프로젝트"));
+
+            var newProject = document.createElement("article");
+            newProject.classList.add("box");
+            bucket.appendChild(newProject);
         
             var carousel = new Carousel();
             newProject.appendChild(carousel.getElement());
@@ -131,12 +145,12 @@ class MainPage extends Page {
 
         if( popularProjectList.length > 0 ) {
             var article = createElement("article");
-            var div = createElement("div", "", "", "width: 100%; max-width: 1280px; display: inline-flex; flex-direction: column; align-items: flex-start;");
+            var div = createElement("div", "", "bucket");
             article.appendChild(div);
-            var span = createElement("span", "", "title");
-            span.innerHTML = "인기 프로젝트";
-            div.appendChild(span);
-            var popularProjectContainer = createElement("article", "popularProject", "", "margin-top: 24px; display: flex; flex-wrap: wrap; gap: 20px;");
+            
+            div.appendChild(createTitleContainer("인기 프로젝트"));
+
+            var popularProjectContainer = createElement("article", "popularProject", "list-box");
             div.appendChild(popularProjectContainer);
 
             popularProjectList.forEach(popularProject => popularProjectContainer.append((new ProjectAbridgement(popularProject)).getElement()));
@@ -149,12 +163,12 @@ class MainPage extends Page {
         var highestScoreMemberList: User[] = await this.searchHighestScoreMemberList();
         if( highestScoreMemberList.length > 0 ) {
             var article = createElement("article");
-            var div = createElement("div", "", "", "width: 100%; max-width: 1280px; display: inline-flex; flex-direction: column; align-items: flex-start;");
+            var div = createElement("div", "", "bucket");
             article.appendChild(div);
-            var span = createElement("span", "", "title");
-            span.innerHTML = "당신의 열정을 칭찬합니다.";
-            div.appendChild(span);
-            var highestScoreMember = createElement("article", "highestScoreMember", "", "width: 100%; margin-top: 24px; display: flex; flex-wrap: wrap; gap: 20px;");
+            
+            div.appendChild(createTitleContainer("당신의 열정을 칭찬합니다."));
+
+            var highestScoreMember = createElement("article", "highestScoreMember", "box");
             div.appendChild(highestScoreMember);
         
             var carousel = new Carousel();

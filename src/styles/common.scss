@@ -2,23 +2,29 @@
     box-sizing: border-box;
     padding: 0;
     margin: 0;
+    font-family: inherit;
 }
+
 ::-webkit-scrollbar {
 	width: 8px;
 	height: 8px;
-	background: #c1c1c1;
+	background-color: $foreground-color-level4;
 }
 ::-webkit-scrollbar-thumb {
 	border-radius: 999em;
-    background-color: #333;
+    background-color: $foreground-color-level2;
 }
+
 html {
-    font-family: NIXGONFONTS-L;
-    font-size: $rootFontSize;
+    font-family: $root-font-family;
+    font-size: $root-font-size;
 }
+
 body {
     overflow: overlay;
+    min-height: 100vh;
 }
+
 a {
     text-decoration: none;
     cursor: pointer;
@@ -26,11 +32,14 @@ a {
         color: inherit;
     }
 }
+
 button {
-    padding: 20px;
-    font-family: inherit;
+    @include base-box;
     cursor: pointer;
     border: none;
+    outline: none;
+    background-color: #5288F1;
+    color: white;
 }
 button.icon {
     width: $iconSize;
@@ -38,38 +47,234 @@ button.icon {
     background: none;
     padding: 0;
 }
-button:focus {
+
+input[type=text], input[type=password] {
+    @include base-box;
+    border: 1px solid black;
     outline: none;
-}
-input {
-    border: 1px solid $bgColor4;
-    font-family: inherit;
-}
-input:focus {
-    outline: none;
-}
-input[type="text"], input[type="password"] {
-    padding: 20px;
 }
 input[type="password"] {
     font-family: monospace;
-    &::-webkit-input-placeholder {
-        font-family: NIXGONFONTS-L;
-    }
-    &::-moz-input-placeholder {
-        font-family: NIXGONFONTS-L;
-    }
-    &::-ms-input-placeholder {
+    &::-webkit-input-placeholder, &::-moz-input-placeholder, &::-ms-input-placeholder {
         font-family: NIXGONFONTS-L;
     }
 }
 input[type="checkbox"] {
     cursor: pointer;
 }
+
 label {
     cursor: pointer;
 }
 
 ul {
     list-style: none;
+}
+
+textarea {
+    @include base-box;
+    resize: none;
+    outline: none;
+}
+
+.line {
+    width: 100%;
+    height: 1px;
+    background: #DCDCDC;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+svg {
+    width: 24px;
+    height: 24px;
+    &.x1 {
+        width: 8px;
+        height: 8px;
+    }
+    &.x2 {
+        width: 16px;
+        height: 16px;
+    }
+    &.x3 {
+        width: 24px;
+        height: 24px;
+    }
+    &.x4 {
+        width: 32px;
+        height: 32px;
+    }
+    &.x5 {
+        width: 40px;
+        height: 40px;
+    }
+    &.x6 {
+        width: 48px;
+        height: 48px;
+    }
+}
+
+
+
+.row-flex-layout {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 100%;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+}
+.row-end-center-flex-layout {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 100%;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: row;
+}
+.row-stretch-center-flex-layout {
+    display: flex !important;
+    gap: 20px !important;
+    flex-wrap: wrap !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    flex-direction: row !important;
+}
+.toggle-button {
+    width: 80px;
+    height: 40px;
+    position: relative;
+}
+.toggle-button > [type=checkbox] {
+    width: 100%;
+    height: 100%;
+    appearance: none;
+    border: none;
+    position: relative;
+    z-index: 2;
+}
+.toggle-button > .toggle-layer {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 999em;
+    background-color: #F1F1F1;
+    z-index: 1;
+    padding: 4px;
+}
+.toggle-button > .toggle-layer::after {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    top: 4px;
+    right: calc(100% - 36px);
+    border-radius: 999em;
+    background-color: #5288F1;
+}
+.toggle-button > [type=checkbox]:checked + .toggle-layer::after {
+    right: 4px;
+}
+button.icon-button {
+    width: auto;
+    height: auto;
+    border-radius: 999em;
+}
+button.line-button {
+    background-color: transparent;
+    color: inherit;
+    border: 1px solid #5288F1;
+}
+button.transparent-button {
+    background-color: transparent;
+    color: inherit;
+    border: none;
+}
+svg.icon.x1, svg.bright-icon.x1 {
+    width: 12px;
+    height: 12px;
+}
+svg.icon.x2, svg.bright-icon.x2 {
+    width: 24px;
+    height: 24px;
+}
+svg.icon.x3, svg.bright-icon.x3 {
+    width: 36px;
+    height: 36px;
+}
+svg.icon.x4, svg.bright-icon.x4 {
+    width: 48px;
+    height: 48px;
+}
+svg.icon, svg.bright-icon {
+    width: 24px;
+    height: 24px;
+    stroke-width: 1px;
+}
+svg.icon > path {
+    fill: none;
+    stroke: #5288F1;
+}
+svg.bright-icon > path {
+    fill: none;
+    stroke: #FFF;
+}
+path.left-icon {
+    d: path("M15 6 L9 12 L15 18");
+}
+path.top-icon {
+    d: path("M6 15 L12 9 L18 15");
+}
+path.bottom-icon {
+    d: path("M6 9 L12 15 L18 9");
+}
+path.right-icon {
+    d: path("M9 6 L15 12 L9 18");
+}
+path.close-icon {
+    d: path("M6 6 L18 18Z M18 6 L6 18Z");
+}
+path.menu-icon {
+    d: path("M4 6 L20 6Z M4 12 L20 12Z M4 18 L20 18Z");
+}
+path.search-icon {
+    d: path("M14.9497 14.9497 A7 7 0 0 0 10 3 A7 7 0 0 0 10 17 A7 7 0 0 0 14.9497 14.9497Z M21 21 L14.9497 14.9497Z");
+}
+path.add-icon {
+    d: path("M12 6 L12 18Z M6 12 L18 12Z");
+}
+path.remove-icon {
+    d: path("M6 12 L18 12Z");
+}
+path.calendar-icon {
+    d: path("M4 6 C4 6, 4 4, 6 4 L18 4 C18 4, 20 4, 20 6 L20 18 C20 18, 20 20, 18 20 L6 20 C6 20, 4 20, 4 18Z M4 11 L20 11Z M9 1 L9 7Z M15 1 L15 7Z");
+}
+path.rect-icon {
+    d: path("M4 6 C4 6, 4 4, 6 4 L18 4 C18 4, 20 4, 20 6 L20 18 C20 18, 20 20, 18 20 L6 20 C6 20, 4 20, 4 18Z");
+}
+path.circle-icon {
+    d: path("M3 12 C3 12, 3 3, 12 3 C12 3, 21 3, 21 12 C21 12, 21 21, 12 21 C12 21, 3 21, 3 12Z");
+}
+path.bell-icon {
+    d: path("M4 20 L4 12 C4 12, 4 4, 12 4 C12 4, 20 4, 20 12 L20 20Z M9 20 C9 20, 9 23, 12 23 C12 23, 15 23, 15 20Z");
+}
+path.human-icon {
+    d: path("M8 8 C8 8, 8 4, 12 4 C12 4, 16 4, 16 8 C16 8, 16 12, 12 12 C12 12, 8 12, 8 8Z M4 22 C4 22, 4 14, 12 14 C12 14, 20 14, 20 22Z");
+}
+path.in-icon {
+    d: path("M2 12 L12 12Z M6 6 L12 12 L6 18 M10 4 L18 4 C18 4, 20 4, 20 6 L20 18 C20 18, 20 20, 18 20 L10 20");
+}
+path.out-icon {
+    d: path("M12 12 L22 12Z M16 6 L22 12 L16 18 M14 20 L6 20 C6 20, 4 20, 4 18 L4 6 C4 6, 4 4, 6 4 L14 4");
 }

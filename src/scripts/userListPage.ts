@@ -34,7 +34,7 @@ class UserListPage extends Page {
             var div = createElement("div", "", "", "width: 100%; max-width: 1280px; display: inline-flex; flex-direction: column; align-items: flex-start;");
             article.appendChild(div);
 
-            var titleContainer = createElement("div", "", "", "width: 100%; display: flex; align-items: flex-end; justify-content: space-between;");
+            var titleContainer = createElement("div", "", "title-container", "width: 100%; display: flex; align-items: flex-end; justify-content: space-between;");
 
             var span = createElement("span", "", "title");
             span.innerHTML = "사용자 목록";

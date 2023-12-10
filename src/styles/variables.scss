@@ -1,12 +1,180 @@
-$bgColor1: white;
-$bgColor2: #F1F1F1;
-$bgColor3: #2C2C2C;
-$bgColor4: #DADADA;
-$primaryColor: #5288F1;
+/**
+ * variables
+ */
+$primary-color: #5288F1;
 
-$iconSize: 24px;
-$rootFontSize: 14px;
+$background-color-level1: #FFF;
+$background-color-level2: #F1F1F1;
+$background-color-level3: #DADADA;
+$background-color-level4: #B9B9B9;
 
+$foreground-color-level1: #000000;
+$foreground-color-level2: #2C2C2C;
+$foreground-color-level3: #4E4E4E;
+$foreground-color-level4: #797979;
+
+$padding-level1: 56px;
+$padding-level2: 32px;
+$padding-level3: 20px;
+$padding-level4: 12px;
+
+$root-font-size: 14px;
+$root-font-family: "NIXGONFONTS-L";
+
+$border-radius: 16px;
+
+/**
+ * mixins
+ */
+@mixin center-column-flex {
+    @include center-flex;
+    flex-direction: column;
+}
+@mixin center-column-inline-flex {
+    @include center-inline-flex;
+    flex-direction: column;
+}
+@mixin center-flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+@mixin center-inline-flex {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+@mixin space-between-column-flex {
+    @include space-between-flex;
+    flex-direction: column;
+}
+@mixin space-between-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+@mixin space-between-inline-flex {
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+@mixin center-start-column-flex {
+    @include center-start-flex;
+    flex-direction: column;
+}
+@mixin center-start-flex {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+@mixin center-start-inline-flex {
+    display: inline-flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+@mixin space-between-start-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+@mixin space-between-start-inline-flex {
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+@mixin center-end-flex {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+@mixin center-end-inline-flex {
+    display: inline-flex;
+    justify-content: center;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+@mixin center-stretch-column-flex {
+    @include center-stretch-flex;
+    flex-direction: column;
+}
+@mixin center-stretch-flex {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+@mixin space-between-end-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+@mixin space-between-end-inline-flex {
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+@mixin start-stretch-column-flex {
+    @include start-stretch-flex;
+    flex-direction: column;
+}
+@mixin start-stretch-flex {
+    display: flex;
+    justify-content: flex-start;
+    align-items: stretch;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+@mixin start-flex {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+@mixin end-flex {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+@mixin base-box {
+    padding: 20px;
+    width: 240px;
+    max-width: 100%;
+}
+@mixin browser-area {
+    width: 100%;
+    max-width: 1280px;
+}
+
+/**
+ * font faces
+ */
 @font-face {
     font-family: "NIXGONFONTS-B";
     src: url("../assets/fonts/NIXGONFONTS B 2.0.otf") format("opentype");
@@ -23,3 +191,16 @@ $rootFontSize: 14px;
     font-family: "BMJUA";
     src: url("../assets/fonts/BMJUA_otf.otf") format("opentype");
 }
+
+
+
+
+
+$bgColor1: white;
+$bgColor2: #F1F1F1;
+$bgColor3: #2C2C2C;
+$bgColor4: #DADADA;
+$primaryColor: #5288F1;
+
+$iconSize: 24px;
+$rootFontSize: 14px;
