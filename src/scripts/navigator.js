@@ -38,7 +38,7 @@ var _this = this;
 var PAGES = ["main", "login", "join", "profile", "create-project", "project-list", "project-room", "member-list"];
 var AUTH_PAGE = { main: MainPage, login: MainPage, join: MainPage, profile: MainPage, "create-project": CreateProjectPage, "project-list": ProjectListPage, "project-room": MainPage, "member-list": UserListPage };
 var UNAUTH_PAGE = { main: MainPage, login: LoginPage, join: JoinPage, profile: ProfilePage, "create-project": CreateProjectPage, "project-list": ProjectListPage, "project-room": MainPage, "member-list": UserListPage };
-var SERVER_INFO = "RUN";
+var SERVER_INFO = "DEV";
 function navigateToMainPage() {
     console.log("navigateToMainPage");
     navigate("main");
