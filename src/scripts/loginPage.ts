@@ -51,7 +51,7 @@ class LoginPage extends Page {
                     this.openErrorMessage("아이디 또는 비밀번호가 입력되지 않았습니다.");
                 } else {
                     const API_URL = "https://port-0-team-api-57lz2alpl3myze.sel4.cloudtype.app" as string;
-                    const LOGIN_URI = "/user/login";
+                    const LOGIN_URI = "/users/login";
                     fetch(API_URL + LOGIN_URI, {
                         headers: {
                             'Accept': 'application/json, text/plain',
