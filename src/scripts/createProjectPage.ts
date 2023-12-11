@@ -29,51 +29,74 @@ class CreateProjectPage extends Page {
             this.contents.innerHTML = "";
 
             var article = document.createElement("article");
-            var div = createElement("div", "", "bucket");
-            article.appendChild(div);
+            article.classList.add("container-layout");
+            article.classList.add("column-start-flex-layout");
+            article.classList.add("limited-width");
+            
+            var titleContainer = document.createElement("div");
+            titleContainer.classList.add("title-container");
+            titleContainer.classList.add("column-start-flex-layout");
+            article.appendChild(titleContainer);
 
-            var titleContainer = createElement("div", "", "title-container");
-            var span = createElement("span", "", "title");
-            span.innerHTML = "프로젝트 만들기";
-            titleContainer.appendChild(span);
-            div.appendChild(titleContainer);
+            var title = document.createElement("span");
+            title.classList.add("title");
+            title.innerHTML = "프로젝트 만들기";
+            titleContainer.appendChild(title);
+            
 
-            var box = createElement("div", "", "box");
-            div.appendChild(box);
+            var box = document.createElement("div");
+            box.classList.add("box-layout");
+            box.classList.add("column-flex-layout");
+            article.appendChild(box);
+
             box.innerHTML = `
-                <div style="display: flex; align-items: flex-start; justify-content: space-between; width: 100%;">
-                    <div style="display: flex; flex-direction: column; gap: 28px;">
-                        <div style="display: flex; flex-direction: column; gap: 12px;">
-                            <span>프로젝트명</span>
+                <div class="row-stretch-center-flex-layout">
+                    <div class="column-start-inline-flex-layout">
+                        <div class="column-input-container">
+                            <span class="bold-text">프로젝트명</span>
                             <input type="text" placeholder="프로젝트명"/>
                         </div>
-                        <div style="display: flex; flex-direction: column; gap: 12px;">
-                            <span>프로젝트 인원</span>
-                            <input type="text" placeholder="프로젝트 인원"/>
+                        <div class="column-input-container">
+                            <span class="bold-text">프로젝트 인원</span>
+                            <input type="text" placeholder="프로젝트 인원" onblur="this.value = this.value.replace(/[^0-9]/g, '')" onkeyup="this.value = this.value.replace(/[^0-9]/g, '')">
                         </div>
                     </div>
-                    <div style="display: flex; flex-direction: column; gap: 28px;">
-                        <div style="display: flex; flex-direction: column; gap: 12px;">
-                            <span>프로젝트 기간</span>
+
+                    <div class="column-start-inline-flex-layout">
+                        <div class="column-input-container">
+                            <span class="bold-text">프로젝트 기간</span>
                             <div>
-                                <input type="text" placeholder="시작일자"/>
-                                <input type="text" placeholder="종료일자"/>
+                                <div class="row-input-container bordered">
+                                    <input type="text" class="noborder" placeholder="시작일자" onblur="this.value = this.value.replace(/[^0-9]/g, '')" onkeyup="this.value = this.value.replace(/[^0-9]/g, '')">
+                                    <button class="icon-button transparent-button" title="logout"> <svg class="icon" viewBox="0 0 24 24"> <path class="calendar-icon"/> </svg> </button>
+                                </div>
+                                <div class="row-input-container bordered">
+                                    <input type="text" class="noborder" placeholder="종료일자" onblur="this.value = this.value.replace(/[^0-9]/g, '')" onkeyup="this.value = this.value.replace(/[^0-9]/g, '')">
+                                    <button class="icon-button transparent-button" title="logout"> <svg class="icon" viewBox="0 0 24 24"> <path class="calendar-icon"/> </svg> </button>
+                                </div>
                             </div>
                         </div>
-                        <div style="display: flex; flex-direction: column; gap: 12px;">
-                            <span>모집 기간</span>
+                        <div class="column-input-container">
+                            <span class="bold-text">모집 기간</span>
                             <div>
-                                <input type="text" placeholder="시작일자"/>
-                                <input type="text" placeholder="종료일자"/>
+                            <div class="row-input-container bordered">
+                                <input type="text" class="noborder" placeholder="시작일자" onblur="this.value = this.value.replace(/[^0-9]/g, '')" onkeyup="this.value = this.value.replace(/[^0-9]/g, '')">
+                                <button class="icon-button transparent-button" title="logout"> <svg class="icon" viewBox="0 0 24 24"> <path class="calendar-icon"/> </svg> </button>
+                            </div>
+                            <div class="row-input-container bordered">
+                                <input type="text" class="noborder" placeholder="종료일자" onblur="this.value = this.value.replace(/[^0-9]/g, '')" onkeyup="this.value = this.value.replace(/[^0-9]/g, '')">
+                                <button class="icon-button transparent-button" title="logout"> <svg class="icon" viewBox="0 0 24 24"> <path class="calendar-icon"/> </svg> </button>
+                            </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div style="width: 100%;">
-                    <div style="display: flex; flex-direction: column; gap: 12px;">
-                        <span>사용 기술</span>
-                        <div style="width: 400px; height: 56px; background-color: #F1F1F1;">
+                <div class="row-flex-layout">
+                    <div class="column-input-container">
+                        <span class="bold-text">사용 기술</span>
+                        <div class="column-center-start-flex-layout">
+                            <button class="icon-button transparent-button" title="add skill"> <svg class="icon" viewBox="0 0 24 24"> <path class="add-icon"/> </svg> </button>
                         </div>
                     </div>
                 </div>

@@ -83,6 +83,7 @@ input[type=text], input[type=password] {
   max-width: 100%;
   border: 1px solid black;
   outline: none;
+  height: 69px;
 }
 
 input[type=password] {
@@ -151,6 +152,26 @@ svg.x6 {
   height: 48px;
 }
 
+.row-input-container {
+  display: inline-flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-width: 100%;
+}
+
+.column-input-container {
+  display: inline-flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-width: 100%;
+}
+
 .row-flex-layout {
   display: flex;
   gap: 20px;
@@ -182,6 +203,62 @@ svg.x6 {
   justify-content: space-between !important;
   align-items: center !important;
   flex-direction: row !important;
+}
+
+.column-start-flex-layout {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 100%;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.column-start-inline-flex-layout {
+  display: inline-flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  width: auto;
+  max-width: 100%;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.column-flex-layout {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+}
+
+.column-center-start-flex-layout {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 100%;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.container-layout {
+  padding: 56px;
+  max-width: 100%;
+}
+
+.box-layout {
+  padding: 36px;
+  background-color: #FFF;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1333333333);
+  max-width: 100%;
 }
 
 .toggle-button {
@@ -227,6 +304,23 @@ svg.x6 {
 
 .toggle-button > [type=checkbox]:checked + .toggle-layer::after {
   right: 4px;
+}
+
+.limited-width {
+  padding-left: max(20px, (100% - 1280px) / 2) !important;
+  padding-right: max(20px, (100% - 1280px) / 2) !important;
+}
+
+.noborder {
+  border: none !important;
+}
+
+.bordered {
+  border: 1px solid #555 !important;
+}
+
+.bold-text {
+  font-weight: bold;
 }
 
 button.icon-button {
