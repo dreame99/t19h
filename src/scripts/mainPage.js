@@ -81,7 +81,7 @@ var MainPage = /** @class */ (function (_super) {
                     case 0:
                         newProjectList = [];
                         if (!(SERVER_INFO == "RUN")) return [3 /*break*/, 2];
-                        return [4 /*yield*/, fetch(API_URL + "/projects", {
+                        return [4 /*yield*/, fetch(API_URL + "projects", {
                                 method: "POST",
                                 body: JSON.stringify({ type: "최신순", searchStartDate: "20231201", searchEndDate: "20231231", count: 10 })
                             })
@@ -122,7 +122,7 @@ var MainPage = /** @class */ (function (_super) {
                     case 0:
                         popularProjectList = [];
                         if (!(SERVER_INFO == "RUN")) return [3 /*break*/, 2];
-                        return [4 /*yield*/, fetch(API_URL + "/projects", {
+                        return [4 /*yield*/, fetch(API_URL + "projects", {
                                 method: "POST",
                                 body: JSON.stringify({ type: "인기많은순", count: 9 })
                             })
@@ -164,7 +164,7 @@ var MainPage = /** @class */ (function (_super) {
                     case 0:
                         highestScoreMemberList = [];
                         if (!(SERVER_INFO == "RUN")) return [3 /*break*/, 2];
-                        return [4 /*yield*/, fetch(API_URL + "/projects", {
+                        return [4 /*yield*/, fetch(API_URL + "projects", {
                                 method: "POST",
                                 body: JSON.stringify({ type: "인기많은순" })
                             })

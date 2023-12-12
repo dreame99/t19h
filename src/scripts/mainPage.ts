@@ -31,7 +31,7 @@ class MainPage extends Page {
         var newProjectList: Array<Project> = [];
 
         if( SERVER_INFO == "RUN" ) {
-            await fetch(API_URL + "/projects", {
+            await fetch(API_URL + "projects", {
                 method: "POST",
                 body: JSON.stringify({type: "최신순", searchStartDate : "20231201", searchEndDate : "20231231", count: 10})
             })
@@ -63,7 +63,7 @@ class MainPage extends Page {
         var popularProjectList: Array<Project> = [];
 
         if( SERVER_INFO == "RUN" ) {
-            await fetch(API_URL + "/projects", {
+            await fetch(API_URL + "projects", {
                 method: "POST",
                 body: JSON.stringify({type: "인기많은순", count: 9})
             })
@@ -96,7 +96,7 @@ class MainPage extends Page {
     private async searchHighestScoreMemberList(): Promise<User[]> {
         var highestScoreMemberList: Array<User> = [];
         if( SERVER_INFO == "RUN" ) {
-            await fetch(API_URL + "/projects", {
+            await fetch(API_URL + "projects", {
                 method: "POST",
                 body: JSON.stringify({type: "인기많은순"})
             })

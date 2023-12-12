@@ -1,7 +1,7 @@
 class LoginManager {
-    public static LOGIN_URI: string = "/users/login";
-    public static LOGOUT_URI: string = "/users/logout";
-    public static AUTH_URI: string = "/users/auth";
+    public static LOGIN_URI: string = "users/login";
+    public static LOGOUT_URI: string = "users/logout";
+    public static AUTH_URI: string = "users/auth";
     
     public static async login(data?: Object): Promise<number> {
         var resultCode = 0;
