@@ -177,7 +177,7 @@ class CreateProjectPage extends Page {
                 alert("제목 입력해");
             }
 
-            postFetch("projects", {title, skills: []}).then(result => {
+            postFetch("projects", {title, personnel: 3, skills: []}).then(result => {
                 console.log(result);
             });
         });

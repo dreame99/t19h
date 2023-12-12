@@ -131,7 +131,7 @@ var CreateProjectPage = /** @class */ (function (_super) {
             if (!title || !title.value) {
                 alert("제목 입력해");
             }
-            postFetch("projects", { title: title, skills: [] }).then(function (result) {
+            postFetch("projects", { title: title, personnel: 3, skills: [] }).then(function (result) {
                 console.log(result);
             });
         });
