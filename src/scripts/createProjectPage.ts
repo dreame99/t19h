@@ -22,7 +22,10 @@ const API_URL = "https://port-0-team-api-57lz2alpl3myze.sel4.cloudtype.app/";
 function postFetch(uri: string, data?: object): Promise<FetchResult> {
     console.log("post fetch to " + API_URL + uri);
     return fetch(API_URL + uri, {
-        headers: {"Content-Type": "application/json"},
+        headers: {
+            'Accept': 'application/json, text/plain',
+            'Content-Type': 'application/json;charset=UTF-8'
+        },
         method: "POST",
         credentials: "include",
         body: JSON.stringify(data),
@@ -37,7 +40,10 @@ function getFetch(uri: string, data?: string): Promise<FetchResult> {
         cond = "?" + data;
     }
     return fetch(API_URL + uri + cond, {
-        headers: {"Content-Type": "application/json"},
+        headers: {
+            'Accept': 'application/json, text/plain',
+            'Content-Type': 'application/json;charset=UTF-8'
+        },
         method: "GET",
         credentials: "include",
     })

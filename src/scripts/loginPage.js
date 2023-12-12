@@ -57,8 +57,7 @@ var LoginPage = /** @class */ (function (_super) {
                     _this.openErrorMessage("아이디 또는 비밀번호가 입력되지 않았습니다.");
                 }
                 else {
-                    var API_URL = "https://port-0-team-api-57lz2alpl3myze.sel4.cloudtype.app";
-                    var LOGIN_URI = "/users/login";
+                    var LOGIN_URI = "users/login";
                     fetch(API_URL + LOGIN_URI, {
                         headers: {
                             'Accept': 'application/json, text/plain',
