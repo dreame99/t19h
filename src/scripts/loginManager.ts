@@ -1,5 +1,3 @@
-const API_URL = "https://port-0-team-api-57lz2alpl3myze.sel4.cloudtype.app" as string;
-
 class LoginManager {
     public static LOGIN_URI: string = "/users/login";
     public static LOGOUT_URI: string = "/users/logout";

@@ -37,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 var PAGES = ["main", "login", "join", "profile", "create-project", "project-list", "project-room", "member-list"];
 var AUTH_PAGE = { main: MainPage, login: MainPage, join: MainPage, profile: ProfilePage, "create-project": CreateProjectPage, "project-list": ProjectListPage, "project-room": MainPage, "member-list": UserListPage };
-var UNAUTH_PAGE = { main: MainPage, login: LoginPage, join: JoinPage, profile: LoginPage, "create-project": LoginPage, "project-list": ProjectListPage, "project-room": MainPage, "member-list": UserListPage };
+var UNAUTH_PAGE = { main: MainPage, login: LoginPage, join: JoinPage, profile: LoginPage, "create-project": CreateProjectPage, "project-list": ProjectListPage, "project-room": MainPage, "member-list": UserListPage };
 var SERVER_INFO = "RUN";
 function navigateToMainPage() {
     console.log("navigateToMainPage");

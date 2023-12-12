@@ -49,75 +49,116 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+function createElemWithClass(tag, className, parentElem) {
+    var elem = document.createElement(tag);
+    if (className) {
+        className.split(" ").forEach(function (v) {
+            elem.classList.add(v);
+        });
+    }
+    if (parentElem) {
+        parentElem.appendChild(elem);
+    }
+    return elem;
+}
+var API_URL = "https://port-0-team-api-57lz2alpl3myze.sel4.cloudtype.app/";
+function postFetch(uri, data) {
+    console.log("post fetch to " + API_URL + uri);
+    return fetch(API_URL + uri, {
+        headers: { "Content-Type": "application/json" },
+        method: "POST",
+        credentials: "include",
+        body: JSON.stringify(data),
+    })
+        .then(function (response) { return response.json(); });
+}
+function getFetch(uri, data) {
+    console.log("get fetch to " + API_URL + uri);
+    var cond = "";
+    if (data && data.length) {
+        cond = "?" + data;
+    }
+    return fetch(API_URL + uri + cond, {
+        headers: { "Content-Type": "application/json" },
+        method: "GET",
+        credentials: "include",
+    })
+        .then(function (response) { return response.json(); });
+}
 var CreateProjectPage = /** @class */ (function (_super) {
     __extends(CreateProjectPage, _super);
     function CreateProjectPage() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    CreateProjectPage.prototype.searchUserList = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var userList, i;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        userList = [];
-                        if (!(SERVER_INFO == "RUN")) return [3 /*break*/, 2];
-                        return [4 /*yield*/, fetch(API_URL + "/users", {
-                                method: "POST",
-                                body: JSON.stringify({ type: "최신가입순", count: 1, page: 1 })
-                            })
-                                .then(function (response) { return response.json(); })
-                                .then(function (result) {
-                                userList = result;
-                            })
-                                .catch(function (e) { return console.log(e); })];
-                    case 1:
-                        _a.sent();
-                        return [3 /*break*/, 3];
-                    case 2:
-                        for (i = 0; i < 10; i++) {
-                            userList.push({
-                                name: "내가세상가장매콤한사나이",
-                                imagePath: "./src/assets/images/avatar" + (((Math.random() * 10) | 0) + 1) + ".png",
-                                point: Math.pow(10, 10 - i)
-                            });
-                        }
-                        _a.label = 3;
-                    case 3: return [2 /*return*/, userList];
-                }
+    CreateProjectPage.prototype.updateSearchList = function (skillList) {
+        var searchList = document.querySelector("#searchList");
+        if (searchList) {
+            searchList.innerHTML = "";
+            skillList.forEach(function (skill) {
+                var li = document.createElement("li");
+                li.innerText = skill.name;
+                searchList === null || searchList === void 0 ? void 0 : searchList.appendChild(li);
             });
-        });
+        }
     };
     CreateProjectPage.prototype.render = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var article, titleContainer, title, box;
             return __generator(this, function (_a) {
                 if (this.contents) {
-                    this.contents.innerHTML = "";
-                    article = document.createElement("article");
-                    article.classList.add("container-layout");
-                    article.classList.add("column-start-flex-layout");
-                    article.classList.add("limited-width");
-                    titleContainer = document.createElement("div");
-                    titleContainer.classList.add("title-container");
-                    titleContainer.classList.add("column-start-flex-layout");
-                    article.appendChild(titleContainer);
-                    title = document.createElement("span");
-                    title.classList.add("title");
-                    title.innerHTML = "프로젝트 만들기";
-                    titleContainer.appendChild(title);
-                    box = document.createElement("div");
-                    box.classList.add("box-layout");
-                    box.classList.add("column-flex-layout");
-                    article.appendChild(box);
-                    box.innerHTML = "\n                <div class=\"row-stretch-center-flex-layout\">\n                    <div class=\"column-start-inline-flex-layout\">\n                        <div class=\"column-input-container\">\n                            <span class=\"bold-text\">\uD504\uB85C\uC81D\uD2B8\uBA85</span>\n                            <input type=\"text\" placeholder=\"\uD504\uB85C\uC81D\uD2B8\uBA85\"/>\n                        </div>\n                        <div class=\"column-input-container\">\n                            <span class=\"bold-text\">\uD504\uB85C\uC81D\uD2B8 \uC778\uC6D0</span>\n                            <input type=\"text\" placeholder=\"\uD504\uB85C\uC81D\uD2B8 \uC778\uC6D0\" onblur=\"this.value = this.value.replace(/[^0-9]/g, '')\" onkeyup=\"this.value = this.value.replace(/[^0-9]/g, '')\">\n                        </div>\n                    </div>\n\n                    <div class=\"column-start-inline-flex-layout\">\n                        <div class=\"column-input-container\">\n                            <span class=\"bold-text\">\uD504\uB85C\uC81D\uD2B8 \uAE30\uAC04</span>\n                            <div>\n                                <div class=\"row-input-container bordered\">\n                                    <input type=\"text\" class=\"noborder\" placeholder=\"\uC2DC\uC791\uC77C\uC790\" onblur=\"this.value = this.value.replace(/[^0-9]/g, '')\" onkeyup=\"this.value = this.value.replace(/[^0-9]/g, '')\">\n                                    <button class=\"icon-button transparent-button\" title=\"logout\"> <svg class=\"icon\" viewBox=\"0 0 24 24\"> <path class=\"calendar-icon\"/> </svg> </button>\n                                </div>\n                                <div class=\"row-input-container bordered\">\n                                    <input type=\"text\" class=\"noborder\" placeholder=\"\uC885\uB8CC\uC77C\uC790\" onblur=\"this.value = this.value.replace(/[^0-9]/g, '')\" onkeyup=\"this.value = this.value.replace(/[^0-9]/g, '')\">\n                                    <button class=\"icon-button transparent-button\" title=\"logout\"> <svg class=\"icon\" viewBox=\"0 0 24 24\"> <path class=\"calendar-icon\"/> </svg> </button>\n                                </div>\n                            </div>\n                        </div>\n                        <div class=\"column-input-container\">\n                            <span class=\"bold-text\">\uBAA8\uC9D1 \uAE30\uAC04</span>\n                            <div>\n                            <div class=\"row-input-container bordered\">\n                                <input type=\"text\" class=\"noborder\" placeholder=\"\uC2DC\uC791\uC77C\uC790\" onblur=\"this.value = this.value.replace(/[^0-9]/g, '')\" onkeyup=\"this.value = this.value.replace(/[^0-9]/g, '')\">\n                                <button class=\"icon-button transparent-button\" title=\"logout\"> <svg class=\"icon\" viewBox=\"0 0 24 24\"> <path class=\"calendar-icon\"/> </svg> </button>\n                            </div>\n                            <div class=\"row-input-container bordered\">\n                                <input type=\"text\" class=\"noborder\" placeholder=\"\uC885\uB8CC\uC77C\uC790\" onblur=\"this.value = this.value.replace(/[^0-9]/g, '')\" onkeyup=\"this.value = this.value.replace(/[^0-9]/g, '')\">\n                                <button class=\"icon-button transparent-button\" title=\"logout\"> <svg class=\"icon\" viewBox=\"0 0 24 24\"> <path class=\"calendar-icon\"/> </svg> </button>\n                            </div>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n\n                <div class=\"row-flex-layout\">\n                    <div class=\"column-input-container\">\n                        <span class=\"bold-text\">\uC0AC\uC6A9 \uAE30\uC220</span>\n                        <div class=\"column-center-start-flex-layout\">\n                            <button class=\"icon-button transparent-button\" title=\"add skill\"> <svg class=\"icon\" viewBox=\"0 0 24 24\"> <path class=\"add-icon\"/> </svg> </button>\n                        </div>\n                    </div>\n                </div>\n\n                <textarea placeholder=\"\uB0B4\uC6A9\uC744 \uC785\uB825\uD558\uC138\uC694.\" style=\"width: 100%; height: 400px; background-color: #F1F1F1; border: 1px solid #DCDCDC;\"></textarea>\n\n                <button>\uC0DD\uC131\uD558\uAE30</button>\n            ";
-                    this.contents.appendChild(article);
+                    this.contents.innerHTML = "\n                <section class=\"container-layout limited-width padding-level-12 column-top-stretch-flex-layout gap-level-10\">\n                    <h1 class=\"title-text bold-text\">\uD504\uB85C\uC81D\uD2B8 \uC0DD\uC131</h1>\n                    <article class=\"box-layout padding-level-10 column-top-stretch-flex-layout gap-level-8\">\n                        <div class=\"row-top-left-flex-layout item-2-layout\">\n                            <div class=\"column-top-left-flex-layout gap-level-4\">\n                                <span class=\"bold-text\">\uD504\uB85C\uC81D\uD2B8\uBA85</span>\n                                <input type=\"text\" id=\"title\" class=\"padding-level-5\">\n                            </div>\n            \n                            <div class=\"column-top-left-flex-layout gap-level-4\">\n                                <span class=\"bold-text\">\uD504\uB85C\uC81D\uD2B8 \uAE30\uAC04</span>\n                                <div class=\"row-top-left-flex-layout gap-level-2\">\n                                    <input type=\"date\" id=\"projectStartDate\" class=\"padding-level-5\">\n                                    <input type=\"date\" id=\"projectEndDate\" class=\"padding-level-5\">\n                                </div>\n                            </div>\n                        </div>\n        \n                        <div class=\"row-top-left-flex-layout item-2-layout\">\n                            <div class=\"column-top-left-flex-layout gap-level-4\">\n                                <span class=\"bold-text\">\uBAA8\uC9D1 \uC778\uC6D0</span>\n                                <input type=\"text\" id=\"personnel\" class=\"padding-level-5\" onblur=\"this.value = this.value.replace(/[^0-9]/g, '')\" onkeyup=\"this.value = this.value.replace(/[^0-9]/g, '')\">\n                            </div>\n            \n                            <div class=\"column-top-left-flex-layout gap-level-4\">\n                                <span class=\"bold-text\">\uBAA8\uC9D1 \uAE30\uAC04</span>\n                                <div class=\"row-top-left-flex-layout gap-level-2\">\n                                    <input type=\"date\" id=\"recruitStartDate\" class=\"padding-level-5\">\n                                    <input type=\"date\" id=\"recruitEndDate\" class=\"padding-level-5\">\n                                </div>\n                            </div>\n                        </div>\n        \n                        <div class=\"row-top-stretch-flex-layout item-1-layout\">\n                            <div class=\"column-top-left-flex-layout gap-level-4 item-1-layout\">\n                                <span class=\"bold-text\">\uAE30\uC220 \uC2A4\uD0DD</span>\n                                <div class=\"row-middle-left-flex-layout wrap gap-level-2\">\n                                    <div class=\"row-middle-left-flex-layout wrap gap-level-2\">\n                                        <img src=\"./src/assets/images/skills/aftereffects-original.png\" style=\"width: 48px; height: 48px;\">\n                                        <img src=\"./src/assets/images/skills/aftereffects-original.png\" style=\"width: 48px; height: 48px;\">\n                                        <img src=\"./src/assets/images/skills/aftereffects-original.png\" style=\"width: 48px; height: 48px;\">\n                                        <img src=\"./src/assets/images/skills/aftereffects-original.png\" style=\"width: 48px; height: 48px;\">\n                                        <img src=\"./src/assets/images/skills/aftereffects-original.png\" style=\"width: 48px; height: 48px;\">\n                                    </div>\n                                    <button id=\"addSkillButton\" class=\"icon-button transparent-button\" title=\"add skill\"> <svg class=\"icon\" viewBox=\"0 0 24 24\"> <path class=\"add-icon\"/> </svg> </button>\n                                </div>\n                            </div>\n                        </div>\n        \n                        <div class=\"item-1-layout\">\n                            <textarea id=\"projectContents\" style=\"height: 400px;\"></textarea>\n                        </div>\n        \n                        <div class=\"row-top-center-flex-layout\">\n                            <button id=\"projectCreateButton\" class=\"padding-level-5\">\uC0DD\uC131\uD558\uAE30</button>\n                        </div>\n                    </article>\n                </section>\n\n                <section id=\"screenCover\" class=\"screen-cover\">\n                </section>\n        \n                <section id=\"layerPopup\" class=\"center-pos box-layout padding-level-10 column-top-center-flex-layout gap-level-8 item-1-layout\" style=\"display: none; z-index: 100;\">\n                    <span class=\"title-text row-top-center-flex-layout\">\uC2A4\uD0AC \uC870\uD68C</span>\n                    <div class=\"column-top-left-flex-layout gap-level-5\">\n                        <span class=\"bold-text\">\uB4F1\uB85D\uB41C \uAE30\uC220</span>\n                        <div class=\"row-middle-left-flex-layout wrap gap-level-2\">\n                            <img src=\"./src/assets/images/skills/aftereffects-original.png\" style=\"width: 48px; height: 48px;\">\n                            <img src=\"./src/assets/images/skills/aftereffects-original.png\" style=\"width: 48px; height: 48px;\">\n                            <img src=\"./src/assets/images/skills/aftereffects-original.png\" style=\"width: 48px; height: 48px;\">\n                            <img src=\"./src/assets/images/skills/aftereffects-original.png\" style=\"width: 48px; height: 48px;\">\n                            <img src=\"./src/assets/images/skills/aftereffects-original.png\" style=\"width: 48px; height: 48px;\">\n                        </div>\n                    </div>\n                    <div class=\"column-top-left-flex-layout gap-level-5 item-1-layout\">\n                        <span class=\"bold-text\">\uAC80\uC0C9</span>\n                        <div class=\"column-top-stretch-flex-layout\">\n                            <div class=\"row-middle-stretch-flex-layout bordered\">\n                                <input type=\"text\" id=\"searchInput\" class=\"noborder padding-level-5\" placeholder=\"\uAC80\uC0C9\uC5B4\uB97C \uC785\uB825\uD558\uC138\uC694\">\n                                <button class=\"icon-button transparent-button\" title=\"search\"> <svg class=\"icon\" viewBox=\"0 0 24 24\"> <path class=\"search-icon\"/> </svg> </button>\n                            </div>\n                            <ul id=\"searchList\" class=\"list-layout\" style=\"box-shadow: 0 8px 8px #0002; border-radius: 0 0 12px 12px; max-height: 220px; overflow: auto;\">\n                            </ul>\n                        </div>\n                    </div>\n                </section>";
                 }
                 return [2 /*return*/];
             });
         });
     };
     CreateProjectPage.prototype.bindingEvents = function () {
+        var _this = this;
+        var skillList = [];
+        var screenCover = document.querySelector("#screenCover");
+        var layerPopup = document.querySelector("#layerPopup");
+        var addSkillButton = document.querySelector("#addSkillButton");
+        var searchInput = document.querySelector("#searchInput");
+        var searchList = document.querySelector("#searchList");
+        var projectCreateButton = document.querySelector("#projectCreateButton");
+        projectCreateButton === null || projectCreateButton === void 0 ? void 0 : projectCreateButton.addEventListener("click", function () {
+            var title = document.getElementById("title");
+            if (!title || !title.value) {
+                alert("제목 입력해");
+            }
+            postFetch("projects", { title: title }).then(function (result) {
+                console.log(result);
+            });
+        });
+        addSkillButton === null || addSkillButton === void 0 ? void 0 : addSkillButton.addEventListener("click", function () {
+            if (screenCover && layerPopup) {
+                if (screenCover.style.display != "block") {
+                    screenCover.style.display = "block";
+                    layerPopup.style.display = "flex";
+                    getFetch("skills").then(function (result) {
+                        console.log(result);
+                        skillList = result.data;
+                        _this.updateSearchList(skillList);
+                    });
+                }
+            }
+        });
+        screenCover === null || screenCover === void 0 ? void 0 : screenCover.addEventListener("click", function () {
+            if (screenCover && layerPopup) {
+                if (screenCover.style.display == "block") {
+                    screenCover.style.display = "none";
+                    layerPopup.style.display = "none";
+                }
+            }
+        });
+        searchInput === null || searchInput === void 0 ? void 0 : searchInput.addEventListener("input", function () {
+            var list = skillList.filter(function (skill) {
+                if (searchInput) {
+                    return skill.name.toUpperCase().includes(searchInput.value.toUpperCase());
+                }
+                return true;
+            });
+            _this.updateSearchList(list);
+        });
     };
     return CreateProjectPage;
 }(Page));
