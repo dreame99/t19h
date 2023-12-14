@@ -188,7 +188,21 @@ var CreateProjectPage = /** @class */ (function (_super) {
                 })
                     .then(function (result) {
                     console.log(result);
-                    navigate("main");
+                    if (result.result.code == 106) {
+                        navigate("main");
+                    }
+                    else if (result.result.code == 413) {
+                        _this.openErrorMessage(titleRuleText, API_RESULT_CODE[result.result.code]);
+                    }
+                    else if (result.result.code == 414 || result.result.code == 419) {
+                        _this.openErrorMessage(recruitRuleText, API_RESULT_CODE[result.result.code]);
+                    }
+                    else if (result.result.code == 415 || result.result.code == 416 || result.result.code == 420 || result.result.code == 421 || result.result.code == 424) {
+                        _this.openErrorMessage(projectDateRuleText, API_RESULT_CODE[result.result.code]);
+                    }
+                    else if (result.result.code == 417 || result.result.code == 418 || result.result.code == 422 || result.result.code == 423 || result.result.code == 425) {
+                        _this.openErrorMessage(recruitDateRuleText, API_RESULT_CODE[result.result.code]);
+                    }
                 })
                     .catch(function (e) { return alert("error msg : " + e); });
             }

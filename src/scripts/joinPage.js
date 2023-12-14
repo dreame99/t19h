@@ -118,7 +118,6 @@ var JoinPage = /** @class */ (function (_super) {
                     postFetch("users", { id: joinId === null || joinId === void 0 ? void 0 : joinId.value, pass: joinPassword === null || joinPassword === void 0 ? void 0 : joinPassword.value, passCheck: joinConfirmPassword === null || joinConfirmPassword === void 0 ? void 0 : joinConfirmPassword.value, nicknmae: joinName === null || joinName === void 0 ? void 0 : joinName.value })
                         .then(function (result) {
                         if (result.result.code == 103) {
-                            navigate("main");
                             postFetch("users/login", { id: joinId === null || joinId === void 0 ? void 0 : joinId.value, pass: joinPassword === null || joinPassword === void 0 ? void 0 : joinPassword.value })
                                 .then(function (result) { return navigate("main"); })
                                 .catch(function (e) { return alert("error msg : " + e); });

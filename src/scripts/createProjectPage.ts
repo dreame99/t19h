@@ -220,7 +220,17 @@ class CreateProjectPage extends Page {
                     , skills : projectSkillContainer? [...projectSkillContainer.querySelectorAll("[data-name=skillId]")].map(o => o.innerHTML) : []})
                 .then(result => {
                     console.log(result);
-                    navigate("main");
+                    if( result.result.code == 106 ) {
+                        navigate("main");
+                    } else if( result.result.code == 413 ) {
+                        this.openErrorMessage(titleRuleText, API_RESULT_CODE[result.result.code]);
+                    } else if( result.result.code == 414 || result.result.code == 419 ) {
+                        this.openErrorMessage(recruitRuleText, API_RESULT_CODE[result.result.code]);
+                    } else if( result.result.code == 415 || result.result.code == 416 || result.result.code == 420 || result.result.code == 421 || result.result.code == 424 ) {
+                        this.openErrorMessage(projectDateRuleText, API_RESULT_CODE[result.result.code]);
+                    } else if( result.result.code == 417 || result.result.code == 418 || result.result.code == 422 || result.result.code == 423 || result.result.code == 425 ) {
+                        this.openErrorMessage(recruitDateRuleText, API_RESULT_CODE[result.result.code]);
+                    }
                 })
                 .catch(e => alert("error msg : " + e));
             }
