@@ -96,7 +96,7 @@ var CreateProjectPage = /** @class */ (function (_super) {
             searchList.innerHTML = "";
             var html = "";
             skillList.forEach(function (skill) {
-                html += "\n                    <li class=\"row-middle-left-flex-layout gap-level-3 clickable\" onclick=\"CreateProjectPage.addSkillCard(this)\">\n                        <div data-name=\"skillCard\">\n                            <span data-name=\"skillId\" style=\"display: none;\">".concat(skill.id, "</span>\n                            <img src=\"").concat(API_URL, "/").concat(skill.image, "\" title=\"").concat(skill.name, "\" style=\"width: 48px; height: 48px;\">\n                        </div>\n                    </li>");
+                html += "\n                    <li class=\"row-middle-left-flex-layout gap-level-3 clickable\" onclick=\"CreateProjectPage.addSkillCard(this)\">\n                        <div data-name=\"skillCard\">\n                            <span data-name=\"skillId\" style=\"display: none;\">".concat(skill.id, "</span>\n                            <img src=\"").concat(API_URL, "/").concat(skill.image, "\" title=\"").concat(skill.name, "\" style=\"width: 48px; height: 48px;\">\n                        </div>\n                        <span>").concat(skill.name, "</span>\n                    </li>");
             });
             searchList.innerHTML = html;
         }

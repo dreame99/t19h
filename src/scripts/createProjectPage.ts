@@ -50,6 +50,7 @@ class CreateProjectPage extends Page {
                             <span data-name="skillId" style="display: none;">${skill.id}</span>
                             <img src="${API_URL}/${skill.image}" title="${skill.name}" style="width: 48px; height: 48px;">
                         </div>
+                        <span>${skill.name}</span>
                     </li>`;
             });
             searchList.innerHTML = html;
