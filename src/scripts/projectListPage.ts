@@ -85,8 +85,8 @@ class ProjectListPage extends Page {
                 var skillListHtml = "";
                 project.skills.forEach(skill => {
                     skillListHtml += `
-                        <div data-name="skilLCard">
-                            <span data-name="skillId" style="display: hidden;"></span>
+                        <div data-name="skillCard">
+                            <span data-name="skillId" style="display: none;"></span>
                             <img src="${API_URL}/${skill.image}" title="${skill.name}" style="width: 48px; height: 48px;">
                         </div>`;
                 });

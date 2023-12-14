@@ -26,6 +26,7 @@ var LoginPage = /** @class */ (function (_super) {
     };
     LoginPage.prototype.openErrorMessage = function (ruleText, msg) {
         if (ruleText) {
+            ruleText.style.display = "block";
             ruleText.classList.add("error-text");
             ruleText.innerText = msg;
         }

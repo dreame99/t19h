@@ -8,6 +8,7 @@ class LoginPage extends Page {
 
     private openErrorMessage(ruleText: HTMLElement | null, msg: string): void {
         if( ruleText ) {
+            ruleText.style.display = "block";
             ruleText.classList.add("error-text");
             ruleText.innerText = msg;
         }

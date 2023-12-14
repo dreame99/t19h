@@ -1,71 +1,3 @@
-interface FetchResult {
-    code: number;
-    message: string;
-}
-interface FetchResponse {
-    result: FetchResult;
-    data?: object[] | object;
-    option?: any;
-}
-
-const API_RESULT_CODE: {[key : string] : string} = {
-"100" : "성공적으로 로그인 되었습니다."
-, "103" : "성공적으로 회원가입 되었습니다."
-, "105" : "성공적으로 로그아웃 되었습니다."
-, "402" : "아이디가 입력되지 않았습니다."
-, "403" : "비밀번호가 입력되지 않았습니다."
-, "404" : "비밀번호 확인이 입력되지 않았습니다."
-, "405" : "이름이 입력되지 않았습니다."
-, "406" : "아이디 형식이 올바르지 않습니다."
-, "407" : "비밀번호 형식이 올바르지 않습니다."
-, "408" : "비밀번호 확인 형식이 올바르지 않습니다."
-, "409" : "이름 형식이 올바르지 않습니다."
-, "410" : "아이디가 중복됩니다."
-, "400" : "아이디 또는 비밀번호가 입력되지 않았습니다."
-, "401" : "아이디 또는 비밀번호의 형식이 올바르지 않습니다."
-, "104" : "성공적으로 조회되었습니다."
-, "411" : "조회에 실패했습니다."
-, "426" : "비밀번호와 비밀번호 확인이 서로 일치하지 않습니다."
-};
-
-const API_URL = "https://port-0-team-api-57lz2alpl3myze.sel4.cloudtype.app/";
-function postFetch(uri: string, data?: object): Promise<FetchResponse> {
-    console.log("post fetch to " + API_URL + uri);
-    console.log("data ", data);
-    return fetch(API_URL + uri, {
-        headers: {
-            'Accept': 'application/json, text/plain',
-            'Content-Type': 'application/json;charset=UTF-8'
-        },
-        method: "POST",
-        credentials: "include",
-        body: JSON.stringify(data),
-    })
-    .then(response => response.json());
-}
-
-function getFetch(uri: string, data?: string): Promise<FetchResponse> {
-    console.log("get fetch to " + API_URL + uri);
-    console.log("data ", data);
-    var cond: string = "";
-    if( data && data.length ) {
-        cond = "?" + data;
-    }
-    return fetch(API_URL + uri + cond, {
-        headers: {
-            'Accept': 'application/json, text/plain',
-            'Content-Type': 'application/json;charset=UTF-8'
-        },
-        method: "GET",
-        credentials: "include",
-    })
-    .then(response => response.json());
-}
-
-
-
-
-
 interface Skill {
     id: string;
     name: string;
@@ -73,47 +5,54 @@ interface Skill {
 }
 
 class CreateProjectPage extends Page {
+    private skillList: Skill[] = [];
+
+    private closeErrorMessage(): void {
+        var titleRuleText: HTMLElement | null = document.querySelector("#titleRuleText");
+        if( titleRuleText ) {
+            titleRuleText.style.display = "none";
+        }
+
+        var projectDateRuleText: HTMLElement | null = document.querySelector("#projectDateRuleText");
+        if( projectDateRuleText ) {
+            projectDateRuleText.style.display = "none";
+        }
+        
+        var recruitRuleText: HTMLElement | null = document.querySelector("#recruitRuleText");
+        if( recruitRuleText ) {
+            recruitRuleText.style.display = "none";
+        }
+        
+        var recruitDateRuleText: HTMLElement | null = document.querySelector("#recruitDateRuleText");
+        if( recruitDateRuleText ) {
+            recruitDateRuleText.style.display = "none";
+        }
+    }
+
+    private openErrorMessage(ruleText: HTMLElement | null, msg: string): void {
+        if( ruleText ) {
+            ruleText.style.display = "block";
+            ruleText.classList.add("error-text");
+            ruleText.innerText = msg;
+        }
+    }
+
     private updateSearchList(skillList: Skill[]): void {
         var searchList: HTMLElement | null = document.querySelector("#searchList");
         if( searchList ) {
             searchList.innerHTML = "";
+
+            var html = "";
             skillList.forEach(skill => {
-                var li = document.createElement("li");
-                li.classList.add("row-middle-left-flex-layout", "gap-level-3", "clickable");
-                
-                var img = document.createElement("img");
-                img.src = "./src/assets/images/skills/" + skill.image;
-                img.style.width = "32px";
-                img.style.height = "32px";
-                li.append(img);
-
-                var span = document.createElement("span");
-                span.innerText = skill.name;
-                li.append(span);
-
-                var hidden = document.createElement("span");
-                hidden.style.visibility = "hidden";
-                hidden.innerText = skill.id;
-                li.append(hidden);
-
-                li.addEventListener("click", function() {
-                    var spans = this.getElementsByTagName("span");
-                    if( spans ) {
-                        var projectSkillContainer: HTMLElement | null = document.querySelector("#projectSkillContainer");
-                        if( projectSkillContainer ) {
-                            projectSkillContainer.appendChild(this.getElementsByTagName("img")[0].cloneNode(true));
-                        }
-        
-                        var popupSkillContainer: HTMLElement | null = document.querySelector("#popupSkillContainer");
-                        if( popupSkillContainer ) {
-                            popupSkillContainer.appendChild(this.getElementsByTagName("img")[0].cloneNode(true));
-                        }
-                        console.log(spans[1].textContent);
-                    }
-                });
-
-                searchList?.appendChild(li);
+                html += `
+                    <li class="row-middle-left-flex-layout gap-level-3 clickable" onclick="CreateProjectPage.addSkillCard(this)">
+                        <div data-name="skillCard">
+                            <span data-name="skillId" style="display: none;">${skill.id}</span>
+                            <img src="${API_URL}/${skill.image}" title="${skill.name}" style="width: 48px; height: 48px;">
+                        </div>
+                    </li>`;
             });
+            searchList.innerHTML = html;
         }
     }
 
@@ -127,6 +66,7 @@ class CreateProjectPage extends Page {
                             <div class="column-top-left-flex-layout gap-level-4">
                                 <span class="bold-text">프로젝트명</span>
                                 <input type="text" id="title" class="padding-level-5">
+                                <span id="titleRuleText" class="error-text" style="display: none;"></span>
                             </div>
             
                             <div class="column-top-left-flex-layout gap-level-4">
@@ -135,6 +75,7 @@ class CreateProjectPage extends Page {
                                     <input type="date" id="projectStartDate" class="padding-level-5">
                                     <input type="date" id="projectEndDate" class="padding-level-5">
                                 </div>
+                                <span id="projectDateRuleText" class="error-text" style="display: none;"></span>
                             </div>
                         </div>
         
@@ -142,6 +83,7 @@ class CreateProjectPage extends Page {
                             <div class="column-top-left-flex-layout gap-level-4">
                                 <span class="bold-text">모집 인원</span>
                                 <input type="text" id="personnel" class="padding-level-5" onblur="this.value = this.value.replace(/[^0-9]/g, '')" onkeyup="this.value = this.value.replace(/[^0-9]/g, '')">
+                                <span id="recruitRuleText" class="error-text" style="display: none;"></span>
                             </div>
             
                             <div class="column-top-left-flex-layout gap-level-4">
@@ -150,6 +92,7 @@ class CreateProjectPage extends Page {
                                     <input type="date" id="recruitStartDate" class="padding-level-5">
                                     <input type="date" id="recruitEndDate" class="padding-level-5">
                                 </div>
+                                <span id="recruitDateRuleText" class="error-text" style="display: none;"></span>
                             </div>
                         </div>
         
@@ -158,18 +101,6 @@ class CreateProjectPage extends Page {
                                 <span class="bold-text">기술 스택</span>
                                 <div class="row-middle-left-flex-layout wrap gap-level-2">
                                     <div id="projectSkillContainer" class="row-middle-left-flex-layout wrap gap-level-2">
-                                        <div data-name="skilLCard">
-                                            <span data-name="skillId" style="display: hidden;"></span>
-                                            <img src="./src/assets/images/skills/aftereffects-original.png" title="aftereffects" style="width: 48px; height: 48px;">
-                                        </div>
-                                        <div data-name="skilLCard">
-                                            <span data-name="skillId" style="display: hidden;"></span>
-                                            <img src="./src/assets/images/skills/aftereffects-original.png" title="aftereffects" style="width: 48px; height: 48px;">
-                                        </div>
-                                        <div data-name="skilLCard">
-                                            <span data-name="skillId" style="display: hidden;"></span>
-                                            <img src="./src/assets/images/skills/aftereffects-original.png" title="aftereffects" style="width: 48px; height: 48px;">
-                                        </div>
                                     </div>
                                     <button id="addSkillButton" class="icon-button transparent-button" title="add skill"> <svg class="icon" viewBox="0 0 24 24"> <path class="add-icon"/> </svg> </button>
                                 </div>
@@ -194,12 +125,6 @@ class CreateProjectPage extends Page {
                     <div class="column-top-left-flex-layout gap-level-4">
                         <span class="bold-text">등록된 기술</span>
                         <div id="popupSkillContainer" class="row-middle-left-flex-layout wrap gap-level-2">
-                            <img src="./src/assets/images/skills/aftereffects-original.png" style="width: 48px; height: 48px;">
-                            <img src="./src/assets/images/skills/aftereffects-original.png" style="width: 48px; height: 48px;">
-                            <img src="./src/assets/images/skills/aftereffects-original.png" style="width: 48px; height: 48px;">
-                            <img src="./src/assets/images/skills/aftereffects-original.png" style="width: 48px; height: 48px;">
-                            <img src="./src/assets/images/skills/aftereffects-original.png" style="width: 48px; height: 48px;">
-                            <img src="./src/assets/images/skills/aftereffects-original.png" style="width: 48px; height: 48px;">
                         </div>
                     </div>
                     <div class="column-top-left-flex-layout gap-level-4 item-1-layout">
@@ -218,32 +143,87 @@ class CreateProjectPage extends Page {
     }
 
     protected bindingEvents(): void {
-        var skillList: Skill[] = [];
         var screenCover: HTMLElement | null = document.querySelector("#screenCover");
         var layerPopup: HTMLElement | null = document.querySelector("#layerPopup");
         var addSkillButton: HTMLElement | null = document.querySelector("#addSkillButton");
         var searchInput: HTMLInputElement | null = document.querySelector("#searchInput");
         var searchList: HTMLElement | null = document.querySelector("#searchList");
         var projectCreateButton: HTMLElement | null = document.querySelector("#projectCreateButton");
+        var title: HTMLInputElement | null = document.querySelector("#title");
+        var titleRuleText: HTMLElement | null = document.querySelector("#titleRuleText");
+        var projectStartDate: HTMLInputElement | null = document.querySelector("#projectStartDate");
+        var projectEndDate: HTMLInputElement | null = document.querySelector("#projectEndDate");
+        var projectDateRuleText: HTMLElement | null = document.querySelector("#projectDateRuleText");
+        var personnel: HTMLInputElement | null = document.querySelector("#personnel");
+        var recruitRuleText: HTMLElement | null = document.querySelector("#recruitRuleText");
+        var recruitStartDate: HTMLInputElement | null = document.querySelector("#recruitStartDate");
+        var recruitEndDate: HTMLInputElement | null = document.querySelector("#recruitEndDate");
+        var recruitDateRuleText: HTMLElement | null = document.querySelector("#recruitDateRuleText");
+        var projectContents: HTMLTextAreaElement | null = document.querySelector("#projectContents");
+        var projectSkillContainer: HTMLElement | null = document.querySelector("#projectSkillContainer");
         
+        title?.addEventListener("focus", this.closeErrorMessage);
+        projectStartDate?.addEventListener("focus", this.closeErrorMessage);
+        projectEndDate?.addEventListener("focus", this.closeErrorMessage);
+        personnel?.addEventListener("focus", this.closeErrorMessage);
+        recruitStartDate?.addEventListener("focus", this.closeErrorMessage);
+        recruitEndDate?.addEventListener("focus", this.closeErrorMessage);
+
         projectCreateButton?.addEventListener("click", () => {
+            var isError: boolean = false;
+
             // 프로젝트명 체크
-            var title: HTMLInputElement | null = document.getElementById("title") as HTMLInputElement;
             if( !title || !title.value ) {
-                alert("제목 입력해");
+                this.openErrorMessage(titleRuleText, API_RESULT_CODE[413]);
+                isError = true;
+            }
+
+            // 모집 인원 체크
+            if( !personnel || !personnel.value ) {
+                this.openErrorMessage(recruitRuleText, API_RESULT_CODE[414]);
+                isError = true;
             }
 
             // 프로젝트 기간 체크
-
-            // 모집 인원 체크
+            if( !projectStartDate || !projectStartDate.value ) {
+                this.openErrorMessage(projectDateRuleText, API_RESULT_CODE[415]);
+                isError = true;
+            } else if( !projectEndDate || !projectEndDate.value ) {
+                this.openErrorMessage(projectDateRuleText, API_RESULT_CODE[416]);
+                isError = true;
+            } else if( projectStartDate.value.replace(/-/g, "") > projectEndDate.value.replace(/-/g, "") ) {
+                this.openErrorMessage(projectDateRuleText, API_RESULT_CODE[424]);
+                isError = true;
+            }
 
             // 모집 기간 체크
+            if( !recruitStartDate || !recruitStartDate.value ) {
+                this.openErrorMessage(recruitDateRuleText, API_RESULT_CODE[417]);
+                isError = true;
+            } else if( !recruitEndDate || !recruitEndDate.value ) {
+                this.openErrorMessage(recruitDateRuleText, API_RESULT_CODE[418]);
+                isError = true;
+            } else if( recruitStartDate.value.replace(/-/g, "") > recruitEndDate.value.replace(/-/g, "") ) {
+                this.openErrorMessage(recruitDateRuleText, API_RESULT_CODE[425]);
+                isError = true;
+            }
 
-            // 스킬 체크
-
-            postFetch("projects", {title : title.value, skills: []}).then(result => {
-                console.log(result);
-            });
+            if( !isError ) {
+                postFetch("projects", {
+                    title : title?.value
+                    , personnel : personnel?.value
+                    , projectStartDate : projectStartDate?.value
+                    , projectEndDate : projectEndDate?.value
+                    , recruitStartDate : recruitStartDate?.value
+                    , recruitEndDate : recruitEndDate?.value
+                    , content : projectContents?.value
+                    , skills : projectSkillContainer? [...projectSkillContainer.querySelectorAll("[data-name=skillId]")].map(o => o.innerHTML) : []})
+                .then(result => {
+                    console.log(result);
+                    navigate("main");
+                })
+                .catch(e => alert("error msg : " + e));
+            }
         });
 
         addSkillButton?.addEventListener("click", () => {
@@ -251,23 +231,33 @@ class CreateProjectPage extends Page {
                 if( screenCover.style.display != "block" ) {
                     screenCover.style.display = "block";
                     layerPopup.style.display = "flex";
-                    document.body.style.overflow = "hidden";
+        
+                    var popupSkillContainer: HTMLElement | null = document.querySelector("#popupSkillContainer");
+                    if( popupSkillContainer ) {
+                        popupSkillContainer.innerHTML = "";
+
+                        var projectSkillContainer: HTMLElement | null = document.querySelector("#projectSkillContainer");
+                        if( projectSkillContainer ) {
+                            popupSkillContainer.innerHTML = projectSkillContainer.innerHTML;
+                        }
+                    }
                     
                     getFetch("skills").then(result => {
                         console.log(result);
-                        skillList = result.data as Skill[];
-                        this.updateSearchList(skillList);
+                        this.skillList = result.data as Skill[];
+                        this.updateSearchList(this.skillList);
                     }).catch((e) => {
-                        skillList = [{id:"1", name:"spring", image:"spring-original.png"}
-                        , {id:"2", name:"css3", image:"css3-original.png"}
-                        , {id:"3", name:"bootstrap", image:"bootstrap-original.png"}
-                        , {id:"4", name:"android", image:"android-original.png"}
-                        , {id:"5", name:"figma", image:"figma-original.png"}
-                        , {id:"6", name:"intellij", image:"intellij-original.png"}
-                        , {id:"7", name:"nodejs", image:"nodejs-original.png"}
-                        , {id:"8", name:"vscode", image:"vscode-original.png"}
-                        , {id:"9", name:"swift", image:"swift-original.png"}];
-                        this.updateSearchList(skillList);
+                        alert("error msg : " + e);
+                        this.skillList = [{id:"1", name:"spring", image:"skills/spring-original.png"}
+                        , {id:"2", name:"css3", image:"skills/css3-original.png"}
+                        , {id:"3", name:"bootstrap", image:"skills/bootstrap-original.png"}
+                        , {id:"4", name:"android", image:"skills/android-original.png"}
+                        , {id:"5", name:"figma", image:"skills/figma-original.png"}
+                        , {id:"6", name:"intellij", image:"skills/intellij-original.png"}
+                        , {id:"7", name:"nodejs", image:"skills/nodejs-original.png"}
+                        , {id:"8", name:"vscode", image:"skills/vscode-original.png"}
+                        , {id:"9", name:"swift", image:"skills/ swift-original.png"}];
+                        this.updateSearchList(this.skillList);
                     });
                 }
             }
@@ -277,12 +267,11 @@ class CreateProjectPage extends Page {
                 if( screenCover.style.display == "block" ) {
                     screenCover.style.display = "none";
                     layerPopup.style.display = "none";
-                    document.body.style.overflow = "auto";
                 }
             }
         });
         searchInput?.addEventListener("input", () => {
-            var list = skillList.filter(skill => {
+            var list = this.skillList.filter(skill => {
                 if( searchInput ) {
                     return skill.name.toUpperCase().includes(searchInput.value.toUpperCase())
                 }
@@ -290,5 +279,22 @@ class CreateProjectPage extends Page {
             });
             this.updateSearchList(list);
         });
+    }
+
+    public static addSkillCard(skillItem: HTMLElement) {
+        var skillCard: HTMLElement | null = skillItem.querySelector("[data-name=skillCard]") as HTMLElement;
+        var skillId: string | undefined = skillCard.querySelector("[data-name=skillId]")?.innerHTML;
+        
+        if( skillId ) {
+            var projectSkillContainer: HTMLElement | null = document.querySelector("#projectSkillContainer");
+            var popupSkillContainer: HTMLElement | null = document.querySelector("#popupSkillContainer");
+            if( projectSkillContainer && popupSkillContainer ) {
+                var isDuplicate: boolean = [...projectSkillContainer.querySelectorAll("[data-name=skillId]")].filter(o => o.innerHTML == skillId).length >= 1;
+                if( !isDuplicate ) {
+                    projectSkillContainer.appendChild(skillCard.cloneNode(true));
+                    popupSkillContainer.appendChild(skillCard.cloneNode(true));
+                }
+            }
+        }
     }
 }
