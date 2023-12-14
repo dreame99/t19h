@@ -29,7 +29,7 @@ function toggleMenuPopup(): void {
 }
 
 function toggleAlarmPopup(): void {
-    console.log("toggleAlarmPopup");
+    alert("준비중입니다.");
 }
 
 function closeMenuPopup(): void {
@@ -52,7 +52,14 @@ window.addEventListener("load", () => {
     document.getElementById("headerLoginButton")?.addEventListener("click", navigateToLoginPage);
     document.getElementById("headerJoinButton")?.addEventListener("click", navigateToJoinPage);
     document.getElementById("headerAlarmButton")?.addEventListener("click", toggleAlarmPopup);
-    document.getElementById("headerLogoutButton")?.addEventListener("click", LoginManager.logout);
+    document.getElementById("headerLogoutButton")?.addEventListener("click", () => {
+        postFetch("users/logout").then(result => {
+            if( result.result.code == 105 ) {
+                navigate("main");
+            }
+        })
+        .catch(e => alert("error msg : " + e));
+    });
 
     document.querySelectorAll("[data-nav]")?.forEach((elem: Element) => {
         (elem as HTMLElement).onclick = async () => {
@@ -75,21 +82,9 @@ async function navigate(page: PAGE): Promise<void> {
     .then(result => isLogin = result.result.code == 101)
     .catch(e => alert("error msg : " + e));
 
-    console.log("login?", isLogin);
-
     var headerMenuButton = document.getElementById("headerMenuButton") as HTMLElement;
-    var headerBackwardButton = document.getElementById("headerBackwardButton") as HTMLElement;
+    // var headerBackwardButton = document.getElementById("headerBackwardButton") as HTMLElement;
     headerMenuButton.style.display = "block";
-
-    /*
-    if( page == "main" ) {
-        headerMenuButton.style.display = "block";
-        headerBackwardButton.style.display = "none";
-    } else {
-        headerMenuButton.style.display = "none";
-        headerBackwardButton.style.display = "block";
-    }
-    */
 
     document.querySelectorAll(isLogin? ".loginIcon" : ".logoutIcon").forEach(icon => (icon as HTMLElement).style.display = "block");
     document.querySelectorAll(isLogin? ".logoutIcon" : ".loginIcon").forEach(icon => (icon as HTMLElement).style.display = "none");

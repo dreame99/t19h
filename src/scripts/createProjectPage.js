@@ -49,21 +49,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-function createElemWithClass(tag, className, parentElem) {
-    var elem = document.createElement(tag);
-    if (className) {
-        className.split(" ").forEach(function (v) {
-            elem.classList.add(v);
-        });
-    }
-    if (parentElem) {
-        parentElem.appendChild(elem);
-    }
-    return elem;
-}
 var API_RESULT_CODE = {
     "100": "성공적으로 로그인 되었습니다.",
     "103": "성공적으로 회원가입 되었습니다.",
+    "105": "성공적으로 로그아웃 되었습니다.",
     "402": "아이디가 입력되지 않았습니다.",
     "403": "비밀번호가 입력되지 않았습니다.",
     "404": "비밀번호 확인이 입력되지 않았습니다.",

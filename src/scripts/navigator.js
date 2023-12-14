@@ -59,7 +59,7 @@ function toggleMenuPopup() {
     }
 }
 function toggleAlarmPopup() {
-    console.log("toggleAlarmPopup");
+    alert("준비중입니다.");
 }
 function closeMenuPopup() {
     var menu = document.getElementsByClassName("menu")[0];
@@ -81,7 +81,14 @@ window.addEventListener("load", function () {
     (_c = document.getElementById("headerLoginButton")) === null || _c === void 0 ? void 0 : _c.addEventListener("click", navigateToLoginPage);
     (_d = document.getElementById("headerJoinButton")) === null || _d === void 0 ? void 0 : _d.addEventListener("click", navigateToJoinPage);
     (_e = document.getElementById("headerAlarmButton")) === null || _e === void 0 ? void 0 : _e.addEventListener("click", toggleAlarmPopup);
-    (_f = document.getElementById("headerLogoutButton")) === null || _f === void 0 ? void 0 : _f.addEventListener("click", LoginManager.logout);
+    (_f = document.getElementById("headerLogoutButton")) === null || _f === void 0 ? void 0 : _f.addEventListener("click", function () {
+        postFetch("users/logout").then(function (result) {
+            if (result.result.code == 105) {
+                navigate("main");
+            }
+        })
+            .catch(function (e) { return alert("error msg : " + e); });
+    });
     (_g = document.querySelectorAll("[data-nav]")) === null || _g === void 0 ? void 0 : _g.forEach(function (elem) {
         elem.onclick = function () { return __awaiter(_this, void 0, void 0, function () {
             var path;
@@ -100,7 +107,7 @@ window.addEventListener("load", function () {
 });
 function navigate(page) {
     return __awaiter(this, void 0, void 0, function () {
-        var isLogin, headerMenuButton, headerBackwardButton, pageName, pageFunc;
+        var isLogin, headerMenuButton, pageName, pageFunc;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -111,19 +118,9 @@ function navigate(page) {
                             .catch(function (e) { return alert("error msg : " + e); })];
                 case 1:
                     _a.sent();
-                    console.log("login?", isLogin);
                     headerMenuButton = document.getElementById("headerMenuButton");
-                    headerBackwardButton = document.getElementById("headerBackwardButton");
+                    // var headerBackwardButton = document.getElementById("headerBackwardButton") as HTMLElement;
                     headerMenuButton.style.display = "block";
-                    /*
-                    if( page == "main" ) {
-                        headerMenuButton.style.display = "block";
-                        headerBackwardButton.style.display = "none";
-                    } else {
-                        headerMenuButton.style.display = "none";
-                        headerBackwardButton.style.display = "block";
-                    }
-                    */
                     document.querySelectorAll(isLogin ? ".loginIcon" : ".logoutIcon").forEach(function (icon) { return icon.style.display = "block"; });
                     document.querySelectorAll(isLogin ? ".logoutIcon" : ".loginIcon").forEach(function (icon) { return icon.style.display = "none"; });
                     pageName = PAGES.includes(page) ? page : "main";

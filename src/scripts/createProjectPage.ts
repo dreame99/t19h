@@ -1,18 +1,3 @@
-function createElemWithClass(tag: string, className?: string, parentElem?: HTMLElement): HTMLElement {
-    var elem = document.createElement(tag);
-
-    if( className ) {
-        className.split(" ").forEach(v => {
-            elem.classList.add(v);
-        });
-    }
-
-    if( parentElem ) {
-        parentElem.appendChild(elem);
-    }
-
-    return elem;
-}
 interface FetchResult {
     code: number;
     message: string;
@@ -26,6 +11,7 @@ interface FetchResponse {
 const API_RESULT_CODE: {[key : string] : string} = {
 "100" : "성공적으로 로그인 되었습니다."
 , "103" : "성공적으로 회원가입 되었습니다."
+, "105" : "성공적으로 로그아웃 되었습니다."
 , "402" : "아이디가 입력되지 않았습니다."
 , "403" : "비밀번호가 입력되지 않았습니다."
 , "404" : "비밀번호 확인이 입력되지 않았습니다."

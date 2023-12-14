@@ -20,7 +20,7 @@ class ProjectListPage extends Page {
         await getFetch("projects", cond).then(result => {
             if( result.result.code == 104 ) {
                 projectList = result.data as Project[];
-                this.totalCount = result.option?.listCount;
+                this.totalCount = result.option?.countList;
                 this.updatePageCount();
             } else {
                 alert(API_RESULT_CODE[result.result.code]);
@@ -35,7 +35,7 @@ class ProjectListPage extends Page {
                     contents : "자신이 상상만 하던 프로덕트를 동료들과 함께 만들어보세요.<br>".repeat(i * 2),
                     currentMember : Math.min(Number.MAX_SAFE_INTEGER, Math.pow(2, i)),
                     additionalRecruitMember : Math.min(Number.MAX_SAFE_INTEGER, Math.pow(2, i)),
-                    skills : [{name : "bootstrap", image : "bootstrap-original.png"}, {name : "figma", image : "figma-original.png"}, {name : "mongodb", image : "mongodb-original.png"}].slice(0, i),
+                    skills : [{name : "bootstrap", image : "skills/bootstrap-original.png"}, {name : "figma", image : "skills/figma-original.png"}, {name : "mongodb", image : "mongodb-original.png"}].slice(0, i),
                     watchCount : Math.min(Number.MAX_SAFE_INTEGER, Math.pow(12, i)),
                     goodCount : Math.min(Number.MAX_SAFE_INTEGER, Math.pow(6, i)),
                     mentionCount : Math.min(Number.MAX_SAFE_INTEGER, Math.pow(2, i))
@@ -87,7 +87,7 @@ class ProjectListPage extends Page {
                     skillListHtml += `
                         <div data-name="skilLCard">
                             <span data-name="skillId" style="display: hidden;"></span>
-                            <img src="./src/assets/images/skills/${skill.image}" title="${skill.name}" style="width: 48px; height: 48px;">
+                            <img src="${API_URL}/${skill.image}" title="${skill.name}" style="width: 48px; height: 48px;">
                         </div>`;
                 });
                 
@@ -96,7 +96,7 @@ class ProjectListPage extends Page {
                         <span data-name="projectId" style="display: none;">210312492937sad</span>
                         <div class="row-middle-stretch-flex-layout">
                             <span>${project.recruitStartDate} ~ ${project.recruitEndDate}</span>
-                            <button class="padding-level-4" style="border-radius: 999em; width: auto;">${project.recruitState? "모집중" : "모집종료"}</button>
+                            <span class="padding-level-4 round filled">${project.recruitState? "모집중" : "모집종료"}</span>
                         </div>
                         <div>
                             <span class="title-text">${project.title}</span>
