@@ -29,16 +29,15 @@ class ProjectListPage extends Page {
             for( var i = 0; i < this.PAGE_COUNT; i++ ) {
                 projectList.push({
                     id : "" + (Math.random() * 1000000 | 0),
-                    recruitStartDate : "2023-11-15",
-                    recruitEndDate : "2023-12-15",
+                    teamRecruitmentStartDate : "2023-11-15",
+                    teamRecruitmentEndDate : "2023-12-15",
                     title : "팀원구함",
-                    contents : "자신이 상상만 하던 프로덕트를 동료들과 함께 만들어보세요.<br>".repeat(i * 2),
-                    currentMember : Math.min(Number.MAX_SAFE_INTEGER, Math.pow(2, i)),
-                    additionalRecruitMember : Math.min(Number.MAX_SAFE_INTEGER, Math.pow(2, i)),
+                    content : "자신이 상상만 하던 프로덕트를 동료들과 함께 만들어보세요.<br>".repeat(i * 2),
+                    personnel : Math.min(Number.MAX_SAFE_INTEGER, Math.pow(2, i)),
                     skills : [{name : "bootstrap", image : "skills/bootstrap-original.png"}, {name : "figma", image : "skills/figma-original.png"}, {name : "mongodb", image : "mongodb-original.png"}].slice(0, i),
-                    watchCount : Math.min(Number.MAX_SAFE_INTEGER, Math.pow(12, i)),
-                    goodCount : Math.min(Number.MAX_SAFE_INTEGER, Math.pow(6, i)),
-                    mentionCount : Math.min(Number.MAX_SAFE_INTEGER, Math.pow(2, i))
+                    countViews : Math.min(Number.MAX_SAFE_INTEGER, Math.pow(12, i)),
+                    countGreats : Math.min(Number.MAX_SAFE_INTEGER, Math.pow(6, i)),
+                    countComments : Math.min(Number.MAX_SAFE_INTEGER, Math.pow(2, i))
                 });
             }
             this.totalCount = 100;
@@ -95,24 +94,24 @@ class ProjectListPage extends Page {
                     <article class="box-layout column-top-stretch-flex-layout padding-level-8 gap-level-6 clickable" data-name="projectCard" onclick="ProjectListPage.openProjectDetail(this)">
                         <span data-name="projectId" style="display: none;">210312492937sad</span>
                         <div class="row-middle-stretch-flex-layout">
-                            <span>${project.recruitStartDate} ~ ${project.recruitEndDate}</span>
-                            <span class="padding-level-4 round filled">${project.recruitState? "모집중" : "모집종료"}</span>
+                            <span>${project.teamRecruitmentStartDate} ~ ${project.teamRecruitmentEndDate}</span>
+                            <span class="padding-level-4 round filled">모집중</span>
                         </div>
                         <div>
                             <span class="title-text">${project.title}</span>
                         </div>
                         <div style="display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden;">
-                            ${project.contents}
+                            ${project.content}
                         </div>
                         <div class="line"></div>
                         <div class="row-middle-stretch-flex-layout gap-level-5">
                             <div class="row-middle-stretch-flex-layout gap-level-2">
                                 <span class="bold-text">현재 인원</span>
-                                <span>${toSummaryNumber(project.currentMember)}명</span>
+                                <span>1명</span>
                             </div>
                             <div class="row-middle-stretch-flex-layout gap-level-2">
                                 <span class="bold-text">모집 인원</span>
-                                <span>${toSummaryNumber(project.additionalRecruitMember)}명</span>
+                                <span>${toSummaryNumber(project.personnel)}명</span>
                             </div>
                         </div>
                         <div class="column-middle-left-flex-layout gap-level-5">
@@ -124,15 +123,15 @@ class ProjectListPage extends Page {
                         <div class="row-middle-right-flex-layout gap-level-5 wrap">
                             <div class="row-middle-left-flex-layout gap-level-2">
                                 <svg class="icon" viewBox="0 0 24 24"> <path class="eye-icon"/> </svg>
-                                <span>${toSummaryNumber(project.watchCount)}</span>
+                                <span>${toSummaryNumber(project.countViews)}</span>
                             </div>
                             <div class="row-middle-left-flex-layout gap-level-2">
                                 <svg class="icon" viewBox="0 0 24 24"> <path class="heart-icon"/> </svg>
-                                <span>${toSummaryNumber(project.goodCount)}</span>
+                                <span>${toSummaryNumber(project.countGreats)}</span>
                             </div>
                             <div class="row-middle-left-flex-layout gap-level-2">
                                 <svg class="icon" viewBox="0 0 24 24"> <path class="bubble-icon"/> </svg>
-                                <span>${toSummaryNumber(project.mentionCount)}</span>
+                                <span>${toSummaryNumber(project.countViews)}</span>
                             </div>
                         </div>
                     </article>`
@@ -161,7 +160,7 @@ class ProjectListPage extends Page {
                         </div>
                     </article>
 
-                    <article id="projectContainer" class="row-top-stretch-flex-layout gap-level-8 item-3-layout wrap">
+                    <article id="projectContainer" class="row-top-left-flex-layout gap-level-8 item-3-layout wrap">
                     </article>
 
                     <article class="row-middle-center-flex-layout">
