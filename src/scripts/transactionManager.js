@@ -64,3 +64,20 @@ function getFetch(uri, data) {
     })
         .then(function (response) { return response.json(); });
 }
+function patchFetch(uri, data) {
+    console.log("patch fetch to " + API_URL + uri);
+    console.log("data ", data);
+    var cond = "";
+    if (data && data.length) {
+        cond = "?" + data;
+    }
+    return fetch(API_URL + uri + cond, {
+        headers: {
+            'Accept': 'application/json, text/plain',
+            'Content-Type': 'application/json;charset=UTF-8'
+        },
+        method: "PATCH",
+        credentials: "include",
+    })
+        .then(function (response) { return response.json(); });
+}

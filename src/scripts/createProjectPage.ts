@@ -37,7 +37,7 @@ class CreateProjectPage extends Page {
         }
     }
 
-    private updateSearchList(skillList: Skill[]): void {
+    private updateSearchList(skillList: Skill[], containerId: string): void {
         var searchList: HTMLElement | null = document.querySelector("#searchList");
         if( searchList ) {
             searchList.innerHTML = "";
@@ -45,7 +45,7 @@ class CreateProjectPage extends Page {
             var html = "";
             skillList.forEach(skill => {
                 html += `
-                    <li class="row-middle-left-flex-layout gap-level-3 clickable" onclick="CreateProjectPage.addSkillCard(this)">
+                    <li class="row-middle-left-flex-layout gap-level-3 clickable" onclick="CreateProjectPage.addSkillCard(this, '${containerId}')">
                         <div data-name="skillCard">
                             <span data-name="skillId" style="display: none;">${skill.id}</span>
                             <img src="${API_URL}/${skill.image}" title="${skill.name}" style="width: 48px; height: 48px;">
@@ -148,7 +148,6 @@ class CreateProjectPage extends Page {
         var layerPopup: HTMLElement | null = document.querySelector("#layerPopup");
         var addSkillButton: HTMLElement | null = document.querySelector("#addSkillButton");
         var searchInput: HTMLInputElement | null = document.querySelector("#searchInput");
-        var searchList: HTMLElement | null = document.querySelector("#searchList");
         var projectCreateButton: HTMLElement | null = document.querySelector("#projectCreateButton");
         var title: HTMLInputElement | null = document.querySelector("#title");
         var titleRuleText: HTMLElement | null = document.querySelector("#titleRuleText");
@@ -237,42 +236,7 @@ class CreateProjectPage extends Page {
             }
         });
 
-        addSkillButton?.addEventListener("click", () => {
-            if( screenCover && layerPopup ) {
-                if( screenCover.style.display != "block" ) {
-                    screenCover.style.display = "block";
-                    layerPopup.style.display = "flex";
-        
-                    var popupSkillContainer: HTMLElement | null = document.querySelector("#popupSkillContainer");
-                    if( popupSkillContainer ) {
-                        popupSkillContainer.innerHTML = "";
-
-                        var projectSkillContainer: HTMLElement | null = document.querySelector("#projectSkillContainer");
-                        if( projectSkillContainer ) {
-                            popupSkillContainer.innerHTML = projectSkillContainer.innerHTML;
-                        }
-                    }
-                    
-                    getFetch("skills").then(result => {
-                        console.log(result);
-                        this.skillList = result.data as Skill[];
-                        this.updateSearchList(this.skillList);
-                    }).catch((e) => {
-                        alert("error msg : " + e);
-                        this.skillList = [{id:"1", name:"spring", image:"skills/spring-original.png"}
-                        , {id:"2", name:"css3", image:"skills/css3-original.png"}
-                        , {id:"3", name:"bootstrap", image:"skills/bootstrap-original.png"}
-                        , {id:"4", name:"android", image:"skills/android-original.png"}
-                        , {id:"5", name:"figma", image:"skills/figma-original.png"}
-                        , {id:"6", name:"intellij", image:"skills/intellij-original.png"}
-                        , {id:"7", name:"nodejs", image:"skills/nodejs-original.png"}
-                        , {id:"8", name:"vscode", image:"skills/vscode-original.png"}
-                        , {id:"9", name:"swift", image:"skills/ swift-original.png"}];
-                        this.updateSearchList(this.skillList);
-                    });
-                }
-            }
-        });
+        addSkillButton?.addEventListener("click", () => this.openSkillSearchPopup("projectSkillContainer"));
         screenCover?.addEventListener("click", function() {
             if( screenCover && layerPopup ) {
                 if( screenCover.style.display == "block" ) {
@@ -288,8 +252,48 @@ class CreateProjectPage extends Page {
                 }
                 return true;
             });
-            this.updateSearchList(list);
+            this.updateSearchList(list, "projectSkillContainer");
         });
+    }
+
+    private openSkillSearchPopup(containerId: string): void {
+        var screenCover: HTMLElement | null = document.querySelector("#screenCover");
+        var layerPopup: HTMLElement | null = document.querySelector("#layerPopup");
+
+        if( screenCover && layerPopup ) {
+            if( screenCover.style.display != "block" ) {
+                screenCover.style.display = "block";
+                layerPopup.style.display = "flex";
+    
+                var popupSkillContainer: HTMLElement | null = document.querySelector("#popupSkillContainer");
+                if( popupSkillContainer ) {
+                    popupSkillContainer.innerHTML = "";
+
+                    var skillContainer: HTMLElement | null = document.querySelector("#" + containerId);
+                    if( skillContainer ) {
+                        popupSkillContainer.innerHTML = skillContainer.innerHTML;
+                    }
+                }
+                
+                getFetch("skills").then(result => {
+                    console.log(result);
+                    this.skillList = result.data as Skill[];
+                    this.updateSearchList(this.skillList, containerId);
+                }).catch((e) => {
+                    alert("error msg : " + e);
+                    this.skillList = [{id:"1", name:"spring", image:"skills/spring-original.png"}
+                    , {id:"2", name:"css3", image:"skills/css3-original.png"}
+                    , {id:"3", name:"bootstrap", image:"skills/bootstrap-original.png"}
+                    , {id:"4", name:"android", image:"skills/android-original.png"}
+                    , {id:"5", name:"figma", image:"skills/figma-original.png"}
+                    , {id:"6", name:"intellij", image:"skills/intellij-original.png"}
+                    , {id:"7", name:"nodejs", image:"skills/nodejs-original.png"}
+                    , {id:"8", name:"vscode", image:"skills/vscode-original.png"}
+                    , {id:"9", name:"swift", image:"skills/ swift-original.png"}];
+                    this.updateSearchList(this.skillList, containerId);
+                });
+            }
+        }
     }
 
     public static addSkillCard(skillItem: HTMLElement) {

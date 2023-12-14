@@ -272,7 +272,7 @@ svg {
     border: 1px solid #555 !important;
 }
 .filled {
-    background-color: var(--dark-color-level-2);
+    background-color: var(--primary-color);
     color: var(--bright-color-level-2);
 }
 .round {
@@ -283,7 +283,7 @@ svg {
     &::before {
         content: "";
         border: 8px solid transparent;
-        border-top: 6px solid var(--dark-color-level-2);
+        border-top: 6px solid var(--primary-color);
         position: absolute;
         top: calc(100% - 2px);
         left: 50%;

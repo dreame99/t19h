@@ -76,3 +76,21 @@ function getFetch(uri: string, data?: string): Promise<FetchResponse> {
     })
     .then(response => response.json());
 }
+
+function patchFetch(uri: string, data?: string): Promise<FetchResponse> {
+    console.log("patch fetch to " + API_URL + uri);
+    console.log("data ", data);
+    var cond: string = "";
+    if( data && data.length ) {
+        cond = "?" + data;
+    }
+    return fetch(API_URL + uri + cond, {
+        headers: {
+            'Accept': 'application/json, text/plain',
+            'Content-Type': 'application/json;charset=UTF-8'
+        },
+        method: "PATCH",
+        credentials: "include",
+    })
+    .then(response => response.json());
+}
