@@ -69,7 +69,12 @@ window.addEventListener("load", () => {
 
 async function navigate(page: PAGE): Promise<void> {
     console.log("navigate to", page);
-    var isLogin = await LoginManager.isLogin();
+    
+    var isLogin = false;
+    await postFetch("users/auth")
+    .then(result => isLogin = result.result.code == 101)
+    .catch(e => alert("error msg : " + e));
+
     console.log("login?", isLogin);
 
     var headerMenuButton = document.getElementById("headerMenuButton") as HTMLElement;

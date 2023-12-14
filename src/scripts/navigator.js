@@ -105,9 +105,12 @@ function navigate(page) {
             switch (_a.label) {
                 case 0:
                     console.log("navigate to", page);
-                    return [4 /*yield*/, LoginManager.isLogin()];
+                    isLogin = false;
+                    return [4 /*yield*/, postFetch("users/auth")
+                            .then(function (result) { return isLogin = result.result.code == 101; })
+                            .catch(function (e) { return alert("error msg : " + e); })];
                 case 1:
-                    isLogin = _a.sent();
+                    _a.sent();
                     console.log("login?", isLogin);
                     headerMenuButton = document.getElementById("headerMenuButton");
                     headerBackwardButton = document.getElementById("headerBackwardButton");
