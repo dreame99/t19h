@@ -97,16 +97,15 @@ var MainPage = /** @class */ (function (_super) {
                         for (i = 0; i < 10; i++) {
                             newProjectList.push({
                                 id: "" + (Math.random() * 1000000 | 0),
-                                recruitStartDate: "2023-11-15",
-                                recruitEndDate: "2023-12-15",
+                                teamRecruitmentStartDate: "2023-11-15",
+                                teamRecruitmentEndDate: "2023-12-15",
                                 title: "팀원구함",
-                                contents: "자신이 상상만 하던 프로덕트를 동료들과 함께 만들어보세요.<br>".repeat(i * 2),
-                                currentMember: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(2, i)),
-                                additionalRecruitMember: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(2, i)),
-                                skills: [{ name: "bootstrap", image: "bootstrap-original.png" }, { name: "figma", image: "figma-original.png" }, { name: "mongodb", image: "mongodb-original.png" }].slice(0, i),
-                                watchCount: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(12, i)),
-                                goodCount: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(6, i)),
-                                mentionCount: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(2, i))
+                                content: "자신이 상상만 하던 프로덕트를 동료들과 함께 만들어보세요.<br>".repeat(i * 2),
+                                personnel: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(2, i)),
+                                skills: [{ name: "bootstrap", image: "skills/bootstrap-original.png" }, { name: "figma", image: "skills/figma-original.png" }, { name: "mongodb", image: "mongodb-original.png" }].slice(0, i),
+                                countViews: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(12, i)),
+                                countGreats: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(6, i)),
+                                countComments: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(2, i))
                             });
                         }
                         _a.label = 3;
@@ -139,16 +138,15 @@ var MainPage = /** @class */ (function (_super) {
                         for (i = 0; i < 9; i++) {
                             popularProjectList.push({
                                 id: "" + (Math.random() * 1000000 | 0),
-                                recruitStartDate: "2023-11-15",
-                                recruitEndDate: "2023-12-15",
+                                teamRecruitmentStartDate: "2023-11-15",
+                                teamRecruitmentEndDate: "2023-12-15",
                                 title: "팀원구함",
-                                contents: "자신이 상상만 하던 프로덕트를 동료들과 함께 만들어보세요.<br>".repeat(i * 2),
-                                currentMember: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(2, i)),
-                                additionalRecruitMember: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(2, i)),
-                                skills: [{ name: "bootstrap", image: "bootstrap-original.png" }, { name: "figma", image: "figma-original.png" }, { name: "mongodb", image: "mongodb-original.png" }].slice(0, i),
-                                watchCount: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(12, i)),
-                                goodCount: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(6, i)),
-                                mentionCount: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(2, i))
+                                content: "자신이 상상만 하던 프로덕트를 동료들과 함께 만들어보세요.<br>".repeat(i * 2),
+                                personnel: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(2, i)),
+                                skills: [{ name: "bootstrap", image: "skills/bootstrap-original.png" }, { name: "figma", image: "skills/figma-original.png" }, { name: "mongodb", image: "mongodb-original.png" }].slice(0, i),
+                                countViews: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(12, i)),
+                                countGreats: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(6, i)),
+                                countComments: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(2, i))
                             });
                         }
                         _a.label = 3;
