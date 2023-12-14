@@ -78,7 +78,7 @@ var ProjectListPage = /** @class */ (function (_super) {
                                 var _a;
                                 if (result.result.code == 104) {
                                     projectList = result.data;
-                                    _this.totalCount = (_a = result.option) === null || _a === void 0 ? void 0 : _a.countList;
+                                    _this.totalCount = (_a = result.option) === null || _a === void 0 ? void 0 : _a.countTotal;
                                     _this.updatePageCount();
                                 }
                                 else {

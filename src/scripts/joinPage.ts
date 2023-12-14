@@ -127,7 +127,7 @@ class JoinPage extends Page {
                 }
 
                 if( !isError ) {
-                    postFetch("users", {id : joinId?.value, pass : joinPassword?.value, passCheck : joinConfirmPassword?.value, nicknmae : joinName?.value})
+                    postFetch("users", {id : joinId?.value, pass : joinPassword?.value, passCheck : joinConfirmPassword?.value, nickname : joinName?.value})
                     .then(result => {
                         if( result.result.code == 103 ) {
                             postFetch("users/login", {id : joinId?.value, pass : joinPassword?.value})

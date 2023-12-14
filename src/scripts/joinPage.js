@@ -115,7 +115,7 @@ var JoinPage = /** @class */ (function (_super) {
                     isError = true;
                 }
                 if (!isError) {
-                    postFetch("users", { id: joinId === null || joinId === void 0 ? void 0 : joinId.value, pass: joinPassword === null || joinPassword === void 0 ? void 0 : joinPassword.value, passCheck: joinConfirmPassword === null || joinConfirmPassword === void 0 ? void 0 : joinConfirmPassword.value, nicknmae: joinName === null || joinName === void 0 ? void 0 : joinName.value })
+                    postFetch("users", { id: joinId === null || joinId === void 0 ? void 0 : joinId.value, pass: joinPassword === null || joinPassword === void 0 ? void 0 : joinPassword.value, passCheck: joinConfirmPassword === null || joinConfirmPassword === void 0 ? void 0 : joinConfirmPassword.value, nickname: joinName === null || joinName === void 0 ? void 0 : joinName.value })
                         .then(function (result) {
                         if (result.result.code == 103) {
                             postFetch("users/login", { id: joinId === null || joinId === void 0 ? void 0 : joinId.value, pass: joinPassword === null || joinPassword === void 0 ? void 0 : joinPassword.value })

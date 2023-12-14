@@ -20,7 +20,7 @@ class ProjectListPage extends Page {
         await getFetch("projects", cond).then(result => {
             if( result.result.code == 104 ) {
                 projectList = result.data as Project[];
-                this.totalCount = result.option?.countList;
+                this.totalCount = result.option?.countTotal;
                 this.updatePageCount();
             } else {
                 alert(API_RESULT_CODE[result.result.code]);

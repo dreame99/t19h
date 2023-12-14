@@ -2699,7 +2699,7 @@ body > section > .container-layout:nth-child(even) {
   flex-wrap: wrap;
 } 
 :root {
-  --primary-color: var(--dark-color-level-2);
+  --primary-color: #5288F1;
   --error-color: rgb(207, 78, 61);
   --highlight-color: rgb(162, 48, 255);
   --bright-color-level-1: #FFF;
