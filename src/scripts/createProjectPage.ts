@@ -214,8 +214,8 @@ class CreateProjectPage extends Page {
                     , personnel : personnel?.value
                     , projectStartDate : projectStartDate?.value
                     , projectEndDate : projectEndDate?.value
-                    , recruitStartDate : recruitStartDate?.value
-                    , recruitEndDate : recruitEndDate?.value
+                    , teamRecruitmentStartDate : recruitStartDate?.value
+                    , teamRecruitmentEndDate : recruitEndDate?.value
                     , content : projectContents?.value
                     , skills : projectSkillContainer? [...projectSkillContainer.querySelectorAll("[data-name=skillId]")].map(o => o.innerHTML) : []})
                 .then(result => {

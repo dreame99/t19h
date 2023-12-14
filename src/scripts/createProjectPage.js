@@ -181,8 +181,8 @@ var CreateProjectPage = /** @class */ (function (_super) {
                     personnel: personnel === null || personnel === void 0 ? void 0 : personnel.value,
                     projectStartDate: projectStartDate === null || projectStartDate === void 0 ? void 0 : projectStartDate.value,
                     projectEndDate: projectEndDate === null || projectEndDate === void 0 ? void 0 : projectEndDate.value,
-                    recruitStartDate: recruitStartDate === null || recruitStartDate === void 0 ? void 0 : recruitStartDate.value,
-                    recruitEndDate: recruitEndDate === null || recruitEndDate === void 0 ? void 0 : recruitEndDate.value,
+                    teamRecruitmentStartDate: recruitStartDate === null || recruitStartDate === void 0 ? void 0 : recruitStartDate.value,
+                    teamRecruitmentEndDate: recruitEndDate === null || recruitEndDate === void 0 ? void 0 : recruitEndDate.value,
                     content: projectContents === null || projectContents === void 0 ? void 0 : projectContents.value,
                     skills: projectSkillContainer ? __spreadArray([], projectSkillContainer.querySelectorAll("[data-name=skillId]"), true).map(function (o) { return o.innerHTML; }) : []
                 })
