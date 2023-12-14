@@ -69,9 +69,9 @@ window.addEventListener("load", () => {
 
 async function navigate(page: PAGE): Promise<void> {
     console.log("navigate to", page);
-    
+
     var isLogin = false;
-    await postFetch("users/auth")
+    await getFetch("users/auth")
     .then(result => isLogin = result.result.code == 101)
     .catch(e => alert("error msg : " + e));
 

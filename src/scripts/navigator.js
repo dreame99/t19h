@@ -106,7 +106,7 @@ function navigate(page) {
                 case 0:
                     console.log("navigate to", page);
                     isLogin = false;
-                    return [4 /*yield*/, postFetch("users/auth")
+                    return [4 /*yield*/, getFetch("users/auth")
                             .then(function (result) { return isLogin = result.result.code == 101; })
                             .catch(function (e) { return alert("error msg : " + e); })];
                 case 1:
