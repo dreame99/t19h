@@ -51,7 +51,7 @@ body {
     background-color: $background-color-level2;
     
     &.fixed {
-        margin-top: 72px;
+        margin-top: 88px;
     }
 
     > .contents {
@@ -242,11 +242,12 @@ body {
 }
 
 .header {
+    position: relative;
     > .menu {
         width: 100%;
         position: absolute;
         background: white;
-        top: 72px;
+        top: 100%;
         box-shadow: 0 8px 8px #0002;
         left: 0;
         border-radius: 0 0 $border-radius $border-radius;

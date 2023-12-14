@@ -96,16 +96,17 @@ var MainPage = /** @class */ (function (_super) {
                     case 2:
                         for (i = 0; i < 10; i++) {
                             newProjectList.push({
-                                recruitStartDate: "20231115",
-                                recruitEndDate: "20231215",
+                                id: "" + (Math.random() * 1000000 | 0),
+                                recruitStartDate: "2023-11-15",
+                                recruitEndDate: "2023-12-15",
                                 title: "팀원구함",
                                 contents: "자신이 상상만 하던 프로덕트를 동료들과 함께 만들어보세요.<br>".repeat(i * 2),
-                                currentMember: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(42, i)),
-                                additionalRecruitMember: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(53, i)),
-                                skills: ["bootstrap", "mongodb", "figma", "github", "git", "html5", "java", "spring", "javascript", "typescript", "kotlin", "nodejs", "react", "vuejs"].slice(0, i),
-                                watchCount: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(64, i)),
-                                goodCount: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(75, i)),
-                                mentionCount: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(86, i))
+                                currentMember: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(2, i)),
+                                additionalRecruitMember: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(2, i)),
+                                skills: [{ name: "bootstrap", image: "bootstrap-original.png" }, { name: "figma", image: "figma-original.png" }, { name: "mongodb", image: "mongodb-original.png" }].slice(0, i),
+                                watchCount: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(12, i)),
+                                goodCount: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(6, i)),
+                                mentionCount: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(2, i))
                             });
                         }
                         _a.label = 3;
@@ -137,17 +138,17 @@ var MainPage = /** @class */ (function (_super) {
                     case 2:
                         for (i = 0; i < 9; i++) {
                             popularProjectList.push({
-                                recruitStartDate: "20231115",
-                                recruitEndDate: "20231215",
+                                id: "" + (Math.random() * 1000000 | 0),
+                                recruitStartDate: "2023-11-15",
+                                recruitEndDate: "2023-12-15",
                                 title: "팀원구함",
-                                contents: "자신이 상상만 하던 프로덕트를 동료들과 함께 만들어보세요.<br>".repeat(i),
-                                currentMember: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(42, i)),
-                                additionalRecruitMember: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(53, i)),
-                                skills: ["bootstrap", "mongodb", "figma", "github", "git", "html5", "java", "spring", "javascript", "typescript", "kotlin", "nodejs", "react", "vuejs"].slice(0, i),
-                                watchCount: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(64, i)),
-                                goodCount: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(75, i)),
-                                mentionCount: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(86, i)),
-                                recruitState: i % 2 == 0
+                                contents: "자신이 상상만 하던 프로덕트를 동료들과 함께 만들어보세요.<br>".repeat(i * 2),
+                                currentMember: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(2, i)),
+                                additionalRecruitMember: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(2, i)),
+                                skills: [{ name: "bootstrap", image: "bootstrap-original.png" }, { name: "figma", image: "figma-original.png" }, { name: "mongodb", image: "mongodb-original.png" }].slice(0, i),
+                                watchCount: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(12, i)),
+                                goodCount: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(6, i)),
+                                mentionCount: Math.min(Number.MAX_SAFE_INTEGER, Math.pow(2, i))
                             });
                         }
                         _a.label = 3;

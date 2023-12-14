@@ -52,103 +52,166 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var UserListPage = /** @class */ (function (_super) {
     __extends(UserListPage, _super);
     function UserListPage() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.PAGE_COUNT = 10;
+        _this.MAX_PAGE = 10;
+        _this.currentPage = 1;
+        _this.phase = 1;
+        _this.maxPhase = 1;
+        _this.selectedPos = 1;
+        return _this;
     }
     UserListPage.prototype.searchUserList = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var userList, i;
+            var cond, sort, userList;
+            var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        cond = "count=" + this.PAGE_COUNT + "&page=" + this.currentPage;
+                        sort = document.querySelector("#sort");
+                        if (sort) {
+                            cond += "&sort=" + sort.dataset.name;
+                        }
                         userList = [];
-                        if (!(SERVER_INFO == "RUN")) return [3 /*break*/, 2];
-                        return [4 /*yield*/, fetch(API_URL + "/users", {
-                                method: "POST",
-                                body: JSON.stringify({ type: "최신가입순", count: 1, page: 1 })
-                            })
-                                .then(function (response) { return response.json(); })
-                                .then(function (result) {
-                                userList = result;
-                            })
-                                .catch(function (e) { return console.log(e); })];
+                        return [4 /*yield*/, getFetch("users", cond).then(function (result) {
+                                var _a;
+                                if (result.result.code == 104) {
+                                    userList = result.data;
+                                    _this.totalCount = (_a = result.option) === null || _a === void 0 ? void 0 : _a.listCount;
+                                    _this.updatePageCount();
+                                }
+                                else {
+                                    alert(API_RESULT_CODE[result.result.code]);
+                                }
+                            }).catch(function (e) {
+                                for (var i = 0; i < _this.PAGE_COUNT; i++) {
+                                    userList.push({
+                                        id: "z" + ("a" + i).repeat(i),
+                                        name: "내가세상가장매콤한사나이",
+                                        imagePath: "./src/assets/images/avatar" + (((Math.random() * 10) | 0) + 1) + ".png",
+                                        point: Math.pow(10, 10 - i)
+                                    });
+                                }
+                                _this.totalCount = 100;
+                                _this.updatePageCount();
+                            })];
                     case 1:
                         _a.sent();
-                        return [3 /*break*/, 3];
-                    case 2:
-                        for (i = 0; i < 10; i++) {
-                            userList.push({
-                                name: "내가세상가장매콤한사나이",
-                                imagePath: "./src/assets/images/avatar" + (((Math.random() * 10) | 0) + 1) + ".png",
-                                point: Math.pow(10, 10 - i)
+                        return [2 /*return*/, userList];
+                }
+            });
+        });
+    };
+    UserListPage.prototype.updatePageCount = function () {
+        console.log("totalCount", this.totalCount);
+        if (this.totalCount) {
+            var totalPage = Math.ceil(this.totalCount / this.PAGE_COUNT);
+            console.log("maxPage", totalPage);
+            this.currentPage = Math.min(totalPage, (this.phase - 1) * this.MAX_PAGE + this.selectedPos);
+            this.maxPhase = Math.max(1, Math.ceil(totalPage / 10));
+            console.log("currentPage", this.currentPage);
+            console.log("maxPhase", this.maxPhase);
+            var count = Math.min(this.MAX_PAGE, totalPage - (this.phase - 1) * this.MAX_PAGE);
+            var pageContainer = document.querySelector("#pageContainer");
+            if (pageContainer) {
+                var html = "";
+                for (var i = 1; i <= count; i++) {
+                    var textClass = "";
+                    if (i == this.currentPage - (this.phase - 1) * this.MAX_PAGE || i == count && i < this.currentPage - (this.phase - 1) * this.MAX_PAGE) {
+                        textClass = "highlight-text";
+                    }
+                    html += "<span class=\"padding-level-3 clickable ".concat(textClass, "\">").concat(i + (this.phase - 1) * this.MAX_PAGE, "</span>");
+                }
+                pageContainer.innerHTML = html;
+            }
+        }
+    };
+    UserListPage.prototype.updateUserList = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var userContainer, userList, html;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        userContainer = document.querySelector("#userContainer");
+                        return [4 /*yield*/, this.searchUserList()];
+                    case 1:
+                        userList = _a.sent();
+                        if (userContainer) {
+                            html = "";
+                            userList.forEach(function (user) {
+                                html += "\n                    <div class=\"column-top-center-flex-layout gap-level-4\" data-name=\"userCard\" onclick=\"UserListPage.openUserDetail(this)\">\n                        <div class=\"column-top-center-flex-layout\">\n                            <span data-name=\"userId\" style=\"display: none;\">".concat(user.id, "</span>\n                            <span class=\"filled round horsetail padding-level-3\">").concat(user.point.toLocaleString(), "\uC810</span>\n                            <img class=\"bordered round\" src=\"./src/assets/images/avatars/avatar-2.png\" style=\"width: 200px; height: 200px;\">\n                        </div>\n                        <span>").concat(user.name, "</span>\n                    </div>");
                             });
+                            userContainer.innerHTML = html;
                         }
-                        _a.label = 3;
-                    case 3: return [2 /*return*/, userList];
+                        return [2 /*return*/];
                 }
             });
         });
     };
     UserListPage.prototype.render = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var userList, article, div, titleContainer, span, dropDown, ul, li1, li2, userListContainer, pageContainer, pageContainerElem;
             return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        if (!this.contents) return [3 /*break*/, 2];
-                        this.contents.innerHTML = "";
-                        return [4 /*yield*/, this.searchUserList()];
-                    case 1:
-                        userList = _a.sent();
-                        article = createElement("article");
-                        div = createElement("div", "", "", "width: 100%; max-width: 1280px; display: inline-flex; flex-direction: column; align-items: flex-start;");
-                        article.appendChild(div);
-                        titleContainer = createElement("div", "", "title-container", "width: 100%; display: flex; align-items: flex-end; justify-content: space-between;");
-                        span = createElement("span", "", "title");
-                        span.innerHTML = "사용자 목록";
-                        titleContainer.appendChild(span);
-                        dropDown = createElement("div", "", "", "display: flex; align-items: center; gap: 12px; cursor: pointer; position: relative; z-index: 2;");
-                        dropDown.innerHTML = "\n                <span style=\"text-wrap: nowrap;\">\uCD5C\uC2E0\uAC00\uC785\uC21C</span>\n                <svg viewBox=\"0 0 24 24\" style=\"width: 24px; height: 24px;\">\n                    <path d=\"M4 7 L12 17 L20 7\" style=\"fill: none; stroke: black; stroke-width: 2px;\"></path>\n                </svg>\n            ";
-                        ul = createElement("ul", "", "", "list-style: none; background: white; width: 100%; position: absolute; top: 100%; box-shadow: 0 8px 8px #0002; display: none;");
-                        li1 = createElement("li", "", "", "margin: 12px;");
-                        li1.innerHTML = "최신가입순";
-                        li1.addEventListener("click", function () {
-                            var span = dropDown.querySelector("span");
-                            span.innerHTML = "최신가입순";
-                        });
-                        ul.appendChild(li1);
-                        li2 = createElement("li", "", "", "margin: 12px;");
-                        li2.innerHTML = "점수높은순";
-                        li2.addEventListener("click", function () {
-                            var span = dropDown.querySelector("span");
-                            span.innerHTML = "점수높은순";
-                        });
-                        ul.appendChild(li2);
-                        dropDown.appendChild(ul);
-                        dropDown.addEventListener("click", function () {
-                            if (ul.style.display == "none") {
-                                ul.style.display = "inline";
-                            }
-                            else {
-                                ul.style.display = "none";
-                            }
-                        });
-                        titleContainer.appendChild(dropDown);
-                        div.appendChild(titleContainer);
-                        userListContainer = createElement("article", "userList", "", "width: 100%; margin-top: 24px; display: flex; flex-wrap: wrap; gap: 20px;");
-                        div.appendChild(userListContainer);
-                        userList.forEach(function (user) { return userListContainer.append((new UserAbridgement(user)).getElement()); });
-                        pageContainer = new PageContainer();
-                        pageContainerElem = pageContainer.getElement();
-                        pageContainerElem.style.marginTop = "20px";
-                        div.appendChild(pageContainerElem);
-                        this.contents.appendChild(article);
-                        _a.label = 2;
-                    case 2: return [2 /*return*/];
+                if (this.contents) {
+                    this.contents.innerHTML = "\n                <section class=\"container-layout limited-width padding-level-12 column-top-stretch-flex-layout gap-level-10\">\n                    <article class=\"row-middle-stretch-flex-layout\">\n                        <h1 class=\"title-text bold-text\">\uC0AC\uC6A9\uC790 \uBAA9\uB85D</h1>\n                        <div class=\"row-middle-right-flex-layout\" style=\"position: relative;\">\n                            <div id=\"sortDropDown\" class=\"row-middle-left-flex-layout clickable\">\n                                <span id=\"sort\" data-name=\"latest\">\uCD5C\uC2E0\uC21C</span>\n                                <button class=\"icon-button transparent-button\"> <svg class=\"icon\" viewBox=\"0 0 24 24\"> <path class=\"bottom-icon\"/> </svg> </button>\n                            </div>\n                            \n                            <ul id=\"sortMenu\" class=\"box-layout\" style=\"position: absolute; top: 100%; left: 0; width: 100%; display: none;\">\n                                <li class=\"padding-level-4 clickable\" data-name=\"latest\">\uCD5C\uC2E0\uC21C</li>\n                                <li class=\"padding-level-4 clickable\" data-name=\"best\">\uC810\uC218\uB192\uC740\uC21C</li>\n                            </ul>\n                        </div>\n                    </article>\n        \n                    <article id=\"userContainer\" class=\"row-top-left-flex-layout gap-level-8 item-5-layout wrap\">\n                    </article>\n        \n                    <article class=\"row-middle-center-flex-layout\">\n                        <button id=\"prevPageButton\" class=\"icon-button transparent-button\"> <svg class=\"icon\" viewBox=\"0 0 24 24\"> <path class=\"left-icon\"/> </svg> </button>\n                        <div id=\"pageContainer\" class=\"row-middle-center-flex-layout\">\n                        </div>\n                        <button id=\"nextPageButton\" class=\"icon-button transparent-button\"> <svg class=\"icon\" viewBox=\"0 0 24 24\"> <path class=\"right-icon\"/> </svg> </button>\n                    </article>\n                </section>";
+                    this.updateUserList();
                 }
+                return [2 /*return*/];
             });
         });
     };
     UserListPage.prototype.bindingEvents = function () {
+        var _this = this;
+        var sort = document.querySelector("#sort");
+        var sortDropDown = document.querySelector("#sortDropDown");
+        var sortMenu = document.querySelector("#sortMenu");
+        var prevPageButton = document.querySelector("#prevPageButton");
+        var nextPageButton = document.querySelector("#nextPageButton");
+        var pageContainer = document.querySelector("#pageContainer");
+        sortDropDown === null || sortDropDown === void 0 ? void 0 : sortDropDown.addEventListener("click", function () {
+            if (sortMenu) {
+                sortMenu.style.display = sortMenu.style.display == "none" ? "block" : "none";
+            }
+        });
+        sortMenu === null || sortMenu === void 0 ? void 0 : sortMenu.addEventListener("click", function (e) {
+            var target = e.target;
+            if (sort && target) {
+                sort.innerText = target.innerText;
+                sort.dataset.name = target.dataset.name;
+                if (sortMenu) {
+                    sortMenu.style.display = "none";
+                }
+                _this.updateUserList();
+            }
+        });
+        prevPageButton === null || prevPageButton === void 0 ? void 0 : prevPageButton.addEventListener("click", function () {
+            _this.phase = Math.min(_this.maxPhase, _this.phase - 1);
+            _this.updateUserList();
+        });
+        nextPageButton === null || nextPageButton === void 0 ? void 0 : nextPageButton.addEventListener("click", function () {
+            _this.phase = Math.min(_this.maxPhase, _this.phase + 1);
+            _this.updateUserList();
+        });
+        pageContainer === null || pageContainer === void 0 ? void 0 : pageContainer.addEventListener("click", function (e) {
+            var target = e.target;
+            if (target) {
+                pageContainer === null || pageContainer === void 0 ? void 0 : pageContainer.querySelectorAll("span").forEach(function (page, i) {
+                    if (page == target) {
+                        _this.selectedPos = i + 1;
+                        _this.updateUserList();
+                    }
+                });
+            }
+        });
+    };
+    UserListPage.openUserDetail = function (userCard) {
+        var _a;
+        var userId = (_a = userCard.querySelector("[data-name=userId]")) === null || _a === void 0 ? void 0 : _a.innerHTML;
+        if (userId) {
+            console.log(userId);
+            //navigate("profile", {userId});
+            navigate("profile");
+        }
     };
     return UserListPage;
 }(Page));

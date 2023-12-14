@@ -1,9 +1,9 @@
 const PAGES = ["main", "login", "join", "profile", "create-project", "project-list", "project-room", "member-list"] as const;
 const AUTH_PAGE = {main : MainPage, login : MainPage, join : MainPage, profile : ProfilePage, "create-project" : CreateProjectPage, "project-list" : ProjectListPage, "project-room" : MainPage, "member-list" : UserListPage};
-const UNAUTH_PAGE = {main : MainPage, login : LoginPage, join : JoinPage, profile : LoginPage, "create-project" : CreateProjectPage, "project-list" : ProjectListPage, "project-room" : MainPage, "member-list" : UserListPage};
+const UNAUTH_PAGE = {main : MainPage, login : LoginPage, join : JoinPage, profile : ProfilePage, "create-project" : CreateProjectPage, "project-list" : ProjectListPage, "project-room" : MainPage, "member-list" : UserListPage};
 type PAGE = typeof PAGES[number];
 
-const SERVER_INFO: string = "RUN";
+const SERVER_INFO: string = "DEV";
 
 function navigateToMainPage(): void {
     console.log("navigateToMainPage");

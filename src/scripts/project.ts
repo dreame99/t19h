@@ -1,11 +1,12 @@
 interface Project {
+    id: string;
     recruitStartDate: string;
     recruitEndDate: string;
     title: string;
     contents: string;
     currentMember: number;
     additionalRecruitMember: number;
-    skills: Array<string>;
+    skills: {name: string, image: string}[];
     watchCount: number;
     goodCount: number;
     mentionCount: number;
@@ -24,7 +25,7 @@ class ProjectAbridgement {
 
         var skillList: string = "";
         this.project.skills.forEach(v => {
-            skillList += `<img class="skill" title=${v} src=${"./src/assets/images/" + v + "-original.png"}>`;
+            skillList += `<img class="skill" title=${v.name} src=${"./src/assets/images/" + v.image+ "-original.png"}>`;
         });
 
         this.projectAbridgement.innerHTML = `
