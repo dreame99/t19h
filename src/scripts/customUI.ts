@@ -18,9 +18,9 @@ interface Project {
 }
 interface User {
     id?: string;
-    name: string;
-    imagePath: string;
-    point: number;
+    nickname: string;
+    fileRealName: string;
+    score: number;
 }
 
 function getSkillCardElement(skill: Skill, clickFunc?: string) {
@@ -84,10 +84,10 @@ function getUserCardElement(user: User, clickFunc?: string) {
         <div class="column-top-center-flex-layout gap-level-4" data-name="userCard">
             <div class="column-top-center-flex-layout">
                 <span data-name="userId" style="display: none;">${user.id}</span>
-                <span class="filled round horsetail padding-level-3">${user.point.toLocaleString()}점</span>
-                <img class="bordered round" src="${IMG_PATH}/${user.imagePath}" style="width: 200px; height: 200px; margin-top: -19px;">
+                <span class="filled round horsetail padding-level-3">${user.score.toLocaleString()}점</span>
+                <img class="bordered round" src="${IMG_PATH}/${user.fileRealName}" style="width: 200px; height: 200px; margin-top: -19px;">
             </div>
-            <span>${user.name}</span>
+            <span>${user.nickname}</span>
         </div>`;
 }
 

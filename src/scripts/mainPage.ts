@@ -98,6 +98,34 @@ class MainPage extends Page {
         }
     }
 
+    private async searchUserList(): Promise<User[]> {
+        var cond = "count=" + this.PAGE_COUNT + "&sort=score";
+        
+        var userList: User[] = [];
+
+        await getFetch("users", cond).then(result => {
+            if( result.result.code == 104 ) {
+                userList = result.data as User[];
+            } else {
+                alert(API_RESULT_CODE[result.result.code]);
+            }
+        })
+        .catch(e => alert("error msg : " + e));
+
+        return userList;
+    }
+
+    private async updateUserList(): Promise<void> {
+        var userCarousel: HTMLElement | null = document.querySelector("#userCarousel");
+        var userList: User[] = await this.searchUserList();
+
+        if( userCarousel ) {
+            var html = "";
+            userList.forEach(user => html += getUserCardElement(user));
+            userCarousel.innerHTML = html;
+        }
+    }
+
     protected async render(): Promise<void> {
         if( this.contents ) {
             this.contents.innerHTML = `
@@ -128,78 +156,6 @@ class MainPage extends Page {
         
                     <article id="userContainer">
                         <article id="userCarousel" class="row-top-left-flex-layout gap-level-8 item-5-layout" data-name="carousel">
-                            <div class="column-top-center-flex-layout gap-level-4" data-name="userCard">
-                                <div class="column-top-center-flex-layout">
-                                    <span data-name="userId" style="display: none;"></span>
-                                    <span class="filled round horsetail padding-level-3">1,234점</span>
-                                    <img class="bordered round" src="./src/assets/images/avatars/avatar-2.png" style="width: 200px; height: 200px;">
-                                </div>
-                                <span>수원통감자</span>
-                            </div>
-                            <div class="column-top-center-flex-layout gap-level-4" data-name="userCard">
-                                <div class="column-top-center-flex-layout">
-                                    <span data-name="userId" style="display: none;"></span>
-                                    <span class="filled round horsetail padding-level-3">1,234점</span>
-                                    <img class="bordered round" src="./src/assets/images/avatars/avatar-2.png" style="width: 200px; height: 200px;">
-                                </div>
-                                <span>수원통감자</span>
-                            </div>
-                            <div class="column-top-center-flex-layout gap-level-4" data-name="userCard">
-                                <div class="column-top-center-flex-layout">
-                                    <span data-name="userId" style="display: none;"></span>
-                                    <span class="filled round horsetail padding-level-3">1,234점</span>
-                                    <img class="bordered round" src="./src/assets/images/avatars/avatar-2.png" style="width: 200px; height: 200px;">
-                                </div>
-                                <span>수원통감자</span>
-                            </div>
-                            <div class="column-top-center-flex-layout gap-level-4" data-name="userCard">
-                                <div class="column-top-center-flex-layout">
-                                    <span data-name="userId" style="display: none;"></span>
-                                    <span class="filled round horsetail padding-level-3">1,234점</span>
-                                    <img class="bordered round" src="./src/assets/images/avatars/avatar-2.png" style="width: 200px; height: 200px;">
-                                </div>
-                                <span>수원통감자</span>
-                            </div>
-                            <div class="column-top-center-flex-layout gap-level-4" data-name="userCard">
-                                <div class="column-top-center-flex-layout">
-                                    <span data-name="userId" style="display: none;"></span>
-                                    <span class="filled round horsetail padding-level-3">1,234점</span>
-                                    <img class="bordered round" src="./src/assets/images/avatars/avatar-2.png" style="width: 200px; height: 200px;">
-                                </div>
-                                <span>수원통감자</span>
-                            </div>
-                            <div class="column-top-center-flex-layout gap-level-4" data-name="userCard">
-                                <div class="column-top-center-flex-layout">
-                                    <span data-name="userId" style="display: none;"></span>
-                                    <span class="filled round horsetail padding-level-3">1,234점</span>
-                                    <img class="bordered round" src="./src/assets/images/avatars/avatar-2.png" style="width: 200px; height: 200px;">
-                                </div>
-                                <span>수원통감자</span>
-                            </div>
-                            <div class="column-top-center-flex-layout gap-level-4" data-name="userCard">
-                                <div class="column-top-center-flex-layout">
-                                    <span data-name="userId" style="display: none;"></span>
-                                    <span class="filled round horsetail padding-level-3">1,234점</span>
-                                    <img class="bordered round" src="./src/assets/images/avatars/avatar-2.png" style="width: 200px; height: 200px;">
-                                </div>
-                                <span>수원통감자</span>
-                            </div>
-                            <div class="column-top-center-flex-layout gap-level-4" data-name="userCard">
-                                <div class="column-top-center-flex-layout">
-                                    <span data-name="userId" style="display: none;"></span>
-                                    <span class="filled round horsetail padding-level-3">1,234점</span>
-                                    <img class="bordered round" src="./src/assets/images/avatars/avatar-2.png" style="width: 200px; height: 200px;">
-                                </div>
-                                <span>수원통감자</span>
-                            </div>
-                            <div class="column-top-center-flex-layout gap-level-4" data-name="userCard">
-                                <div class="column-top-center-flex-layout">
-                                    <span data-name="userId" style="display: none;"></span>
-                                    <span class="filled round horsetail padding-level-3">1,234점</span>
-                                    <img class="bordered round" src="./src/assets/images/avatars/avatar-2.png" style="width: 200px; height: 200px;">
-                                </div>
-                                <span>수원통감자</span>
-                            </div>
                         </article>
                     </article>
                 </section>`;

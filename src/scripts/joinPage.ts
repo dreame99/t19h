@@ -78,7 +78,7 @@ class JoinPage extends Page {
                     return;
                 }
 
-                getFetch("users", "id=" + joinId.value)
+                getFetch("users", "id=" + joinId.value + "&type=idCheck")
                 .then(result => {
                     if( result.result.code == 104 ) {
                         this.openErrorMessage(joinIdRuleText, "아이디가 중복됩니다.");

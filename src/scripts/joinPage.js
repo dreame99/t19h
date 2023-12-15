@@ -62,7 +62,7 @@ var JoinPage = /** @class */ (function (_super) {
                 if (!(joinId === null || joinId === void 0 ? void 0 : joinId.value) || joinId.value.replace(/[a-zA-Z0-9]/g, "").length || joinId.value.length < 8 || joinId.value.length > 16 || !/[a-zA-Z]/.test(joinId.value) || !/[0-9]/.test(joinId.value)) {
                     return;
                 }
-                getFetch("users", "id=" + joinId.value)
+                getFetch("users", "id=" + joinId.value + "&type=idCheck")
                     .then(function (result) {
                     if (result.result.code == 104) {
                         _this.openErrorMessage(joinIdRuleText, "아이디가 중복됩니다.");

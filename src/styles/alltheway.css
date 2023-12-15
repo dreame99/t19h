@@ -2322,6 +2322,13 @@ svg.icon > path {
   border: 1px solid var(--bright-color-level-3);
 }
 
+input[type=password] {
+  font-family: monospace;
+}
+input[type=password]::-webkit-input-placeholder, input[type=password]::-moz-input-placeholder, input[type=password]::-ms-input-placeholder {
+  font-family: NIXGONFONTS-L;
+}
+
 .header-container, .contents-container, .footer-container {
   width: 100%;
 }

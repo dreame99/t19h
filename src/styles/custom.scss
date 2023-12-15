@@ -29,6 +29,12 @@ svg.icon > path {
 .bordered {
     border: 1px solid var(--bright-color-level-3);
 }
+input[type="password"] {
+    font-family: monospace;
+    &::-webkit-input-placeholder, &::-moz-input-placeholder, &::-ms-input-placeholder {
+        font-family: NIXGONFONTS-L;
+    }
+}
 
 .header-container, .contents-container, .footer-container {
     width: 100%;
