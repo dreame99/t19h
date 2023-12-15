@@ -131,7 +131,7 @@ class MainPage extends Page {
             this.contents.innerHTML = `
                 <section class="container-layout limited-width padding-level-12 column-top-stretch-flex-layout gap-level-10" style="overflow: hidden;">
                     <article class="row-middle-stretch-flex-layout">
-                        <h1 class="title-text bold-text">이번달에 새로 등록된 프로젝트들이에요</h1>
+                        <h1 class="title-text bold-text">이달의 새로운 프로젝트</h1>
                     </article>
         
                     <article id="projectContainer">
@@ -142,7 +142,7 @@ class MainPage extends Page {
         
                 <section class="container-layout limited-width padding-level-12 column-top-stretch-flex-layout gap-level-10">
                     <article class="row-middle-stretch-flex-layout">
-                        <h1 class="title-text bold-text">인기 많은 프로젝트들이에요</h1>
+                        <h1 class="title-text bold-text">인기 프로젝트</h1>
                     </article>
         
                     <article id="bestProjectContainer" class="row-top-left-flex-layout gap-level-8 wrap item-3-layout">
@@ -151,7 +151,7 @@ class MainPage extends Page {
         
                 <section class="container-layout limited-width padding-level-12 column-top-stretch-flex-layout gap-level-10" style="overflow: hidden;">
                     <article class="row-middle-stretch-flex-layout">
-                        <h1 class="title-text bold-text">당신의 열정을 칭찬합니다</h1>
+                        <h1 class="title-text bold-text">당신의 열정을 칭찬합니다!</h1>
                     </article>
         
                     <article id="userContainer">
@@ -162,6 +162,7 @@ class MainPage extends Page {
 
             this.updateLatestProjectList();
             this.updateBestProjectList();
+            this.updateUserList();
         }
     }
 
