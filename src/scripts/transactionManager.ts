@@ -44,6 +44,7 @@ const API_RESULT_CODE: {[key : string] : string} = {
 };
 
 const API_URL = "https://port-0-team-api-57lz2alpl3myze.sel4.cloudtype.app/";
+const IMG_PATH = "./src/assets/images";
 function postFetch(uri: string, data?: object): Promise<FetchResponse> {
     console.log("post fetch to " + API_URL + uri);
     console.log("data ", data);
@@ -77,20 +78,15 @@ function getFetch(uri: string, data?: string): Promise<FetchResponse> {
     .then(response => response.json());
 }
 
-function patchFetch(uri: string, data?: string): Promise<FetchResponse> {
-    console.log("patch fetch to " + API_URL + uri);
-    console.log("data ", data);
-    var cond: string = "";
-    if( data && data.length ) {
-        cond = "?" + data;
-    }
-    return fetch(API_URL + uri + cond, {
+function patchFetch(uri: string, data?: object): Promise<FetchResponse> {
+    return fetch(API_URL + uri, {
         headers: {
             'Accept': 'application/json, text/plain',
             'Content-Type': 'application/json;charset=UTF-8'
         },
         method: "PATCH",
         credentials: "include",
+        body: JSON.stringify(data),
     })
     .then(response => response.json());
 }

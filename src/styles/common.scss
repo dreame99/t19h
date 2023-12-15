@@ -2295,10 +2295,6 @@ ul.list-layout {
   justify-content: space-between;
 }
 
-body > section > .container-layout:nth-child(even) {
-  background-color: var(--bright-color-level-1);
-}
-
 .container-layout {
   width: 100%;
   max-width: 100%;

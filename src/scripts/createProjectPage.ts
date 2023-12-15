@@ -1,9 +1,3 @@
-interface Skill {
-    id: string;
-    name: string;
-    image: string;
-}
-
 class CreateProjectPage extends Page {
     private skillList: Skill[] = [];
 
@@ -45,12 +39,9 @@ class CreateProjectPage extends Page {
             var html = "";
             skillList.forEach(skill => {
                 html += `
-                    <li class="row-middle-left-flex-layout gap-level-3 clickable" onclick="CreateProjectPage.addSkillCard(this, '${containerId}')">
-                        <div data-name="skillCard">
-                            <span data-name="skillId" style="display: none;">${skill.id}</span>
-                            <img src="${API_URL}/${skill.image}" title="${skill.name}" style="width: 48px; height: 48px;">
-                        </div>
-                        <span>${skill.name}</span>
+                    <li class="row-middle-left-flex-layout gap-level-3 clickable" onclick="ProfilePage.addSkillCard(this, '${containerId}')">
+                        ${getSkillCardElement(skill)}
+                        <span>${skill.name}</spna>
                     </li>`;
             });
             searchList.innerHTML = html;

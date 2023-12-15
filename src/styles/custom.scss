@@ -273,3 +273,22 @@ body {
         }
     }
 }
+
+.contents > .container-layout:nth-child(even) {
+  background-color: var(--bright-color-level-1);
+}
+
+*[data-name=carousel] {
+    position: relative !important;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    user-drag: none;
+
+    * {
+        -webkit-user-select: none;
+        user-select: none;
+        -webkit-user-drag: none;
+        user-drag: none;
+    }
+}

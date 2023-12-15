@@ -33,6 +33,7 @@ var API_RESULT_CODE = {
     "425": "팀원 모집 시작 일자가 종료 일자보다 큽니다."
 };
 var API_URL = "https://port-0-team-api-57lz2alpl3myze.sel4.cloudtype.app/";
+var IMG_PATH = "./src/assets/images";
 function postFetch(uri, data) {
     console.log("post fetch to " + API_URL + uri);
     console.log("data ", data);
@@ -65,19 +66,14 @@ function getFetch(uri, data) {
         .then(function (response) { return response.json(); });
 }
 function patchFetch(uri, data) {
-    console.log("patch fetch to " + API_URL + uri);
-    console.log("data ", data);
-    var cond = "";
-    if (data && data.length) {
-        cond = "?" + data;
-    }
-    return fetch(API_URL + uri + cond, {
+    return fetch(API_URL + uri, {
         headers: {
             'Accept': 'application/json, text/plain',
             'Content-Type': 'application/json;charset=UTF-8'
         },
         method: "PATCH",
         credentials: "include",
+        body: JSON.stringify(data),
     })
         .then(function (response) { return response.json(); });
 }

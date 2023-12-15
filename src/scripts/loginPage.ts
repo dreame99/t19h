@@ -24,9 +24,9 @@ class LoginPage extends Page {
                         </div>
                         <div class="column-top-stretch-flex-layout gap-level-6">
                             <div class="column-top-stretch-flex-layout item-1-layout gap-level-4">
-                                <input type="text" id="loginId" class="padding-level-5" placeholder="아이디" maxlength="16">
+                                <input type="text" id="loginId" class="padding-level-5" placeholder="아이디" name="loginId" maxlength="16">
                                 <div class="column-top-left-flex-layout item-1-layout gap-level-3">
-                                    <input type="password" id="loginPassword" class="padding-level-5" placeholder="비밀번호" maxlength="16">
+                                    <input type="password" id="loginPassword" class="padding-level-5" placeholder="비밀번호" name="loginPassword" maxlength="16">
                                     <span id="loginRuleText" class="error-text" style="display: none;">아이디 또는 비밀번호의 형식이 올바르지 않습니다.</span>
                                     <label class="row-middle-left-flex-layout gap-level-2"><input type="checkbox" id="autoLoginCheckbox">자동 로그인</label>
                                 </div>

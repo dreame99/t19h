@@ -37,11 +37,11 @@ class JoinPage extends Page {
                         <div class="column-top-stretch-flex-layout gap-level-6 item-1-layout">
                             <div class="column-top-stretch-flex-layout item-1-layout gap-level-4">
                                 <div class="column-top-left-flex-layout item-1-layout gap-level-3">
-                                    <input type="text" id="joinId" class="padding-level-5" placeholder="아이디" maxlength="16">
+                                    <input type="text" id="joinId" class="padding-level-5" placeholder="아이디" name="joinId" maxlength="16">
                                     <span id="joinIdRuleText">아이디는 영문/숫자로 이루어진 8~16자 문자로 구성되어야 합니다.</span>
                                 </div>
             
-                                <input type="password" id="joinPassword" class="padding-level-5" placeholder="비밀번호" maxlength="16">
+                                <input type="password" id="joinPassword" class="padding-level-5" placeholder="비밀번호" name="joinPassword" maxlength="16">
             
                                 <div class="column-top-left-flex-layout item-1-layout gap-level-3">
                                     <input type="password" id="joinConfirmPassword" class="padding-level-5" placeholder="비밀번호" maxlength="16">

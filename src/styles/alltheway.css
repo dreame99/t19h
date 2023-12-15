@@ -2681,10 +2681,6 @@ ul.list-layout > li {
   justify-content: space-between;
 }
 
-body > section > .container-layout:nth-child(even) {
-  background-color: var(--bright-color-level-1);
-}
-
 .container-layout {
   width: 100%;
   max-width: 100%;
@@ -6425,65 +6421,22 @@ body {
   font-weight: bold;
 }
 
-.carousel {
-  display: inline-flex;
-  width: 100%;
-  overflow: hidden;
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-}
-.carousel > .list {
-  display: inline-flex;
-  width: 100%;
-  gap: 20px;
-}
-.carousel > .list > * {
-  flex-shrink: 0;
+.contents > .container-layout:nth-child(even) {
+  background-color: var(--bright-color-level-1);
 }
 
-.page-container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
+*[data-name=carousel] {
+  position: relative !important;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+       user-select: none;
+  -webkit-user-drag: none;
+  user-drag: none;
 }
-.page-container > button {
-  width: 48px;
-  height: 48px;
-  padding: 0;
-  background-color: #5288F1;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.page-container > button.left-button {
-  border-radius: 24px 0 0 24px;
-}
-.page-container > button.right-button {
-  border-radius: 0 24px 24px 0;
-}
-.page-container > button > svg {
-  width: 24px;
-  height: 24px;
-}
-.page-container > button > svg > path {
-  fill: none;
-  stroke: white;
-  stroke-width: 2px;
-}
-.page-container > .page-count {
-  width: 48px;
-  height: 48px;
-  background-color: white;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.page-container > .page-count.selected {
-  color: #5288F1;
-  font-family: NIXGONFONTS-B;
+*[data-name=carousel] * {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+       user-select: none;
+  -webkit-user-drag: none;
+  user-drag: none;
 }/*# sourceMappingURL=alltheway.css.map */

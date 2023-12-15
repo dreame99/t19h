@@ -1,48 +1,25 @@
-abstract class Page {
-    protected contents: HTMLElement;
-
-    constructor(contents: HTMLElement) {
-        this.contents = contents;
-    }
-
-    protected abstract render(): void;
-
-    protected abstract bindingEvents(): void;
-  
-    public init(): void {
-        this.render();
-        this.bindingEvents();
-    }
-}
-
-function createTitleContainer(title: string): HTMLElement {
-    var titleContainer = document.createElement("div");
-    titleContainer.classList.add("title-container");
-    var span = document.createElement("span");
-    span.classList.add("title");
-    span.innerHTML = title;
-    titleContainer.appendChild(span);
-
-    return titleContainer;
-}
-
 class MainPage extends Page {
-    private async searchNewProjectList(): Promise<Project[]> {
-        var newProjectList: Array<Project> = [];
+    private PAGE_COUNT: number = 9;
 
-        if( SERVER_INFO == "RUN" ) {
-            await fetch(API_URL + "projects", {
-                method: "POST",
-                body: JSON.stringify({type: "최신순", searchStartDate : "20231201", searchEndDate : "20231231", count: 10})
-            })
-            .then((response) => response.json())
-            .then((result) => {
-                newProjectList = result;
-            })
-            .catch(e => console.log(e));
-        } else {
-            for( var i = 0; i < 10; i++ ) {
-                newProjectList.push({
+    private async searchLatestProjectList(): Promise<Project[]> {
+        var date: Date = new Date();
+        var y: string = "" + date.getFullYear();
+        var m: string = "" + date.getMonth() + 1;
+        m = (Number(m) < 10? "0" + m : m);
+
+        var cond = "count=" + this.PAGE_COUNT + "&start=" + (y + "-" + m + "-01") + "&end=" + (y + "-" + m + "-31");
+        
+        var projectList: Project[] = [];
+
+        await getFetch("projects", cond).then(result => {
+            if( result.result.code == 104 ) {
+                projectList = result.data as Project[];
+            } else {
+                alert(API_RESULT_CODE[result.result.code]);
+            }
+        }).catch((e) => {
+            for( var i = 0; i < this.PAGE_COUNT; i++ ) {
+                projectList.push({
                     id : "" + (Math.random() * 1000000 | 0),
                     teamRecruitmentStartDate : "2023-11-15",
                     teamRecruitmentEndDate : "2023-12-15",
@@ -55,26 +32,40 @@ class MainPage extends Page {
                     countComments : Math.min(Number.MAX_SAFE_INTEGER, Math.pow(2, i))
                 });
             }
-        }
-        return newProjectList;
+        });
+
+        return projectList;
     }
 
-    private async searchPopularProjectList(): Promise<Project[]> {
-        var popularProjectList: Array<Project> = [];
+    private async updateLatestProjectList(): Promise<void> {
+        var projectCarousel: HTMLElement | null = document.querySelector("#projectCarousel");
+        var projectList: Project[] = await this.searchLatestProjectList();
 
-        if( SERVER_INFO == "RUN" ) {
-            await fetch(API_URL + "projects", {
-                method: "POST",
-                body: JSON.stringify({type: "인기많은순", count: 9})
-            })
-            .then((response) => response.json())
-            .then((result) => {
-                popularProjectList = result;
-            })
-            .catch(e => console.log(e));
-        } else {
-            for( var i = 0; i < 9; i++ ) {
-                popularProjectList.push({
+        if( projectCarousel ) {
+            var html = "";
+            projectList.forEach(project => {
+                var skillListHtml = "";
+                project.skills.forEach(skill => skillListHtml += getSkillCardElement(skill));
+                html += getProjectCardElement(project, skillListHtml);
+            });
+            projectCarousel.innerHTML = html;
+        }
+    }
+
+    private async searchBestProjectList(): Promise<Project[]> {
+        var cond = "count=" + this.PAGE_COUNT + "&sort=best";
+        
+        var projectList: Project[] = [];
+
+        await getFetch("projects", cond).then(result => {
+            if( result.result.code == 104 ) {
+                projectList = result.data as Project[];
+            } else {
+                alert(API_RESULT_CODE[result.result.code]);
+            }
+        }).catch((e) => {
+            for( var i = 0; i < this.PAGE_COUNT; i++ ) {
+                projectList.push({
                     id : "" + (Math.random() * 1000000 | 0),
                     teamRecruitmentStartDate : "2023-11-15",
                     teamRecruitmentEndDate : "2023-12-15",
@@ -87,107 +78,186 @@ class MainPage extends Page {
                     countComments : Math.min(Number.MAX_SAFE_INTEGER, Math.pow(2, i))
                 });
             }
-        }
-        
-        return popularProjectList;
+        });
+
+        return projectList;
     }
 
-    private async searchHighestScoreMemberList(): Promise<User[]> {
-        var highestScoreMemberList: Array<User> = [];
-        if( SERVER_INFO == "RUN" ) {
-            await fetch(API_URL + "projects", {
-                method: "POST",
-                body: JSON.stringify({type: "인기많은순"})
-            })
-            .then((response) => response.json())
-            .then((result) => {
-                highestScoreMemberList = result;
-            })
-            .catch(e => console.log(e));
-        } else {
-            for( var i = 0; i < 10; i++ ) {
-                highestScoreMemberList.push({
-                    name: "내가세상가장매콤한사나이",
-                    imagePath: "./src/assets/images/avatar" + (((Math.random() * 10) | 0) + 1) + ".png",
-                    point: Math.pow(10, 10 - i)
-                });
-            }
-        }
-        
-        return highestScoreMemberList;
-    }
+    private async updateBestProjectList(): Promise<void> {
+        var bestProjectContainer: HTMLElement | null = document.querySelector("#bestProjectContainer");
+        var projectList: Project[] = await this.searchBestProjectList();
 
-    private async renderNewProjectList(): Promise<void> {
-        var newProjectList: Project[] = await this.searchNewProjectList();
-        if( newProjectList.length ) {
-            var article = document.createElement("article");
-            var bucket = document.createElement("div");
-            bucket.classList.add("bucket");
-            article.appendChild(bucket);
-
-            bucket.appendChild(createTitleContainer("이달의 새로운 프로젝트"));
-
-            var newProject = document.createElement("article");
-            newProject.classList.add("box");
-            bucket.appendChild(newProject);
-        
-            var carousel = new Carousel();
-            newProject.appendChild(carousel.getElement());
-            newProjectList.forEach(newProject => carousel.append((new ProjectAbridgement(newProject)).getElement()));
-
-            this.contents.appendChild(article);
-        }
-    }
-
-    private async renderPopularProjectList(): Promise<void> {
-        var popularProjectList: Project[] = await this.searchPopularProjectList();
-
-        if( popularProjectList.length > 0 ) {
-            var article = createElement("article");
-            var div = createElement("div", "", "bucket");
-            article.appendChild(div);
-            
-            div.appendChild(createTitleContainer("인기 프로젝트"));
-
-            var popularProjectContainer = createElement("article", "popularProject", "list-box");
-            div.appendChild(popularProjectContainer);
-
-            popularProjectList.forEach(popularProject => popularProjectContainer.append((new ProjectAbridgement(popularProject)).getElement()));
-
-            this.contents.appendChild(article);
-        }
-    }
-
-    private async renderHighesScoreMemberList(): Promise<void> {
-        var highestScoreMemberList: User[] = await this.searchHighestScoreMemberList();
-        if( highestScoreMemberList.length > 0 ) {
-            var article = createElement("article");
-            var div = createElement("div", "", "bucket");
-            article.appendChild(div);
-            
-            div.appendChild(createTitleContainer("당신의 열정을 칭찬합니다."));
-
-            var highestScoreMember = createElement("article", "highestScoreMember", "box");
-            div.appendChild(highestScoreMember);
-        
-            var carousel = new Carousel();
-            highestScoreMember.appendChild(carousel.getElement());
-            highestScoreMemberList.forEach(user => carousel.append((new UserAbridgement(user)).getElement()));
-
-            this.contents.appendChild(article);
+        if( bestProjectContainer ) {
+            var html = "";
+            projectList.forEach(project => {
+                var skillListHtml = "";
+                project.skills.forEach(skill => skillListHtml += getSkillCardElement(skill));
+                html += getProjectCardElement(project, skillListHtml);
+            });
+            bestProjectContainer.innerHTML = html;
         }
     }
 
     protected async render(): Promise<void> {
         if( this.contents ) {
-            this.contents.innerHTML = "";
+            this.contents.innerHTML = `
+                <section class="container-layout limited-width padding-level-12 column-top-stretch-flex-layout gap-level-10" style="overflow: hidden;">
+                    <article class="row-middle-stretch-flex-layout">
+                        <h1 class="title-text bold-text">이번달에 새로 등록된 프로젝트들이에요</h1>
+                    </article>
+        
+                    <article id="projectContainer">
+                        <article id="projectCarousel" class="row-top-left-flex-layout gap-level-8 item-3-layout" data-name="carousel">
+                        </article>
+                    </article>
+                </section>
+        
+                <section class="container-layout limited-width padding-level-12 column-top-stretch-flex-layout gap-level-10">
+                    <article class="row-middle-stretch-flex-layout">
+                        <h1 class="title-text bold-text">인기 많은 프로젝트들이에요</h1>
+                    </article>
+        
+                    <article id="bestProjectContainer" class="row-top-left-flex-layout gap-level-8 wrap item-3-layout">
+                    </article>
+                </section>
+        
+                <section class="container-layout limited-width padding-level-12 column-top-stretch-flex-layout gap-level-10" style="overflow: hidden;">
+                    <article class="row-middle-stretch-flex-layout">
+                        <h1 class="title-text bold-text">당신의 열정을 칭찬합니다</h1>
+                    </article>
+        
+                    <article id="userContainer">
+                        <article id="userCarousel" class="row-top-left-flex-layout gap-level-8 item-5-layout" data-name="carousel">
+                            <div class="column-top-center-flex-layout gap-level-4" data-name="userCard">
+                                <div class="column-top-center-flex-layout">
+                                    <span data-name="userId" style="display: none;"></span>
+                                    <span class="filled round horsetail padding-level-3">1,234점</span>
+                                    <img class="bordered round" src="./src/assets/images/avatars/avatar-2.png" style="width: 200px; height: 200px;">
+                                </div>
+                                <span>수원통감자</span>
+                            </div>
+                            <div class="column-top-center-flex-layout gap-level-4" data-name="userCard">
+                                <div class="column-top-center-flex-layout">
+                                    <span data-name="userId" style="display: none;"></span>
+                                    <span class="filled round horsetail padding-level-3">1,234점</span>
+                                    <img class="bordered round" src="./src/assets/images/avatars/avatar-2.png" style="width: 200px; height: 200px;">
+                                </div>
+                                <span>수원통감자</span>
+                            </div>
+                            <div class="column-top-center-flex-layout gap-level-4" data-name="userCard">
+                                <div class="column-top-center-flex-layout">
+                                    <span data-name="userId" style="display: none;"></span>
+                                    <span class="filled round horsetail padding-level-3">1,234점</span>
+                                    <img class="bordered round" src="./src/assets/images/avatars/avatar-2.png" style="width: 200px; height: 200px;">
+                                </div>
+                                <span>수원통감자</span>
+                            </div>
+                            <div class="column-top-center-flex-layout gap-level-4" data-name="userCard">
+                                <div class="column-top-center-flex-layout">
+                                    <span data-name="userId" style="display: none;"></span>
+                                    <span class="filled round horsetail padding-level-3">1,234점</span>
+                                    <img class="bordered round" src="./src/assets/images/avatars/avatar-2.png" style="width: 200px; height: 200px;">
+                                </div>
+                                <span>수원통감자</span>
+                            </div>
+                            <div class="column-top-center-flex-layout gap-level-4" data-name="userCard">
+                                <div class="column-top-center-flex-layout">
+                                    <span data-name="userId" style="display: none;"></span>
+                                    <span class="filled round horsetail padding-level-3">1,234점</span>
+                                    <img class="bordered round" src="./src/assets/images/avatars/avatar-2.png" style="width: 200px; height: 200px;">
+                                </div>
+                                <span>수원통감자</span>
+                            </div>
+                            <div class="column-top-center-flex-layout gap-level-4" data-name="userCard">
+                                <div class="column-top-center-flex-layout">
+                                    <span data-name="userId" style="display: none;"></span>
+                                    <span class="filled round horsetail padding-level-3">1,234점</span>
+                                    <img class="bordered round" src="./src/assets/images/avatars/avatar-2.png" style="width: 200px; height: 200px;">
+                                </div>
+                                <span>수원통감자</span>
+                            </div>
+                            <div class="column-top-center-flex-layout gap-level-4" data-name="userCard">
+                                <div class="column-top-center-flex-layout">
+                                    <span data-name="userId" style="display: none;"></span>
+                                    <span class="filled round horsetail padding-level-3">1,234점</span>
+                                    <img class="bordered round" src="./src/assets/images/avatars/avatar-2.png" style="width: 200px; height: 200px;">
+                                </div>
+                                <span>수원통감자</span>
+                            </div>
+                            <div class="column-top-center-flex-layout gap-level-4" data-name="userCard">
+                                <div class="column-top-center-flex-layout">
+                                    <span data-name="userId" style="display: none;"></span>
+                                    <span class="filled round horsetail padding-level-3">1,234점</span>
+                                    <img class="bordered round" src="./src/assets/images/avatars/avatar-2.png" style="width: 200px; height: 200px;">
+                                </div>
+                                <span>수원통감자</span>
+                            </div>
+                            <div class="column-top-center-flex-layout gap-level-4" data-name="userCard">
+                                <div class="column-top-center-flex-layout">
+                                    <span data-name="userId" style="display: none;"></span>
+                                    <span class="filled round horsetail padding-level-3">1,234점</span>
+                                    <img class="bordered round" src="./src/assets/images/avatars/avatar-2.png" style="width: 200px; height: 200px;">
+                                </div>
+                                <span>수원통감자</span>
+                            </div>
+                        </article>
+                    </article>
+                </section>`;
 
-            await this.renderNewProjectList();
-            await this.renderPopularProjectList();
-            await this.renderHighesScoreMemberList();
+            this.updateLatestProjectList();
+            this.updateBestProjectList();
         }
     }
 
     protected bindingEvents(): void {
+        var projectContainer: HTMLElement | null = document.querySelector("#projectContainer");
+        var projectCarousel: HTMLElement | null = document.querySelector("#projectCarousel");
+        var userContainer: HTMLElement | null = document.querySelector("#userContainer");
+        var userCarousel: HTMLElement | null = document.querySelector("#userCarousel");
+        var originX: number;
+        var prevX: number;
+        var isProjectDrag: boolean = false;
+        var isUserDrag: boolean = false;
+        
+        projectCarousel?.addEventListener("mousedown", e => {
+            if( projectCarousel && projectContainer ) {
+                isProjectDrag = true;
+                originX = projectCarousel.getBoundingClientRect().x - projectContainer.getBoundingClientRect().x;
+                prevX = e.clientX;
+            }
+        });
+        userCarousel?.addEventListener("mousedown", e => {
+            if( userCarousel && userContainer ) {
+                isUserDrag = true;
+                originX = userCarousel.getBoundingClientRect().x - userContainer.getBoundingClientRect().x;
+                prevX = e.clientX;
+            }
+        });
+
+        window.addEventListener("mousemove", e => {
+            if( isProjectDrag ) {
+                if( projectCarousel && projectContainer ) {
+                    var gap = 32;
+                    var itemWidth = (projectContainer.getBoundingClientRect().width - gap * 2) / 3;
+                    var listWidth = Math.max(0, projectCarousel.children.length - 1) * gap + projectCarousel.children.length * itemWidth;
+    
+                    projectCarousel.style.left = Math.min(0, Math.max(-(listWidth - projectCarousel.clientWidth), originX + e.clientX - prevX)) + "px";
+                }
+            }
+            if( isUserDrag ) {
+                if( userCarousel && userContainer ) {
+                    var gap = 32;
+                    var itemWidth = 200;
+                    var listWidth = Math.max(0, userCarousel.children.length - 1) * gap + userCarousel.children.length * itemWidth;
+    
+                    userCarousel.style.left = Math.min(0, Math.max(-(listWidth - userCarousel.clientWidth), originX + e.clientX - prevX)) + "px";
+                }
+            }
+        });
+
+        window.addEventListener("mouseup", e => {
+            isProjectDrag = false;
+            isUserDrag = false;
+        });
     }
 }

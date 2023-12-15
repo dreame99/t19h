@@ -5,16 +5,12 @@ class ProfilePage extends Page {
         var searchList: HTMLElement | null = document.querySelector("#searchList");
         if( searchList ) {
             searchList.innerHTML = "";
-
             var html = "";
             skillList.forEach(skill => {
                 html += `
                     <li class="row-middle-left-flex-layout gap-level-3 clickable" onclick="ProfilePage.addSkillCard(this, '${containerId}')">
-                        <div data-name="skillCard">
-                            <span data-name="skillId" style="display: none;">${skill.id}</span>
-                            <img src="${API_URL}/${skill.image}" title="${skill.name}" style="width: 48px; height: 48px;">
-                        </div>
-                        <span>${skill.name}</span>
+                        ${getSkillCardElement(skill)}
+                        <span>${skill.name}</spna>
                     </li>`;
             });
             searchList.innerHTML = html;
@@ -33,13 +29,15 @@ class ProfilePage extends Page {
                                 <div class="toggle-layer"></div>
                             </div>
                         </div>
-                        <div class="column-top-center-flex-layout gap-level-4" data-name="userCard">
-                            <div class="column-top-center-flex-layout">
-                                <span data-name="userId" style="display: none;"></span>
-                                <span class="filled round horsetail padding-level-3">1,234점</span>
-                                <img class="bordered round" src="./src/assets/images/avatars/avatar-2.png" style="width: 200px; height: 200px;">
+                        <div id="userContainer" class="row-top-center-flex-layout">
+                            <div class="column-top-center-flex-layout gap-level-4" data-name="userCard">
+                                <div class="column-top-center-flex-layout">
+                                    <span data-name="userId" style="display: none;"></span>
+                                    <span class="filled round horsetail padding-level-3">1,234점</span>
+                                    <img class="bordered round" src="./src/assets/images/avatars/avatar-2.png" style="width: 200px; height: 200px;">
+                                </div>
+                                <span>수원통감자</span>
                             </div>
-                            <span>수원통감자</span>
                         </div>
                     </article>
                     <article class="box-layout padding-level-10 column-top-stretch-flex-layout gap-level-8">
@@ -171,12 +169,13 @@ class ProfilePage extends Page {
         
         var confidentSkills = useSkillContainer? [...useSkillContainer.querySelectorAll("[data-name=skillId]")].map(o => o.innerHTML) : [];
         var wantToStudySkills = wannaSkillContainer? [...wannaSkillContainer.querySelectorAll("[data-name=skillId]")].map(o => o.innerHTML) : [];
-        var cond = "";
-        cond += "disclosure=" + disclosure?.checked;
-        cond += "&confidentSkills=" + confidentSkills.toString();
-        cond += "&confidentSkills=" + wantToStudySkills.toString();
+        var data = {
+            disclosure : disclosure?.checked,
+            confidentSkills : confidentSkills,
+            wantToStudySkills : wantToStudySkills,
+        };
         
-        patchFetch("users", cond)
+        patchFetch("users", data)
         .then(result => {
             console.log(result);
         })

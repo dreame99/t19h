@@ -82,59 +82,8 @@ class ProjectListPage extends Page {
             var html = "";
             projectList.forEach(project => {
                 var skillListHtml = "";
-                project.skills.forEach(skill => {
-                    skillListHtml += `
-                        <div data-name="skillCard">
-                            <span data-name="skillId" style="display: none;"></span>
-                            <img src="${API_URL}/${skill.image}" title="${skill.name}" style="width: 48px; height: 48px;">
-                        </div>`;
-                });
-                
-                html += `
-                    <article class="box-layout column-top-stretch-flex-layout padding-level-8 gap-level-6 clickable" data-name="projectCard" onclick="ProjectListPage.openProjectDetail(this)">
-                        <span data-name="projectId" style="display: none;">210312492937sad</span>
-                        <div class="row-middle-stretch-flex-layout">
-                            <span>${project.teamRecruitmentStartDate} ~ ${project.teamRecruitmentEndDate}</span>
-                            <span class="padding-level-4 round filled">모집중</span>
-                        </div>
-                        <div>
-                            <span class="title-text">${project.title}</span>
-                        </div>
-                        <div style="display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden;">
-                            ${project.content}
-                        </div>
-                        <div class="line"></div>
-                        <div class="row-middle-stretch-flex-layout gap-level-5">
-                            <div class="row-middle-stretch-flex-layout gap-level-2">
-                                <span class="bold-text">현재 인원</span>
-                                <span>1명</span>
-                            </div>
-                            <div class="row-middle-stretch-flex-layout gap-level-2">
-                                <span class="bold-text">모집 인원</span>
-                                <span>${toSummaryNumber(project.personnel)}명</span>
-                            </div>
-                        </div>
-                        <div class="column-middle-left-flex-layout gap-level-5">
-                            <span class="bold-text">기술 스택</span>
-                            <div class="row-top-left-flex-layout gap-level-2 wrap">
-                                ${skillListHtml}
-                            </div>
-                        </div>
-                        <div class="row-middle-right-flex-layout gap-level-5 wrap">
-                            <div class="row-middle-left-flex-layout gap-level-2">
-                                <svg class="icon" viewBox="0 0 24 24"> <path class="eye-icon"/> </svg>
-                                <span>${toSummaryNumber(project.countViews)}</span>
-                            </div>
-                            <div class="row-middle-left-flex-layout gap-level-2">
-                                <svg class="icon" viewBox="0 0 24 24"> <path class="heart-icon"/> </svg>
-                                <span>${toSummaryNumber(project.countGreats)}</span>
-                            </div>
-                            <div class="row-middle-left-flex-layout gap-level-2">
-                                <svg class="icon" viewBox="0 0 24 24"> <path class="bubble-icon"/> </svg>
-                                <span>${toSummaryNumber(project.countViews)}</span>
-                            </div>
-                        </div>
-                    </article>`
+                project.skills.forEach(skill => skillListHtml += getSkillCardElement(skill));
+                html += getProjectCardElement(project, skillListHtml, "ProjectListPage.openProjectDetail(this)");
             });
             projectContainer.innerHTML = html;
         }

@@ -90,13 +90,13 @@ var CreateProjectPage = /** @class */ (function (_super) {
             ruleText.innerText = msg;
         }
     };
-    CreateProjectPage.prototype.updateSearchList = function (skillList) {
+    CreateProjectPage.prototype.updateSearchList = function (skillList, containerId) {
         var searchList = document.querySelector("#searchList");
         if (searchList) {
             searchList.innerHTML = "";
             var html = "";
             skillList.forEach(function (skill) {
-                html += "\n                    <li class=\"row-middle-left-flex-layout gap-level-3 clickable\" onclick=\"CreateProjectPage.addSkillCard(this)\">\n                        <div data-name=\"skillCard\">\n                            <span data-name=\"skillId\" style=\"display: none;\">".concat(skill.id, "</span>\n                            <img src=\"").concat(API_URL, "/").concat(skill.image, "\" title=\"").concat(skill.name, "\" style=\"width: 48px; height: 48px;\">\n                        </div>\n                        <span>").concat(skill.name, "</span>\n                    </li>");
+                html += "\n                    <li class=\"row-middle-left-flex-layout gap-level-3 clickable\" onclick=\"ProfilePage.addSkillCard(this, '".concat(containerId, "')\">\n                        ").concat(getSkillCardElement(skill), "\n                        <span>").concat(skill.name, "</spna>\n                    </li>");
             });
             searchList.innerHTML = html;
         }
@@ -117,7 +117,6 @@ var CreateProjectPage = /** @class */ (function (_super) {
         var layerPopup = document.querySelector("#layerPopup");
         var addSkillButton = document.querySelector("#addSkillButton");
         var searchInput = document.querySelector("#searchInput");
-        var searchList = document.querySelector("#searchList");
         var projectCreateButton = document.querySelector("#projectCreateButton");
         var title = document.querySelector("#title");
         var titleRuleText = document.querySelector("#titleRuleText");
@@ -207,39 +206,7 @@ var CreateProjectPage = /** @class */ (function (_super) {
                     .catch(function (e) { return alert("error msg : " + e); });
             }
         });
-        addSkillButton === null || addSkillButton === void 0 ? void 0 : addSkillButton.addEventListener("click", function () {
-            if (screenCover && layerPopup) {
-                if (screenCover.style.display != "block") {
-                    screenCover.style.display = "block";
-                    layerPopup.style.display = "flex";
-                    var popupSkillContainer = document.querySelector("#popupSkillContainer");
-                    if (popupSkillContainer) {
-                        popupSkillContainer.innerHTML = "";
-                        var projectSkillContainer = document.querySelector("#projectSkillContainer");
-                        if (projectSkillContainer) {
-                            popupSkillContainer.innerHTML = projectSkillContainer.innerHTML;
-                        }
-                    }
-                    getFetch("skills").then(function (result) {
-                        console.log(result);
-                        _this.skillList = result.data;
-                        _this.updateSearchList(_this.skillList);
-                    }).catch(function (e) {
-                        alert("error msg : " + e);
-                        _this.skillList = [{ id: "1", name: "spring", image: "skills/spring-original.png" },
-                            { id: "2", name: "css3", image: "skills/css3-original.png" },
-                            { id: "3", name: "bootstrap", image: "skills/bootstrap-original.png" },
-                            { id: "4", name: "android", image: "skills/android-original.png" },
-                            { id: "5", name: "figma", image: "skills/figma-original.png" },
-                            { id: "6", name: "intellij", image: "skills/intellij-original.png" },
-                            { id: "7", name: "nodejs", image: "skills/nodejs-original.png" },
-                            { id: "8", name: "vscode", image: "skills/vscode-original.png" },
-                            { id: "9", name: "swift", image: "skills/ swift-original.png" }];
-                        _this.updateSearchList(_this.skillList);
-                    });
-                }
-            }
-        });
+        addSkillButton === null || addSkillButton === void 0 ? void 0 : addSkillButton.addEventListener("click", function () { return _this.openSkillSearchPopup("projectSkillContainer"); });
         screenCover === null || screenCover === void 0 ? void 0 : screenCover.addEventListener("click", function () {
             if (screenCover && layerPopup) {
                 if (screenCover.style.display == "block") {
@@ -255,8 +222,44 @@ var CreateProjectPage = /** @class */ (function (_super) {
                 }
                 return true;
             });
-            _this.updateSearchList(list);
+            _this.updateSearchList(list, "projectSkillContainer");
         });
+    };
+    CreateProjectPage.prototype.openSkillSearchPopup = function (containerId) {
+        var _this = this;
+        var screenCover = document.querySelector("#screenCover");
+        var layerPopup = document.querySelector("#layerPopup");
+        if (screenCover && layerPopup) {
+            if (screenCover.style.display != "block") {
+                screenCover.style.display = "block";
+                layerPopup.style.display = "flex";
+                var popupSkillContainer = document.querySelector("#popupSkillContainer");
+                if (popupSkillContainer) {
+                    popupSkillContainer.innerHTML = "";
+                    var skillContainer = document.querySelector("#" + containerId);
+                    if (skillContainer) {
+                        popupSkillContainer.innerHTML = skillContainer.innerHTML;
+                    }
+                }
+                getFetch("skills").then(function (result) {
+                    console.log(result);
+                    _this.skillList = result.data;
+                    _this.updateSearchList(_this.skillList, containerId);
+                }).catch(function (e) {
+                    alert("error msg : " + e);
+                    _this.skillList = [{ id: "1", name: "spring", image: "skills/spring-original.png" },
+                        { id: "2", name: "css3", image: "skills/css3-original.png" },
+                        { id: "3", name: "bootstrap", image: "skills/bootstrap-original.png" },
+                        { id: "4", name: "android", image: "skills/android-original.png" },
+                        { id: "5", name: "figma", image: "skills/figma-original.png" },
+                        { id: "6", name: "intellij", image: "skills/intellij-original.png" },
+                        { id: "7", name: "nodejs", image: "skills/nodejs-original.png" },
+                        { id: "8", name: "vscode", image: "skills/vscode-original.png" },
+                        { id: "9", name: "swift", image: "skills/ swift-original.png" }];
+                    _this.updateSearchList(_this.skillList, containerId);
+                });
+            }
+        }
     };
     CreateProjectPage.addSkillCard = function (skillItem) {
         var _a;
