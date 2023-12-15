@@ -65,7 +65,7 @@ var MainPage = /** @class */ (function (_super) {
                     case 0:
                         date = new Date();
                         y = "" + date.getFullYear();
-                        m = "" + date.getMonth() + 1;
+                        m = "" + (date.getMonth() + 1);
                         m = (Number(m) < 10 ? "0" + m : m);
                         cond = "count=" + this.PAGE_COUNT + "&start=" + (y + "-" + m + "-01") + "&end=" + (y + "-" + m + "-31");
                         projectList = [];

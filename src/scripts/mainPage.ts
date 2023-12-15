@@ -4,7 +4,7 @@ class MainPage extends Page {
     private async searchLatestProjectList(): Promise<Project[]> {
         var date: Date = new Date();
         var y: string = "" + date.getFullYear();
-        var m: string = "" + date.getMonth() + 1;
+        var m: string = "" + (date.getMonth() + 1);
         m = (Number(m) < 10? "0" + m : m);
 
         var cond = "count=" + this.PAGE_COUNT + "&start=" + (y + "-" + m + "-01") + "&end=" + (y + "-" + m + "-31");
