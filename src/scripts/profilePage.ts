@@ -117,6 +117,7 @@ class ProfilePage extends Page {
                         </div>
                     </div>
                 </section>`;
+            this.updateProfile();
         }
     }
 
