@@ -195,6 +195,7 @@ var MainPage = /** @class */ (function (_super) {
                         cond = "count=" + this.PAGE_COUNT + "&sort=score";
                         userList = [];
                         return [4 /*yield*/, getFetch("users", cond).then(function (result) {
+                                console.log(result);
                                 if (result.result.code == 104) {
                                     userList = result.data;
                                 }
@@ -223,6 +224,7 @@ var MainPage = /** @class */ (function (_super) {
                         if (userCarousel) {
                             html = "";
                             userList.forEach(function (user) { return html += getUserCardElement(user); });
+                            console.log(html);
                             userCarousel.innerHTML = html;
                         }
                         return [2 /*return*/];

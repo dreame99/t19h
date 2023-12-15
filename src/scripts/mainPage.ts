@@ -100,10 +100,10 @@ class MainPage extends Page {
 
     private async searchUserList(): Promise<User[]> {
         var cond = "count=" + this.PAGE_COUNT + "&sort=score";
-        
         var userList: User[] = [];
 
         await getFetch("users", cond).then(result => {
+            console.log(result);
             if( result.result.code == 104 ) {
                 userList = result.data as User[];
             } else {
@@ -122,6 +122,7 @@ class MainPage extends Page {
         if( userCarousel ) {
             var html = "";
             userList.forEach(user => html += getUserCardElement(user));
+            console.log(html);
             userCarousel.innerHTML = html;
         }
     }
