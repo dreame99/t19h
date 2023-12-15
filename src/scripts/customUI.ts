@@ -21,6 +21,9 @@ interface User {
     nickname: string;
     fileRealName: string;
     score: number;
+    confidentSkills?: Skill[];
+    wantToStudySkills?: Skill[];
+    disclosure?: boolean;
 }
 
 function getSkillCardElement(skill: Skill, clickFunc?: string) {

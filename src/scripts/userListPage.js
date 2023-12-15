@@ -84,18 +84,8 @@ var UserListPage = /** @class */ (function (_super) {
                                 else {
                                     alert(API_RESULT_CODE[result.result.code]);
                                 }
-                            }).catch(function (e) {
-                                for (var i = 0; i < _this.PAGE_COUNT; i++) {
-                                    userList.push({
-                                        id: "z" + ("a" + i).repeat(i),
-                                        name: "내가세상가장매콤한사나이",
-                                        imagePath: "./src/assets/images/avatar" + (((Math.random() * 10) | 0) + 1) + ".png",
-                                        point: Math.pow(10, 10 - i)
-                                    });
-                                }
-                                _this.totalCount = 100;
-                                _this.updatePageCount();
-                            })];
+                            })
+                                .catch(function (e) { return alert("error msg : " + e); })];
                     case 1:
                         _a.sent();
                         return [2 /*return*/, userList];
@@ -139,9 +129,7 @@ var UserListPage = /** @class */ (function (_super) {
                         userList = _a.sent();
                         if (userContainer) {
                             html = "";
-                            userList.forEach(function (user) {
-                                html += "\n                    <div class=\"column-top-center-flex-layout gap-level-4\" data-name=\"userCard\" onclick=\"UserListPage.openUserDetail(this)\">\n                        <div class=\"column-top-center-flex-layout\">\n                            <span data-name=\"userId\" style=\"display: none;\">".concat(user.id, "</span>\n                            <span class=\"filled round horsetail padding-level-3\">").concat(user.point.toLocaleString(), "\uC810</span>\n                            <img class=\"bordered round\" src=\"./src/assets/images/avatars/avatar-2.png\" style=\"width: 200px; height: 200px;\">\n                        </div>\n                        <span>").concat(user.name, "</span>\n                    </div>");
-                            });
+                            userList.forEach(function (user) { return html += getUserCardElement(user); });
                             userContainer.innerHTML = html;
                         }
                         return [2 /*return*/];
@@ -153,7 +141,7 @@ var UserListPage = /** @class */ (function (_super) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 if (this.contents) {
-                    this.contents.innerHTML = "\n                <section class=\"container-layout limited-width padding-level-12 column-top-stretch-flex-layout gap-level-10\">\n                    <article class=\"row-middle-stretch-flex-layout\">\n                        <h1 class=\"title-text bold-text\">\uC0AC\uC6A9\uC790 \uBAA9\uB85D</h1>\n                        <div class=\"row-middle-right-flex-layout\" style=\"position: relative;\">\n                            <div id=\"sortDropDown\" class=\"row-middle-left-flex-layout clickable\">\n                                <span id=\"sort\" data-name=\"latest\">\uCD5C\uC2E0\uC21C</span>\n                                <button class=\"icon-button transparent-button\"> <svg class=\"icon\" viewBox=\"0 0 24 24\"> <path class=\"bottom-icon\"/> </svg> </button>\n                            </div>\n                            \n                            <ul id=\"sortMenu\" class=\"box-layout\" style=\"position: absolute; top: 100%; left: 0; width: 100%; display: none;\">\n                                <li class=\"padding-level-4 clickable\" data-name=\"latest\">\uCD5C\uC2E0\uC21C</li>\n                                <li class=\"padding-level-4 clickable\" data-name=\"best\">\uC810\uC218\uB192\uC740\uC21C</li>\n                            </ul>\n                        </div>\n                    </article>\n        \n                    <article id=\"userContainer\" class=\"row-top-left-flex-layout gap-level-8 item-5-layout wrap\">\n                    </article>\n        \n                    <article class=\"row-middle-center-flex-layout\">\n                        <button id=\"prevPageButton\" class=\"icon-button transparent-button\"> <svg class=\"icon\" viewBox=\"0 0 24 24\"> <path class=\"left-icon\"/> </svg> </button>\n                        <div id=\"pageContainer\" class=\"row-middle-center-flex-layout\">\n                        </div>\n                        <button id=\"nextPageButton\" class=\"icon-button transparent-button\"> <svg class=\"icon\" viewBox=\"0 0 24 24\"> <path class=\"right-icon\"/> </svg> </button>\n                    </article>\n                </section>";
+                    this.contents.innerHTML = "\n                <section class=\"container-layout limited-width padding-level-12 column-top-stretch-flex-layout gap-level-10\">\n                    <article class=\"row-middle-stretch-flex-layout\">\n                        <h1 class=\"title-text bold-text\">\uC0AC\uC6A9\uC790 \uBAA9\uB85D</h1>\n                        <div class=\"row-middle-right-flex-layout\" style=\"position: relative;\">\n                            <div id=\"sortDropDown\" class=\"row-middle-left-flex-layout clickable\">\n                                <span id=\"sort\" data-name=\"latest\">\uCD5C\uC2E0\uC21C</span>\n                                <button class=\"icon-button transparent-button\"> <svg class=\"icon\" viewBox=\"0 0 24 24\"> <path class=\"bottom-icon\"/> </svg> </button>\n                            </div>\n                            \n                            <ul id=\"sortMenu\" class=\"box-layout\" style=\"position: absolute; top: 100%; left: 0; width: 100%; display: none;\">\n                                <li class=\"padding-level-4 clickable\" data-name=\"latest\">\uCD5C\uC2E0\uC21C</li>\n                                <li class=\"padding-level-4 clickable\" data-name=\"score\">\uC810\uC218\uC21C</li>\n                            </ul>\n                        </div>\n                    </article>\n        \n                    <article id=\"userContainer\" class=\"row-top-left-flex-layout gap-level-8 item-5-layout wrap\">\n                    </article>\n        \n                    <article class=\"row-middle-center-flex-layout\">\n                        <button id=\"prevPageButton\" class=\"icon-button transparent-button\"> <svg class=\"icon\" viewBox=\"0 0 24 24\"> <path class=\"left-icon\"/> </svg> </button>\n                        <div id=\"pageContainer\" class=\"row-middle-center-flex-layout\">\n                        </div>\n                        <button id=\"nextPageButton\" class=\"icon-button transparent-button\"> <svg class=\"icon\" viewBox=\"0 0 24 24\"> <path class=\"right-icon\"/> </svg> </button>\n                    </article>\n                </section>";
                     this.updateUserList();
                 }
                 return [2 /*return*/];

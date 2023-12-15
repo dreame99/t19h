@@ -25,18 +25,8 @@ class UserListPage extends Page {
             } else {
                 alert(API_RESULT_CODE[result.result.code]);
             }
-        }).catch((e) => {
-            for( var i = 0; i < this.PAGE_COUNT; i++ ) {
-                userList.push({
-                    id : "z" + ("a" + i).repeat(i),
-                    name : "내가세상가장매콤한사나이",
-                    imagePath : "./src/assets/images/avatar" + (((Math.random() * 10) | 0) + 1) + ".png",
-                    point : Math.pow(10, 10 - i)
-                });
-            }
-            this.totalCount = 100;
-            this.updatePageCount();
-        });
+        })
+        .catch(e => alert("error msg : " + e));
 
         return userList;
     }
@@ -74,17 +64,7 @@ class UserListPage extends Page {
 
         if( userContainer ) {
             var html = "";
-            userList.forEach(user => {
-                html += `
-                    <div class="column-top-center-flex-layout gap-level-4" data-name="userCard" onclick="UserListPage.openUserDetail(this)">
-                        <div class="column-top-center-flex-layout">
-                            <span data-name="userId" style="display: none;">${user.id}</span>
-                            <span class="filled round horsetail padding-level-3">${user.point.toLocaleString()}점</span>
-                            <img class="bordered round" src="./src/assets/images/avatars/avatar-2.png" style="width: 200px; height: 200px;">
-                        </div>
-                        <span>${user.name}</span>
-                    </div>`;
-            });
+            userList.forEach(user => html += getUserCardElement(user));
             userContainer.innerHTML = html;
         }
     }
@@ -103,7 +83,7 @@ class UserListPage extends Page {
                             
                             <ul id="sortMenu" class="box-layout" style="position: absolute; top: 100%; left: 0; width: 100%; display: none;">
                                 <li class="padding-level-4 clickable" data-name="latest">최신순</li>
-                                <li class="padding-level-4 clickable" data-name="best">점수높은순</li>
+                                <li class="padding-level-4 clickable" data-name="score">점수순</li>
                             </ul>
                         </div>
                     </article>

@@ -1,4 +1,5 @@
 class ProfilePage extends Page {
+    private profile: User | undefined;
     private skillList: Skill[] = [];
 
     private updateSearchList(skillList: Skill[], containerId: string): void {
@@ -17,6 +18,48 @@ class ProfilePage extends Page {
         }
     }
 
+    private async searchProfile(): Promise<User | undefined> {
+        await getFetch("users/me").then(result => {
+            if( result.result.code == 104 ) {
+                this.profile = (result.data as User[])[0];
+            } else {
+                alert(API_RESULT_CODE[result.result.code]);
+            }
+        })
+        .catch(e => alert("error msg : " + e));
+
+        return this.profile;
+    }
+
+    private async updateProfile(): Promise<void> {
+        var userContainer: HTMLElement | null = document.querySelector("#userContainer");
+        var disclosure: HTMLInputElement | null = document.querySelector("#disclosure");
+        var useSkillContainer: HTMLElement | null = document.querySelector("#useSkillContainer");
+        var wannaSkillContainer: HTMLElement | null = document.querySelector("#wannaSkillContainer");
+        
+        
+        var result: User | undefined = await this.searchProfile();
+
+        if( result ) {
+            if( userContainer ) {
+                userContainer.innerHTML = getUserCardElement(result);
+            }
+            if( disclosure ) {
+                disclosure.checked = result.disclosure == true;
+            }
+            if( useSkillContainer && result.confidentSkills ) {
+                var skillListHtml: string = "";
+                result.confidentSkills.forEach(skill => skillListHtml += getSkillCardElement(skill));
+                useSkillContainer.innerHTML = skillListHtml;
+            }
+            if( wannaSkillContainer && result.wantToStudySkills ) {
+                var skillListHtml: string = "";
+                result.wantToStudySkills.forEach(skill => skillListHtml += getSkillCardElement(skill));
+                wannaSkillContainer.innerHTML = skillListHtml;
+            }
+        }
+    }
+
     protected async render(): Promise<void> {
         if( this.contents ) {
             this.contents.innerHTML = `
@@ -30,14 +73,6 @@ class ProfilePage extends Page {
                             </div>
                         </div>
                         <div id="userContainer" class="row-top-center-flex-layout">
-                            <div class="column-top-center-flex-layout gap-level-4" data-name="userCard">
-                                <div class="column-top-center-flex-layout">
-                                    <span data-name="userId" style="display: none;"></span>
-                                    <span class="filled round horsetail padding-level-3">1,234점</span>
-                                    <img class="bordered round" src="./src/assets/images/avatars/avatar-2.png" style="width: 200px; height: 200px;">
-                                </div>
-                                <span>수원통감자</span>
-                            </div>
                         </div>
                     </article>
                     <article class="box-layout padding-level-10 column-top-stretch-flex-layout gap-level-8">
