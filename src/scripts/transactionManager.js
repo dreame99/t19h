@@ -33,7 +33,7 @@ var API_RESULT_CODE = {
     "425": "팀원 모집 시작 일자가 종료 일자보다 큽니다."
 };
 var API_URL = "https://port-0-team-api-57lz2alpl3myze.sel4.cloudtype.app/";
-var IMG_PATH = "./src/assets/images";
+var IMG_PATH = "https://port-0-team-api-57lz2alpl3myze.sel4.cloudtype.app"; //"./src/assets/images";
 function postFetch(uri, data) {
     console.log("post fetch to " + API_URL + uri);
     console.log("data ", data);

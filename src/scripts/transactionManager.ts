@@ -44,7 +44,7 @@ const API_RESULT_CODE: {[key : string] : string} = {
 };
 
 const API_URL = "https://port-0-team-api-57lz2alpl3myze.sel4.cloudtype.app/";
-const IMG_PATH = "./src/assets/images";
+const IMG_PATH = "https://port-0-team-api-57lz2alpl3myze.sel4.cloudtype.app";//"./src/assets/images";
 function postFetch(uri: string, data?: object): Promise<FetchResponse> {
     console.log("post fetch to " + API_URL + uri);
     console.log("data ", data);
