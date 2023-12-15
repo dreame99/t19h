@@ -1,5 +1,33 @@
+:root {
+    --primary-color: #5288F1;
+    --error-color: rgb(207, 78, 61);
+    --highlight-color: #5288F1;
+}
+html {
+    font-family: $root-font-family;
+    font-size: $root-font-size;
+}
+
 body {
     @include center-column-flex;
+}
+
+.title-text {
+    font-family: NIXGONFONTS-B;
+}
+.box-layout {
+  box-shadow: none;
+  border: 1px solid var(--bright-color-level-3);
+  border-radius: 12px;
+}
+button.icon-button {
+    background-color: transparent;
+}
+svg.icon > path {
+    stroke: var(--dark-color-level-2);
+}
+.bordered {
+    border: 1px solid var(--bright-color-level-3);
 }
 
 .header-container, .contents-container, .footer-container {
@@ -7,7 +35,7 @@ body {
 }
 .header-container {
     @include center-flex;
-    background-color: $background-color-level1;
+    background-color: var(--bright-color-level-1);
     z-index: 99;
     
     &.fixed {
@@ -20,27 +48,30 @@ body {
         display: none;
     }
     > .header {
-        @include space-between-flex;
-        @include browser-area;
-        padding: $padding-level3;
         position: relative;
-
-        > .logo {
-            @include center-flex;
-            font-family: BMJUA;
-            font-size: 32px;
-            > svg {
-                width: auto;
-                height: auto;
-            }
-        }
-        > .button-area {
-            gap: $padding-level3;
-            &.left {
-                @include start-flex;
-            }
-            &.right {
-                @include end-flex;
+        > .menu {
+            width: 100%;
+            position: absolute;
+            background: white;
+            top: 100%;
+            box-shadow: 0 8px 8px #0002;
+            left: 0;
+            border-radius: 0 0 12px 12px;
+            list-style: none;
+            padding: 32px;
+            display: none;
+            flex-direction: column;
+            gap: 32px;
+    
+            > li {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                cursor: pointer;
+    
+                > span:first-child {
+                    font-weight: bold;
+                }
             }
         }
     }
@@ -48,7 +79,7 @@ body {
 .contents-container {
     @include center-start-flex;
     flex-grow: 1;
-    background-color: $background-color-level2;
+    background-color: var(--bright-color-level-2);
     
     &.fixed {
         margin-top: 88px;
@@ -61,10 +92,10 @@ body {
         > article {
             @include center-flex;
             padding: $padding-level1 $padding-level4;
-            background-color: $background-color-level1;
+            background-color: var(--bright-color-level-3);
 
             &:nth-child(odd) {
-                background-color: $background-color-level2;
+                background-color: var(--bright-color-level-2);
             }
 
             > .bucket {
@@ -94,9 +125,9 @@ body {
                     width: 100%;
                     gap: $padding-level3;
                     &.fill {
-                        background-color: $background-color-level1;
-                        border: 1px solid $background-color-level3;
-                        border-radius: $border-radius;
+                        background-color: var(--bright-color-level-3);
+                        border: 1px solid var(--bright-color-level-3);
+                        border-radius: 12px;
                         padding: 40px;
                     }
                 }
@@ -112,7 +143,7 @@ body {
 .footer-container {
     @include center-flex;
     background-color: $foreground-color-level2;
-    color: $background-color-level2;
+    color: var(--bright-color-level-2);
 
     > .footer {
         @include browser-area;
@@ -155,9 +186,9 @@ body {
     gap: $padding-level3;
     padding: $padding-level2;
     width: calc((100% - $padding-level3 * 2) / 3);
-    background-color: $background-color-level1;
-    border: 1px solid $background-color-level3;
-    border-radius: $border-radius;
+    background-color: var(--bright-color-level-3);
+    border: 1px solid var(--bright-color-level-3);
+    border-radius: 12px;
     cursor: pointer;
     
     span {
@@ -181,7 +212,7 @@ body {
         color: $foreground-color-level1;
         &.running {
             background-color: $primary-color;
-            color: $background-color-level1;
+            color: var(--bright-color-level-3);
         }
     }
     .title {
@@ -241,39 +272,6 @@ body {
     }
 }
 
-.header {
-    position: relative;
-    > .menu {
-        width: 100%;
-        position: absolute;
-        background: white;
-        top: 100%;
-        box-shadow: 0 8px 8px #0002;
-        left: 0;
-        border-radius: 0 0 $border-radius $border-radius;
-        list-style: none;
-        padding: 32px;
-        display: none;
-        flex-direction: column;
-        gap: 32px;
-
-        > li {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            cursor: pointer;
-
-            &:hover {
-                color: blue;
-            }
-
-            > span:first-child {
-                font-weight: bold;
-            }
-        }
-    }
-}
-
 .contents > .container-layout:nth-child(even) {
   background-color: var(--bright-color-level-1);
 }
@@ -291,4 +289,8 @@ body {
         -webkit-user-drag: none;
         user-drag: none;
     }
+}
+.limited-width {
+    padding-left: max(20px, calc((100% - 1280px) / 2)) !important;
+    padding-right: max(20px, calc((100% - 1280px) / 2)) !important;
 }

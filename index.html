@@ -16,6 +16,7 @@
 		<title>팀원구함</title>
 		
 		<link rel="stylesheet" href="./src/styles/alltheway.css">
+
 		<script src="./src/scripts/customUI.js"></script>
 		<script src="./src/scripts/transactionManager.js"></script>
 		<script src="./src/scripts/page.js"></script>
@@ -28,20 +29,19 @@
 		<script src="./src/scripts/profilePage.js"></script>
 		<script src="./src/scripts/navigator.js"></script>
 		<script src="./src/scripts/utilities.js"></script>
-        
 		<script src="./src/scripts/project.js"></script>
 		<script src="./src/scripts/user.js"></script>
 	</head>
 	
 	<body>
-        <section id="headerContainer" class="header-container">
-            <section id="header" class="header item-3-layout">
-                <div class="row-middle-left-flex-layout gap-level-5">
-                    <button id="headerMenuButton" class="icon-button" style="height: 48px;"> <svg class="bright-icon" viewBox="0 0 24 24"> <path class="menu-icon"/> </svg> </button>
-                    <button id="headerBackwardButton" class="icon-button" style="height: 48px;"> <svg class="bright-icon" viewBox="0 0 24 24"> <path class="close-icon"/> </svg> </button>
+        <section id="headerContainer" class="header-container item-1-layout limited-width">
+            <section class="header item-3-layout row-middle-left-flex-layout wrap padding-level-5">
+                <div class="row-middle-left-flex-layout wrap">
+                    <button id="headerMenuButton" class="icon-button" style="height: 48px;"> <svg class="icon" viewBox="0 0 24 24"> <path class="menu-icon"/> </svg> </button>
+                    <button id="headerBackwardButton" class="icon-button" style="height: 48px;"> <svg class="icon" viewBox="0 0 24 24"> <path class="close-icon"/> </svg> </button>
                     </button>
                 </div>
-                <a id="headerLogo" class="logo" title="logo">
+                <a id="headerLogo" class="logo row-middle-center-flex-layout item-1-layout" title="logo">
                     <svg width="146" height="32" viewBox="0 0 146 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M3.2 0C1.43269 0 0 1.43269 0 3.2V16V28.8C0 30.5673 1.43269 32 3.2 32C4.96731 32 6.4 30.5673 6.4 28.8V19.2H12.8V28.8C12.8 30.5673 14.2327 32 16 32C17.7673 32 19.2 30.5673 19.2 28.8V19.2H25.6V28.8C25.6 30.5673 27.0327 32 28.8 32C30.5674 32 32 30.5673 32 28.8V3.2C32 1.43269 30.5674 0 28.8 0H28.8H28.8H16H3.2ZM6.4 12.8V6.4H12.8V12.8H6.4ZM19.2 12.8V6.4H25.6V12.8H19.2Z" fill="url(#paint0_linear_97_1161)"/>
                         <path d="M49.8054 7.536H59.6614V3.792H45.2614V17.296H59.9814V13.936H49.8054V12.4H59.6614V9.424H49.8054V7.536ZM66.4134 2.64H62.6374V17.712H66.4134V2.64ZM66.5414 19.824H47.7254V29.584H66.5414V19.824ZM63.5334 23.184V26.192H51.1174V23.184H63.5334ZM71.4249 3.92C72.2782 3.30133 73.3769 2.992 74.7209 2.992H79.9049C81.2276 2.992 82.2516 3.32267 82.9769 3.984C83.7236 4.624 84.0969 5.53066 84.0969 6.704V8.4C84.0969 9.01867 83.9796 9.56267 83.7449 10.032C83.5316 10.5013 83.2329 10.896 82.8489 11.216C82.4649 11.536 82.0169 11.7813 81.5049 11.952C80.9929 12.1013 80.4382 12.176 79.8409 12.176H74.6569C74.0809 12.176 73.5156 12.112 72.9609 11.984C72.4276 11.856 71.9476 11.6427 71.5209 11.344C71.1156 11.0453 70.7849 10.6613 70.5289 10.192C70.2942 9.72267 70.1769 9.14667 70.1769 8.464V6.608C70.1769 5.43467 70.5929 4.53867 71.4249 3.92ZM87.9049 22.224H92.0969V2.64H87.9049V17.968H81.8569V20.88H87.9049V22.224ZM72.4489 29.392H92.8329V25.968H76.6089V21.52H72.4489V29.392ZM86.4329 13.488H68.4489V16.816H73.5049V20.368H77.5689V16.816H86.4329V13.488ZM79.7129 8.976C79.9902 8.69867 80.1289 8.336 80.1289 7.888V7.248C80.1289 6.8 79.9796 6.448 79.6809 6.192C79.4036 5.936 79.0302 5.808 78.5609 5.808H75.8409C75.3502 5.808 74.9449 5.936 74.6249 6.192C74.3262 6.42667 74.1769 6.768 74.1769 7.216V7.888C74.1769 8.336 74.3156 8.69867 74.5929 8.976C74.8702 9.232 75.2542 9.36 75.7449 9.36H78.5929C79.0622 9.36 79.4356 9.232 79.7129 8.976ZM108.376 20.432H118.36V16.592H94.1676V20.432H104.152V29.552H108.376V20.432ZM115.576 7.984V4.24H96.4076V7.984H111.576C111.533 8.77333 111.437 9.57333 111.288 10.384C111.16 11.0667 110.978 11.824 110.744 12.656C110.509 13.488 110.21 14.2667 109.848 14.992H113.848C114.168 14.2453 114.445 13.4773 114.68 12.688C114.893 12.0053 115.085 11.2587 115.256 10.448C115.448 9.616 115.554 8.79467 115.576 7.984ZM141.669 19.888H123.077V29.584H141.669V19.888ZM134.981 4.496H129.829V2.672H125.445V4.496H120.293V7.44H122.533C122.17 7.824 121.882 8.272 121.669 8.784C121.455 9.296 121.349 9.82933 121.349 10.384V13.712C121.349 14.3093 121.466 14.8747 121.701 15.408C121.935 15.92 122.245 16.368 122.629 16.752C123.034 17.136 123.493 17.4453 124.005 17.68C124.517 17.8933 125.061 18 125.637 18H129.605C130.181 18 130.725 17.8933 131.237 17.68C131.749 17.4453 132.197 17.1253 132.581 16.72C132.965 16.2933 133.274 15.8027 133.509 15.248C133.743 14.6933 133.861 14.0747 133.861 13.392V10.384C133.861 9.82933 133.754 9.296 133.541 8.784C133.327 8.272 133.039 7.824 132.677 7.44H134.981V4.496ZM145.221 12.208V8.432H141.605V2.64H137.797V18.128H141.605V12.208H145.221ZM138.181 23.216V26.224H126.405V23.216H138.181ZM130.149 11.216V12.944C130.149 13.4773 129.999 13.9147 129.701 14.256C129.402 14.5973 128.986 14.768 128.453 14.768H126.661C126.149 14.768 125.743 14.5973 125.445 14.256C125.167 13.9147 125.029 13.4773 125.029 12.944V11.216C125.029 10.704 125.221 10.2773 125.605 9.936C126.01 9.59467 126.469 9.424 126.981 9.424H128.325C128.858 9.424 129.295 9.59467 129.637 9.936C129.978 10.2773 130.149 10.704 130.149 11.216Z" fill="black"/>
@@ -53,11 +53,11 @@
                         </defs>
                     </svg>
                 </a>
-                <div class="row-middle-right-flex-layout gap-level-5">
-                    <button id="headerJoinButton" class="icon-button logoutIcon" style="height: 48px;"> <svg class="bright-icon" viewBox="0 0 24 24"> <path class="human-icon"/> </svg> </button>
-                    <button id="headerLoginButton" class="icon-button logoutIcon" style="height: 48px;"> <svg class="bright-icon" viewBox="0 0 24 24"> <path class="in-icon"/> </svg> </button>
-                    <button id="headerAlarmButton" class="icon-button loginIcon" style="height: 48px;"> <svg class="bright-icon" viewBox="0 0 24 24"> <path class="bell-icon"/> </svg> </button>
-                    <button id="headerLogoutButton" class="icon-button loginIcon" style="height: 48px;"> <svg class="bright-icon" viewBox="0 0 24 24"> <path class="out-icon"/> </svg> </button>
+                <div class="row-middle-right-flex-layout wrap">
+                    <button id="headerJoinButton" class="icon-button logoutIcon" style="height: 48px;"> <svg class="icon" viewBox="0 0 24 24"> <path class="human-icon"/> </svg> </button>
+                    <button id="headerLoginButton" class="icon-button logoutIcon" style="height: 48px;"> <svg class="icon" viewBox="0 0 24 24"> <path class="in-icon"/> </svg> </button>
+                    <button id="headerAlarmButton" class="icon-button loginIcon" style="height: 48px;"> <svg class="icon" viewBox="0 0 24 24"> <path class="bell-icon"/> </svg> </button>
+                    <button id="headerLogoutButton" class="icon-button loginIcon" style="height: 48px;"> <svg class="icon" viewBox="0 0 24 24"> <path class="out-icon"/> </svg> </button>
                 </div>
                 <ul class="menu">
                     <li data-nav="profile">
@@ -79,10 +79,12 @@
                 </ul>
             </section>
         </section>
+
         <section id="contentsContainer" class="contents-container">
             <section id="contents" class="contents">
             </section>
         </section>
+
         <section class="footer-container">
             <section class="footer">
                 <div>
