@@ -96,7 +96,7 @@ var CreateProjectPage = /** @class */ (function (_super) {
             searchList.innerHTML = "";
             var html = "";
             skillList.forEach(function (skill) {
-                html += "\n                    <li class=\"row-middle-left-flex-layout gap-level-3 clickable\" onclick=\"ProfilePage.addSkillCard(this, '".concat(containerId, "')\">\n                        ").concat(getSkillCardElement(skill), "\n                        <span>").concat(skill.name, "</spna>\n                    </li>");
+                html += "\n                    <li class=\"row-middle-left-flex-layout gap-level-3 clickable\" onclick=\"CreateProjectPage.addSkillCard(this, '".concat(containerId, "')\">\n                        ").concat(getSkillCardElement(skill), "\n                        <span>").concat(skill.name, "</spna>\n                    </li>");
             });
             searchList.innerHTML = html;
         }

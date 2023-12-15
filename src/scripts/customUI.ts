@@ -88,7 +88,7 @@ function getUserCardElement(user: User, clickFunc?: string) {
             <div class="column-top-center-flex-layout">
                 <span data-name="userId" style="display: none;">${user.id}</span>
                 <span class="filled round horsetail padding-level-3">${user.score.toLocaleString()}점</span>
-                <img class="bordered round" src="${IMG_PATH}/${user.fileRealName? user.fileRealName : "profile/99321b41-ed25-4472-8157-56a94c81a5cb_avatar10.png"}" style="width: 200px; height: 200px; margin-top: -19px;">
+                <img class="bordered round" src="${IMG_PATH}/${user.fileRealName}" style="width: 200px; height: 200px; margin-top: -19px;">
             </div>
             <span>${user.nickname}</span>
         </div>`;

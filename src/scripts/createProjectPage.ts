@@ -39,7 +39,7 @@ class CreateProjectPage extends Page {
             var html = "";
             skillList.forEach(skill => {
                 html += `
-                    <li class="row-middle-left-flex-layout gap-level-3 clickable" onclick="ProfilePage.addSkillCard(this, '${containerId}')">
+                    <li class="row-middle-left-flex-layout gap-level-3 clickable" onclick="CreateProjectPage.addSkillCard(this, '${containerId}')">
                         ${getSkillCardElement(skill)}
                         <span>${skill.name}</spna>
                     </li>`;

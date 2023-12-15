@@ -20,7 +20,7 @@ class UserListPage extends Page {
         await getFetch("users", cond).then(result => {
             if( result.result.code == 104 ) {
                 userList = result.data as User[];
-                this.totalCount = result.option?.listCount;
+                this.totalCount = result.option?.countTotal;
                 this.updatePageCount();
             } else {
                 alert(API_RESULT_CODE[result.result.code]);
